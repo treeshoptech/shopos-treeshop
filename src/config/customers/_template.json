@@ -1,0 +1,45 @@
+{
+  "customerRef": "template",
+  "companyName": "Template Company",
+  "domains": {
+    "main": "template.shopos.app",
+    "pro": "pro.template.shopos.app",
+    "store": "store.template.shopos.app"
+  },
+  "branding": {
+    "primaryColor": "#000000",
+    "secondaryColor": "#ffffff",
+    "logo": "/logos/template.png",
+    "favicon": "/favicons/template.ico"
+  },
+  "features": {
+    "b2c": true,
+    "b2b": true,
+    "ecommerce": true,
+    "blog": true,
+    "booking": true
+  },
+  "contact": {
+    "email": "contact@template.com",
+    "phone": "+1-555-0000",
+    "address": {
+      "street": "123 Main St",
+      "city": "City",
+      "state": "ST",
+      "zip": "12345",
+      "country": "USA"
+    }
+  },
+  "social": {
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": "",
+    "youtube": ""
+  },
+  "seo": {
+    "title": "Template Company",
+    "description": "Template company description",
+    "keywords": ["template", "company"]
+  }
+}

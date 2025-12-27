@@ -1,0 +1,45 @@
+{
+  "customerRef": "treeshop",
+  "companyName": "TreeShop LLC",
+  "domains": {
+    "main": "treeshop.app",
+    "pro": "pro.treeshop.app",
+    "store": "store.treeshop.app"
+  },
+  "branding": {
+    "primaryColor": "#22c55e",
+    "secondaryColor": "#16a34a",
+    "logo": "/logos/treeshop.png",
+    "favicon": "/favicons/treeshop.ico"
+  },
+  "features": {
+    "b2c": true,
+    "b2b": true,
+    "ecommerce": true,
+    "blog": true,
+    "booking": true
+  },
+  "contact": {
+    "email": "info@treeshop.app",
+    "phone": "+1-555-TREE",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zip": "",
+      "country": "USA"
+    }
+  },
+  "social": {
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": "",
+    "youtube": ""
+  },
+  "seo": {
+    "title": "TreeShop - Professional Tree Services",
+    "description": "TreeShop provides professional tree services, business coaching for tree service companies, and quality arborist supplies.",
+    "keywords": ["tree services", "arborist", "tree care", "tree removal", "tree trimming"]
+  }
+}
