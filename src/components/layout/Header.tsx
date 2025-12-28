@@ -6,7 +6,13 @@ import { Menu, Phone, ChevronDown } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { MobileMenu } from './MobileMenu'
 
-const mainNavItems = [
+interface NavItem {
+  label: string
+  href: string
+  children?: { label: string; href: string }[]
+}
+
+const mainNavItems: NavItem[] = [
   {
     label: 'Services',
     href: '/services',
@@ -24,14 +30,14 @@ const mainNavItems = [
   { label: 'Contact', href: '/contact' },
 ]
 
-const proNavItems = [
+const proNavItems: NavItem[] = [
   { label: 'Coaching', href: '/pro/coaching' },
   { label: 'ShopOS', href: '/pro/shopos' },
   { label: 'Resources', href: '/pro/resources' },
   { label: 'Success Stories', href: '/pro/success-stories' },
 ]
 
-const storeNavItems = [
+const storeNavItems: NavItem[] = [
   { label: 'Services', href: '/store/services' },
   { label: 'Courses', href: '/store/courses' },
   { label: 'Merch', href: '/store/merch' },
