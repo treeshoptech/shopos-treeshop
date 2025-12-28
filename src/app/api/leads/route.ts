@@ -1,39 +1,9 @@
 import { NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/server'
 
-async function sendLeadNotification(leadData: any) {
-  try {
-    const { Resend } = await import('resend')
-    const resend = new Resend(process.env.RESEND_API_KEY)
-
-    await resend.emails.send({
-      from: 'TreeShop <notifications@treeshop.app>',
-      to: ['office@fltreeshop.com', 'jeremiah@treeshop.app'],
-      subject: `🌲 New Lead: ${leadData.name} - ${leadData.service}`,
-      html: `
-        <h2>New Estimate Request</h2>
-        <p><strong>Name:</strong> ${leadData.name}</p>
-        <p><strong>Email:</strong> ${leadData.email}</p>
-        <p><strong>Phone:</strong> ${leadData.phone}</p>
-        ${leadData.address ? `<p><strong>Address:</strong> ${leadData.address}</p>` : ''}
-        <p><strong>Service:</strong> ${leadData.service}</p>
-        <p><strong>Estimate:</strong> $${leadData.estimateLow?.toLocaleString()} - $${leadData.estimateHigh?.toLocaleString()}</p>
-        ${leadData.acres ? `<p><strong>Acres:</strong> ${leadData.acres}</p>` : ''}
-        ${leadData.dbhPackage ? `<p><strong>DBH Package:</strong> ${leadData.dbhPackage}"</p>` : ''}
-        ${leadData.stumpCount ? `<p><strong>Stumps:</strong> ${leadData.stumpCount} @ ${leadData.stumpDiameter}" avg</p>` : ''}
-        ${leadData.drainageLinearFeet ? `<p><strong>Drainage:</strong> ${leadData.drainageLinearFeet} LF</p>` : ''}
-        <p><strong>Preferred Contact:</strong> ${leadData.preferredContact || 'Not specified'}</p>
-        <p><strong>Best Time:</strong> ${leadData.bestTime || 'Not specified'}</p>
-        ${leadData.notes ? `<p><strong>Notes:</strong> ${leadData.notes}</p>` : ''}
-        <hr>
-        <p>Lead ID: ${leadData.leadId}</p>
-        <p><em>Respond within 5 minutes for best conversion.</em></p>
-      `,
-    })
-  } catch (emailError) {
-    console.error('Email notification failed:', emailError)
-    // Don't fail the request if email fails
-  }
+async function getResend() {
+  const { Resend } = await import('resend')
+  return new Resend(process.env.RESEND_API_KEY)
 }
 
 export async function POST(request: Request) {
@@ -46,15 +16,11 @@ export async function POST(request: Request) {
       phone,
       address,
       service,
-      acres,
-      dbhPackage,
-      stumpCount,
-      stumpDiameter,
-      drainageLinearFeet,
-      estimateLow,
-      estimateHigh,
-      preferredContact,
-      bestTime,
+      propertyDetails,
+      projectFactors,
+      estimateTotal,
+      productionHours,
+      methodology,
       notes,
     } = body
 
@@ -67,11 +33,11 @@ export async function POST(request: Request) {
         name,
         email,
         phone,
-        property_address: address || null,
+        property_address: address,
         service_type: service,
-        acreage: acres ? parseFloat(acres) : null,
-        dbh_package: dbhPackage || null,
-        estimated_value: estimateHigh || null,
+        acreage: propertyDetails?.acres || null,
+        dbh_package: propertyDetails?.dbhPackage ? String(propertyDetails.dbhPackage) : null,
+        estimated_value: estimateTotal || null,
         notes: notes || null,
         source: 'website_estimator',
         status: 'new',
@@ -84,25 +50,44 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Failed to save lead', details: error.message }, { status: 500 })
     }
 
-    // Send email notification (async, doesn't block response)
-    sendLeadNotification({
-      leadId: lead.id,
-      name,
-      email,
-      phone,
-      address,
-      service,
-      acres,
-      dbhPackage,
-      stumpCount,
-      stumpDiameter,
-      drainageLinearFeet,
-      estimateLow,
-      estimateHigh,
-      preferredContact,
-      bestTime,
-      notes,
-    })
+    // Send email notification
+    try {
+      const resend = await getResend()
+
+      const factorsList = projectFactors?.length
+        ? projectFactors.map((f: any) => `${f.name}: +${f.percentage}%`).join('<br>')
+        : 'None'
+
+      await resend.emails.send({
+        from: 'TreeShop <notifications@treeshop.app>',
+        to: ['office@fltreeshop.com', 'jeremiah@treeshop.app'],
+        subject: `🌲 New Lead: ${name} - ${service}`,
+        html: `
+          <h2>New Quote Request</h2>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Phone:</strong> ${phone}</p>
+          <p><strong>Address:</strong> ${address || 'Not provided'}</p>
+          <hr>
+          <p><strong>Service:</strong> ${service}</p>
+          <p><strong>Quote:</strong> $${estimateTotal?.toLocaleString()}</p>
+          <p><strong>Production Hours:</strong> ${productionHours?.toFixed(2)}</p>
+          <hr>
+          <p><strong>Property Details:</strong></p>
+          <pre>${JSON.stringify(propertyDetails, null, 2)}</pre>
+          <p><strong>Project Factors:</strong><br>${factorsList}</p>
+          <hr>
+          <p><strong>Methodology:</strong><br><code>${methodology}</code></p>
+          ${notes ? `<p><strong>Notes:</strong> ${notes}</p>` : ''}
+          <hr>
+          <p>Lead ID: ${lead.id}</p>
+          <p><em>Respond within 5 minutes for best conversion.</em></p>
+        `,
+      })
+    } catch (emailError) {
+      console.error('Email error:', emailError)
+      // Don't fail the request if email fails
+    }
 
     return NextResponse.json({ success: true, leadId: lead.id })
   } catch (error) {

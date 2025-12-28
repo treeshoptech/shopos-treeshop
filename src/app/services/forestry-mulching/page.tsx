@@ -20,10 +20,13 @@ const applications = [
 ]
 
 const packages = [
-  { dbh: '4"', name: 'Light Brush', range: '$2,240 - $2,800', description: 'Saplings, brush, palmetto' },
-  { dbh: '6"', name: 'Medium', range: '$3,080 - $3,920', description: 'Young trees, dense brush', popular: true },
-  { dbh: '8"', name: 'Heavy', range: '$4,200 - $4,760', description: 'Mature trees, thick vegetation' },
-  { dbh: '10"', name: 'Maximum', range: '$4,760 - $5,320', description: 'Large oaks, complete clearing' },
+  { dbh: '2', name: 'Brush Only', description: 'Grass, weeds, light brush' },
+  { dbh: '4', name: 'Light', description: 'Saplings, light understory' },
+  { dbh: '6', name: 'Medium', description: 'Young trees, moderate density', popular: true },
+  { dbh: '8', name: 'Standard', description: 'Established trees, standard forest' },
+  { dbh: '10', name: 'Heavy', description: 'Mature trees, heavy vegetation' },
+  { dbh: '12', name: 'Large', description: 'Large trees, dense hardwood' },
+  { dbh: '15', name: 'Extreme', description: 'Heritage/old growth' },
 ]
 
 const faqs = [
@@ -148,28 +151,25 @@ export default function ForestryMulchingPage() {
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-4">Transparent DBH Pricing</h2>
           <p className="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
-            Price per acre based on the largest trees on your property. No guessing, no surprises.
+            Price calculated from measured inputs. No guessing, no surprises.
           </p>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {packages.map((pkg) => (
-              <div
-                key={pkg.dbh}
-                className={`bg-gray-800 rounded-xl p-6 ${pkg.popular ? 'ring-2 ring-green-500' : ''}`}
-              >
-                {pkg.popular && (
-                  <div className="text-green-400 text-sm font-medium mb-2">MOST COMMON</div>
-                )}
-                <div className="text-3xl font-bold text-green-400 mb-1">{pkg.dbh}</div>
-                <div className="font-semibold mb-2">{pkg.name}</div>
-                <div className="text-gray-400 text-sm mb-4">{pkg.description}</div>
-                <div className="text-xl font-bold">{pkg.range}</div>
-                <div className="text-gray-500 text-sm">per acre</div>
-              </div>
-            ))}
+          <div className="bg-gray-800 rounded-xl p-8 text-center max-w-3xl mx-auto">
+            <h3 className="text-xl font-semibold mb-6">The Formula</h3>
+            <div className="font-mono text-xl text-green-400 mb-4">
+              MulchingScore = DBH × Acres ÷ 2.0 PPH × $475/hr
+            </div>
+            <div className="text-gray-400 mb-6">
+              Example: 2 acres × 8&quot; DBH = 16 score ÷ 2.0 = 8 hrs × $475 = <strong className="text-white">$3,800</strong> + transport
+            </div>
+            <div className="grid grid-cols-4 md:grid-cols-7 gap-2">
+              {packages.map((pkg) => (
+                <div key={pkg.dbh} className={`p-3 rounded-lg ${pkg.popular ? 'bg-green-600' : 'bg-gray-700'}`}>
+                  <div className="text-2xl font-bold">{pkg.dbh}&quot;</div>
+                  <div className="text-xs text-gray-300">{pkg.name}</div>
+                </div>
+              ))}
+            </div>
           </div>
-          <p className="text-center text-gray-400 mt-8">
-            + Equipment transport ($153.35/hr) factored into every quote
-          </p>
         </div>
       </section>
 

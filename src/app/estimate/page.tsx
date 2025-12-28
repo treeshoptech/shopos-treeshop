@@ -1,23 +1,30 @@
 'use client'
 
-import { useState } from 'react'
-import { ArrowLeft, ArrowRight, CheckCircle, Phone, Loader2 } from 'lucide-react'
-import { calculateEstimate, formatCurrency, type PricingInput, type PricingResult } from '@/lib/pricing'
+import { useState, useMemo } from 'react'
+import Link from 'next/link'
+import { ArrowLeft, ArrowRight, CheckCircle, Phone, Loader2, Info, Calculator } from 'lucide-react'
+import {
+  calculateEstimate,
+  formatCurrency,
+  formatHours,
+  DBH_PACKAGES,
+  BILLING_RATES,
+  PPH_RATES,
+  COMMON_PROJECT_FACTORS,
+  type DBHPackage,
+  type ServiceType,
+  type PricingInput,
+  type ProjectFactor,
+  type StumpInput,
+} from '@/lib/pricing'
 
-type Step = 'service' | 'details' | 'dbh' | 'contact' | 'results'
+type Step = 'service' | 'details' | 'factors' | 'contact' | 'results'
 
 const services = [
-  { id: 'forestry-mulching', name: 'Forestry Mulching', description: 'Clear brush and trees, leave mulch behind' },
-  { id: 'land-clearing', name: 'Land Clearing', description: 'Complete lot clearing for construction' },
-  { id: 'stump-grinding', name: 'Stump Grinding', description: 'Remove stumps below grade' },
-  { id: 'drainage', name: 'Drainage Solutions', description: 'FreedomDrains with HydroBlox' },
-]
-
-const dbhPackages = [
-  { id: '4', name: '4" Package', description: 'Light brush and saplings', recommended: 'Light vegetation' },
-  { id: '6', name: '6" Package', description: 'Young trees, medium brush', recommended: 'Medium density' },
-  { id: '8', name: '8" Package', description: 'Mature trees, dense vegetation', recommended: 'Heavy vegetation' },
-  { id: '10', name: '10" Package', description: 'Large trees, full clearing', recommended: 'Very heavy / oaks' },
+  { id: 'forestry-mulching' as ServiceType, name: 'Forestry Mulching', description: 'Clear brush and trees up to 15" DBH, leave mulch behind', rate: `$${BILLING_RATES['forestry-mulching']}/hr` },
+  { id: 'land-clearing' as ServiceType, name: 'Land Clearing', description: 'Complete lot clearing for construction', rate: `$${BILLING_RATES['land-clearing']}/hr` },
+  { id: 'stump-grinding' as ServiceType, name: 'Stump Grinding', description: 'Remove stumps below grade', rate: `$${BILLING_RATES['stump-grinding']}/hr` },
+  { id: 'drainage' as ServiceType, name: 'FreedomDrains', description: 'HydroBlox drainage with lifetime no-clog guarantee', rate: '$30-60/LF' },
 ]
 
 export default function EstimatePage() {
@@ -25,68 +32,104 @@ export default function EstimatePage() {
   const [submitting, setSubmitting] = useState(false)
   const [leadId, setLeadId] = useState<string | null>(null)
 
-  // Form state
-  const [service, setService] = useState<PricingInput['service'] | ''>('')
+  // Service selection
+  const [service, setService] = useState<ServiceType | ''>('')
+
+  // Forestry Mulching inputs
   const [acres, setAcres] = useState('')
-  const [dbhPackage, setDbhPackage] = useState<'4' | '6' | '8' | '10' | ''>('')
-  const [stumpCount, setStumpCount] = useState('')
-  const [stumpDiameter, setStumpDiameter] = useState('')
-  const [drainageLinearFeet, setDrainageLinearFeet] = useState('')
+  const [dbhPackage, setDbhPackage] = useState<DBHPackage | null>(null)
+
+  // Land Clearing inputs
+  const [avgDBH, setAvgDBH] = useState('')
+  const [avgHeight, setAvgHeight] = useState('')
+
+  // Stump Grinding inputs
+  const [stumps, setStumps] = useState<StumpInput[]>([{ dbh: 0, heightAbove: 6, depthBelow: 6 }])
+
+  // Drainage inputs
+  const [linearFeet, setLinearFeet] = useState('')
+
+  // Project Factors
+  const [selectedFactors, setSelectedFactors] = useState<ProjectFactor[]>([])
+
+  // Contact info
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [address, setAddress] = useState('')
-  const [preferredContact, setPreferredContact] = useState('')
-  const [bestTime, setBestTime] = useState('')
   const [notes, setNotes] = useState('')
 
-  const [estimate, setEstimate] = useState<PricingResult | null>(null)
-
-  const calculatePrice = () => {
+  // Calculate estimate in real-time
+  const estimate = useMemo(() => {
     if (!service) return null
 
-    const input: PricingInput = {
-      service: service as PricingInput['service'],
-      acres: acres ? parseFloat(acres) : undefined,
-      dbhPackage: dbhPackage as PricingInput['dbhPackage'] || undefined,
-      stumpCount: stumpCount ? parseInt(stumpCount) : undefined,
-      stumpDiameter: stumpDiameter ? parseInt(stumpDiameter) : undefined,
-      drainageLinearFeet: drainageLinearFeet ? parseInt(drainageLinearFeet) : undefined,
+    let input: PricingInput
+
+    if (service === 'forestry-mulching' && acres && dbhPackage) {
+      input = {
+        service: 'forestry-mulching',
+        acres: parseFloat(acres),
+        dbhPackage,
+        projectFactors: selectedFactors,
+      }
+    } else if (service === 'land-clearing' && acres && avgDBH && avgHeight) {
+      input = {
+        service: 'land-clearing',
+        acres: parseFloat(acres),
+        avgDBH: parseFloat(avgDBH),
+        avgHeight: parseFloat(avgHeight),
+        projectFactors: selectedFactors,
+      }
+    } else if (service === 'stump-grinding' && stumps.some(s => s.dbh > 0)) {
+      input = {
+        service: 'stump-grinding',
+        stumps: stumps.filter(s => s.dbh > 0),
+        projectFactors: selectedFactors,
+      }
+    } else if (service === 'drainage' && linearFeet) {
+      input = {
+        service: 'drainage',
+        linearFeet: parseFloat(linearFeet),
+        projectFactors: selectedFactors,
+      }
+    } else {
+      return null
     }
 
     return calculateEstimate(input)
-  }
+  }, [service, acres, dbhPackage, avgDBH, avgHeight, stumps, linearFeet, selectedFactors])
 
   const handleNext = () => {
-    if (step === 'service' && service) {
-      setStep('details')
-    } else if (step === 'details') {
-      if (service === 'forestry-mulching' || service === 'land-clearing') {
-        setStep('dbh')
-      } else {
-        const result = calculatePrice()
-        setEstimate(result)
-        setStep('contact')
-      }
-    } else if (step === 'dbh' && dbhPackage) {
-      const result = calculatePrice()
-      setEstimate(result)
-      setStep('contact')
-    } else if (step === 'contact' && name && email && phone) {
-      handleSubmit()
-    }
+    if (step === 'service' && service) setStep('details')
+    else if (step === 'details' && estimate) setStep('factors')
+    else if (step === 'factors') setStep('contact')
+    else if (step === 'contact' && name && email && phone) handleSubmit()
   }
 
   const handleBack = () => {
     if (step === 'details') setStep('service')
-    else if (step === 'dbh') setStep('details')
-    else if (step === 'contact') {
-      if (service === 'forestry-mulching' || service === 'land-clearing') {
-        setStep('dbh')
-      } else {
-        setStep('details')
+    else if (step === 'factors') setStep('details')
+    else if (step === 'contact') setStep('factors')
+  }
+
+  const toggleFactor = (factor: ProjectFactor) => {
+    setSelectedFactors(prev => {
+      const exists = prev.find(f => f.name === factor.name)
+      if (exists) {
+        return prev.filter(f => f.name !== factor.name)
       }
-    }
+      return [...prev, factor]
+    })
+  }
+
+  const addStump = () => {
+    setStumps([...stumps, { dbh: 0, heightAbove: 6, depthBelow: 6 }])
+  }
+
+  const updateStump = (index: number, field: keyof StumpInput, value: number) => {
+    const updated = [...stumps]
+    updated[index] = { ...updated[index], [field]: value }
+    setStumps(updated)
   }
 
   const handleSubmit = async () => {
@@ -102,15 +145,18 @@ export default function EstimatePage() {
           phone,
           address,
           service,
-          acres: acres ? parseFloat(acres) : null,
-          dbhPackage: dbhPackage || null,
-          stumpCount: stumpCount ? parseInt(stumpCount) : null,
-          stumpDiameter: stumpDiameter ? parseInt(stumpDiameter) : null,
-          drainageLinearFeet: drainageLinearFeet ? parseInt(drainageLinearFeet) : null,
-          estimateLow: estimate?.lowEstimate,
-          estimateHigh: estimate?.highEstimate,
-          preferredContact,
-          bestTime,
+          propertyDetails: {
+            acres: acres ? parseFloat(acres) : null,
+            dbhPackage,
+            avgDBH: avgDBH ? parseFloat(avgDBH) : null,
+            avgHeight: avgHeight ? parseFloat(avgHeight) : null,
+            stumps: service === 'stump-grinding' ? stumps.filter(s => s.dbh > 0) : null,
+            linearFeet: linearFeet ? parseFloat(linearFeet) : null,
+          },
+          projectFactors: selectedFactors,
+          estimateTotal: estimate?.total,
+          productionHours: estimate?.productionHours,
+          methodology: estimate?.methodology,
           notes,
         }),
       })
@@ -125,7 +171,7 @@ export default function EstimatePage() {
         if (typeof window !== 'undefined' && (window as any).fbq) {
           (window as any).fbq('track', 'Lead', {
             content_name: service,
-            value: estimate?.highEstimate || 0,
+            value: estimate?.total || 0,
             currency: 'USD',
           })
         }
@@ -133,7 +179,7 @@ export default function EstimatePage() {
         // Fire GA4 event
         if (typeof window !== 'undefined' && (window as any).gtag) {
           (window as any).gtag('event', 'generate_lead', {
-            value: estimate?.highEstimate || 0,
+            value: estimate?.total || 0,
             currency: 'USD',
             service_type: service,
           })
@@ -148,33 +194,10 @@ export default function EstimatePage() {
 
   const canProceed = () => {
     if (step === 'service') return !!service
-    if (step === 'details') {
-      if (service === 'forestry-mulching' || service === 'land-clearing') {
-        return !!acres && parseFloat(acres) > 0
-      }
-      if (service === 'stump-grinding') {
-        return !!stumpCount && !!stumpDiameter
-      }
-      if (service === 'drainage') {
-        return !!drainageLinearFeet
-      }
-    }
-    if (step === 'dbh') return !!dbhPackage
+    if (step === 'details') return !!estimate
+    if (step === 'factors') return true
     if (step === 'contact') return !!name && !!email && !!phone
     return false
-  }
-
-  const stepNumber = () => {
-    const steps: Step[] = ['service', 'details']
-    if (service === 'forestry-mulching' || service === 'land-clearing') {
-      steps.push('dbh')
-    }
-    steps.push('contact', 'results')
-    return steps.indexOf(step) + 1
-  }
-
-  const totalSteps = () => {
-    return (service === 'forestry-mulching' || service === 'land-clearing') ? 5 : 4
   }
 
   return (
@@ -182,19 +205,14 @@ export default function EstimatePage() {
       {/* Header */}
       <div className="bg-gray-950 border-b border-gray-800">
         <div className="max-w-3xl mx-auto px-4 py-6">
-          <h1 className="text-2xl font-bold">Get Your Free Estimate</h1>
-          <p className="text-gray-400">Step {stepNumber()} of {totalSteps()}</p>
-          <div className="mt-4 h-2 bg-gray-800 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-green-500 transition-all duration-300"
-              style={{ width: `${(stepNumber() / totalSteps()) * 100}%` }}
-            />
-          </div>
+          <h1 className="text-2xl font-bold">Get Your Quote</h1>
+          <p className="text-gray-400">TreeShop Score-Based Pricing</p>
         </div>
       </div>
 
       <div className="max-w-3xl mx-auto px-4 py-8">
-        {/* Step 1: Service Selection */}
+
+        {/* Step 1: Service */}
         {step === 'service' && (
           <div>
             <h2 className="text-xl font-semibold mb-6">What service do you need?</h2>
@@ -202,16 +220,23 @@ export default function EstimatePage() {
               {services.map((s) => (
                 <button
                   key={s.id}
-                  onClick={() => setService(s.id as PricingInput['service'])}
+                  onClick={() => setService(s.id)}
                   className={`p-6 rounded-xl text-left transition-all ${
                     service === s.id
                       ? 'bg-green-600 ring-2 ring-green-400'
                       : 'bg-gray-800 hover:bg-gray-750'
                   }`}
                 >
-                  <div className="font-semibold text-lg">{s.name}</div>
-                  <div className={service === s.id ? 'text-green-100' : 'text-gray-400'}>
-                    {s.description}
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <div className="font-semibold text-lg">{s.name}</div>
+                      <div className={service === s.id ? 'text-green-100' : 'text-gray-400'}>
+                        {s.description}
+                      </div>
+                    </div>
+                    <div className={`text-sm ${service === s.id ? 'text-green-100' : 'text-green-400'}`}>
+                      {s.rate}
+                    </div>
                   </div>
                 </button>
               ))}
@@ -219,12 +244,13 @@ export default function EstimatePage() {
           </div>
         )}
 
-        {/* Step 2: Property Details */}
+        {/* Step 2: Details */}
         {step === 'details' && (
           <div>
-            <h2 className="text-xl font-semibold mb-6">Tell us about your property</h2>
+            <h2 className="text-xl font-semibold mb-6">Property Details</h2>
 
-            {(service === 'forestry-mulching' || service === 'land-clearing') && (
+            {/* Forestry Mulching */}
+            {service === 'forestry-mulching' && (
               <div className="space-y-6">
                 <div>
                   <label className="block text-sm font-medium mb-2">Property Address (optional)</label>
@@ -233,11 +259,11 @@ export default function EstimatePage() {
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                     placeholder="123 Main St, Daytona Beach, FL"
-                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-green-500"
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-2">How many acres need clearing? *</label>
+                  <label className="block text-sm font-medium mb-2">How many acres? *</label>
                   <input
                     type="number"
                     step="0.1"
@@ -245,152 +271,321 @@ export default function EstimatePage() {
                     value={acres}
                     onChange={(e) => setAcres(e.target.value)}
                     placeholder="e.g., 2.5"
-                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-green-500"
-                  />
-                  <p className="text-gray-400 text-sm mt-2">Not sure? We can help measure during the site visit.</p>
-                </div>
-              </div>
-            )}
-
-            {service === 'stump-grinding' && (
-              <div className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium mb-2">Property Address (optional)</label>
-                  <input
-                    type="text"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    placeholder="123 Main St, Daytona Beach, FL"
-                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-green-500"
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-2">How many stumps? *</label>
-                  <input
-                    type="number"
-                    min="1"
-                    value={stumpCount}
-                    onChange={(e) => setStumpCount(e.target.value)}
-                    placeholder="e.g., 5"
-                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-green-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2">Average stump diameter (inches)? *</label>
-                  <input
-                    type="number"
-                    min="4"
-                    value={stumpDiameter}
-                    onChange={(e) => setStumpDiameter(e.target.value)}
-                    placeholder="e.g., 24"
-                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-green-500"
-                  />
-                  <p className="text-gray-400 text-sm mt-2">Measure across the widest part of the stump.</p>
-                </div>
-              </div>
-            )}
-
-            {service === 'drainage' && (
-              <div className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium mb-2">Property Address (optional)</label>
-                  <input
-                    type="text"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    placeholder="123 Main St, Daytona Beach, FL"
-                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-green-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2">Estimated drainage length needed (feet)? *</label>
-                  <input
-                    type="number"
-                    min="20"
-                    value={drainageLinearFeet}
-                    onChange={(e) => setDrainageLinearFeet(e.target.value)}
-                    placeholder="e.g., 100"
-                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-green-500"
-                  />
-                  <p className="text-gray-400 text-sm mt-2">
-                    Not sure? Guide: Small yard drainage ~50-100 LF,
-                    full yard ~100-200 LF, large property ~200+ LF
-                  </p>
-                </div>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Step 3: DBH Package (mulching/clearing only) */}
-        {step === 'dbh' && (
-          <div>
-            <h2 className="text-xl font-semibold mb-2">What&apos;s the largest tree diameter?</h2>
-            <p className="text-gray-400 mb-6">
-              DBH (Diameter at Breast Height) — measured 4.5 feet from the ground
-            </p>
-            <div className="grid gap-4">
-              {dbhPackages.map((pkg) => (
-                <button
-                  key={pkg.id}
-                  onClick={() => setDbhPackage(pkg.id as '4' | '6' | '8' | '10')}
-                  className={`p-6 rounded-xl text-left transition-all ${
-                    dbhPackage === pkg.id
-                      ? 'bg-green-600 ring-2 ring-green-400'
-                      : 'bg-gray-800 hover:bg-gray-750'
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="font-semibold text-lg">{pkg.name}</div>
-                      <div className={dbhPackage === pkg.id ? 'text-green-100' : 'text-gray-400'}>
-                        {pkg.description}
-                      </div>
-                    </div>
-                    <div className={`text-sm ${dbhPackage === pkg.id ? 'text-green-100' : 'text-gray-500'}`}>
-                      {pkg.recommended}
-                    </div>
-                  </div>
-                </button>
-              ))}
-            </div>
-            <p className="text-gray-400 text-sm mt-4">
-              Not sure? We&apos;ll verify during the site assessment. Pick your best guess.
-            </p>
-          </div>
-        )}
-
-        {/* Step 4: Contact Info + Estimate Preview */}
-        {step === 'contact' && (
-          <div>
-            {/* Estimate Preview */}
-            {estimate && (
-              <div className="bg-gray-800 rounded-xl p-6 mb-8">
-                <div className="text-center mb-4">
-                  <div className="text-sm text-gray-400 uppercase tracking-wide">Your Estimate</div>
-                  <div className="text-4xl font-bold text-green-400 mt-1">
-                    {formatCurrency(estimate.lowEstimate)} - {formatCurrency(estimate.highEstimate)}
-                  </div>
-                </div>
-                <div className="border-t border-gray-700 pt-4 space-y-2">
-                  {estimate.breakdown.map((item, i) => (
-                    <div key={i} className="flex justify-between text-sm">
-                      <span className="text-gray-400">{item.label}</span>
-                      <span>{formatCurrency(item.lowAmount)} - {formatCurrency(item.highAmount)}</span>
-                    </div>
-                  ))}
-                </div>
-                {estimate.notes.length > 0 && (
-                  <div className="mt-4 text-sm text-gray-400">
-                    {estimate.notes.map((note, i) => (
-                      <p key={i}>• {note}</p>
+                  <label className="block text-sm font-medium mb-2">Largest tree diameter (DBH Package)? *</label>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    {(Object.entries(DBH_PACKAGES) as [string, { range: string; vegetation: string }][]).map(([pkg, info]) => (
+                      <button
+                        key={pkg}
+                        onClick={() => setDbhPackage(parseInt(pkg) as DBHPackage)}
+                        className={`p-3 rounded-lg text-center transition-all ${
+                          dbhPackage === parseInt(pkg)
+                            ? 'bg-green-600 ring-2 ring-green-400'
+                            : 'bg-gray-800 hover:bg-gray-750'
+                        }`}
+                      >
+                        <div className="text-2xl font-bold">{pkg}"</div>
+                        <div className="text-xs text-gray-400">{info.range}</div>
+                      </button>
                     ))}
+                  </div>
+                  <div className="mt-4 bg-gray-800 rounded-lg p-4 flex gap-3">
+                    <Info className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
+                    <div className="text-sm text-gray-400">
+                      <strong>DBH = Diameter at Breast Height</strong> (4.5 feet from ground).
+                      Select the package matching the largest trees you need cleared.
+                    </div>
+                  </div>
+                </div>
+
+                {/* Live Calculation Display */}
+                {estimate && (
+                  <div className="bg-gray-800 border border-green-600/50 rounded-xl p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <Calculator className="w-5 h-5 text-green-400" />
+                      <span className="font-semibold">Live Calculation</span>
+                    </div>
+                    <div className="text-3xl font-bold text-green-400 mb-2">
+                      {formatCurrency(estimate.total)}
+                    </div>
+                    <div className="text-sm text-gray-400 font-mono">
+                      {estimate.methodology}
+                    </div>
                   </div>
                 )}
               </div>
             )}
 
-            <h2 className="text-xl font-semibold mb-6">How can we reach you?</h2>
+            {/* Land Clearing */}
+            {service === 'land-clearing' && (
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-sm font-medium mb-2">Acres to clear *</label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    value={acres}
+                    onChange={(e) => setAcres(e.target.value)}
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2">Average tree DBH (inches) *</label>
+                  <input
+                    type="number"
+                    value={avgDBH}
+                    onChange={(e) => setAvgDBH(e.target.value)}
+                    placeholder="e.g., 10"
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2">Average vegetation height (feet) *</label>
+                  <input
+                    type="number"
+                    value={avgHeight}
+                    onChange={(e) => setAvgHeight(e.target.value)}
+                    placeholder="e.g., 40"
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3"
+                  />
+                </div>
+
+                {estimate && (
+                  <div className="bg-gray-800 border border-green-600/50 rounded-xl p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <Calculator className="w-5 h-5 text-green-400" />
+                      <span className="font-semibold">Live Calculation</span>
+                    </div>
+                    <div className="text-3xl font-bold text-green-400 mb-2">
+                      {formatCurrency(estimate.total)}
+                    </div>
+                    <div className="text-sm text-gray-400 font-mono">
+                      {estimate.methodology}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Stump Grinding */}
+            {service === 'stump-grinding' && (
+              <div className="space-y-6">
+                <div>
+                  <div className="flex justify-between items-center mb-4">
+                    <label className="text-sm font-medium">Enter each stump</label>
+                    <button
+                      onClick={addStump}
+                      className="text-sm text-green-400 hover:text-green-300"
+                    >
+                      + Add another stump
+                    </button>
+                  </div>
+
+                  {stumps.map((stump, i) => (
+                    <div key={i} className="bg-gray-800 rounded-lg p-4 mb-4">
+                      <div className="text-sm text-gray-400 mb-3">Stump #{i + 1}</div>
+                      <div className="grid grid-cols-3 gap-4">
+                        <div>
+                          <label className="block text-xs mb-1">DBH (inches)</label>
+                          <input
+                            type="number"
+                            value={stump.dbh || ''}
+                            onChange={(e) => updateStump(i, 'dbh', parseInt(e.target.value) || 0)}
+                            className="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-xs mb-1">Above grade (in)</label>
+                          <input
+                            type="number"
+                            value={stump.heightAbove}
+                            onChange={(e) => updateStump(i, 'heightAbove', parseInt(e.target.value) || 0)}
+                            className="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-xs mb-1">Depth below (in)</label>
+                          <select
+                            value={stump.depthBelow}
+                            onChange={(e) => updateStump(i, 'depthBelow', parseInt(e.target.value))}
+                            className="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2"
+                          >
+                            <option value={6}>6" (standard)</option>
+                            <option value={12}>12" (deep)</option>
+                            <option value={18}>18" (extra deep)</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="bg-gray-800 rounded-lg p-4">
+                  <div className="text-sm text-gray-400 mb-2">
+                    <strong>Formula:</strong> StumpScore = DBH² × (Height + Depth)
+                  </div>
+                  <div className="text-xs text-gray-500">
+                    Example: 24" DBH, 6" above, 12" deep = 576 × 18 = 10,368 ÷ 8,000 PPH = 1.3 hrs × $400/hr = $520
+                  </div>
+                </div>
+
+                {estimate && (
+                  <div className="bg-gray-800 border border-green-600/50 rounded-xl p-6">
+                    <div className="text-3xl font-bold text-green-400 mb-2">
+                      {formatCurrency(estimate.total)}
+                    </div>
+                    <div className="text-sm text-gray-400">
+                      {estimate.lineItems.length} stump(s) • {formatHours(estimate.productionHours)} production
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Drainage */}
+            {service === 'drainage' && (
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-sm font-medium mb-2">Estimated linear feet needed *</label>
+                  <input
+                    type="number"
+                    value={linearFeet}
+                    onChange={(e) => setLinearFeet(e.target.value)}
+                    placeholder="e.g., 100"
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3"
+                  />
+                  <p className="text-gray-400 text-sm mt-2">
+                    Guide: Spot fix ~30-50 LF • Yard drainage ~100-150 LF • Full property ~200+ LF
+                  </p>
+                </div>
+
+                <div className="bg-blue-900/30 border border-blue-600/50 rounded-lg p-4">
+                  <div className="font-semibold text-blue-400 mb-2">FreedomDrains with HydroBlox</div>
+                  <p className="text-gray-300 text-sm">
+                    Unlike French drains that clog in 5-10 years, HydroBlox panels have no fabric or pipe to fail.
+                    Lifetime no-clog guarantee.
+                  </p>
+                </div>
+
+                {estimate && (
+                  <div className="bg-gray-800 border border-blue-600/50 rounded-xl p-6">
+                    <div className="text-3xl font-bold text-blue-400 mb-2">
+                      {formatCurrency(estimate.total)}
+                    </div>
+                    <div className="text-sm text-gray-400">
+                      {linearFeet} LF × $30-60/LF includes materials, installation, and guarantee
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Step 3: Project Factors */}
+        {step === 'factors' && (
+          <div>
+            <h2 className="text-xl font-semibold mb-2">Site Conditions</h2>
+            <p className="text-gray-400 mb-6">Select any factors that apply. These adjust the estimate based on real-world complexity.</p>
+
+            {service === 'forestry-mulching' && (
+              <>
+                <div className="mb-6">
+                  <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wide mb-3">Vegetation</h3>
+                  <div className="grid gap-2">
+                    {COMMON_PROJECT_FACTORS.vegetation.map((factor) => (
+                      <button
+                        key={factor.name}
+                        onClick={() => toggleFactor(factor)}
+                        className={`flex justify-between items-center p-3 rounded-lg transition-all ${
+                          selectedFactors.find(f => f.name === factor.name)
+                            ? 'bg-green-600'
+                            : 'bg-gray-800 hover:bg-gray-750'
+                        }`}
+                      >
+                        <span>{factor.name}</span>
+                        <span className="text-sm">+{factor.percentage}%</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
+
+            <div className="mb-6">
+              <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wide mb-3">Access & Terrain</h3>
+              <div className="grid gap-2">
+                {[...COMMON_PROJECT_FACTORS.access, ...COMMON_PROJECT_FACTORS.terrain].map((factor) => (
+                  <button
+                    key={factor.name}
+                    onClick={() => toggleFactor(factor)}
+                    className={`flex justify-between items-center p-3 rounded-lg transition-all ${
+                      selectedFactors.find(f => f.name === factor.name)
+                        ? 'bg-green-600'
+                        : 'bg-gray-800 hover:bg-gray-750'
+                    }`}
+                  >
+                    <span>{factor.name}</span>
+                    <span className="text-sm">+{factor.percentage}%</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Updated Estimate */}
+            {estimate && (
+              <div className="bg-gray-800 border border-green-600/50 rounded-xl p-6 mt-6">
+                <div className="flex justify-between items-start mb-4">
+                  <div>
+                    <div className="text-sm text-gray-400">Updated Estimate</div>
+                    <div className="text-3xl font-bold text-green-400">
+                      {formatCurrency(estimate.total)}
+                    </div>
+                  </div>
+                  {estimate.totalFactorPercentage > 0 && (
+                    <div className="text-right">
+                      <div className="text-sm text-yellow-400">+{estimate.totalFactorPercentage}% factors</div>
+                    </div>
+                  )}
+                </div>
+                <div className="border-t border-gray-700 pt-4">
+                  {estimate.lineItems.map((item, i) => (
+                    <div key={i} className="flex justify-between text-sm mb-1">
+                      <span className="text-gray-400">{item.description}</span>
+                      <span>{formatCurrency(item.amount)}</span>
+                    </div>
+                  ))}
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-400">Transport (round-trip)</span>
+                    <span>{formatCurrency(estimate.transport)}</span>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Step 4: Contact */}
+        {step === 'contact' && (
+          <div>
+            <h2 className="text-xl font-semibold mb-6">Your Information</h2>
+
+            {/* Estimate Summary */}
+            {estimate && (
+              <div className="bg-gray-800 rounded-xl p-6 mb-8">
+                <div className="text-center">
+                  <div className="text-sm text-gray-400">Your Quote</div>
+                  <div className="text-4xl font-bold text-green-400">{formatCurrency(estimate.total)}</div>
+                  <div className="text-sm text-gray-400 mt-1">
+                    {formatHours(estimate.productionHours)} production + transport
+                  </div>
+                </div>
+              </div>
+            )}
+
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium mb-2">Name *</label>
@@ -398,7 +593,7 @@ export default function EstimatePage() {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-green-500"
+                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3"
                 />
               </div>
               <div className="grid md:grid-cols-2 gap-4">
@@ -408,7 +603,7 @@ export default function EstimatePage() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-green-500"
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3"
                   />
                 </div>
                 <div>
@@ -417,146 +612,94 @@ export default function EstimatePage() {
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-green-500"
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3"
                   />
                 </div>
               </div>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium mb-2">Preferred Contact Method</label>
-                  <select
-                    value={preferredContact}
-                    onChange={(e) => setPreferredContact(e.target.value)}
-                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-green-500"
-                  >
-                    <option value="">No preference</option>
-                    <option value="phone">Phone call</option>
-                    <option value="text">Text message</option>
-                    <option value="email">Email</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2">Best Time to Call</label>
-                  <select
-                    value={bestTime}
-                    onChange={(e) => setBestTime(e.target.value)}
-                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-green-500"
-                  >
-                    <option value="">Any time</option>
-                    <option value="morning">Morning (8am-12pm)</option>
-                    <option value="afternoon">Afternoon (12pm-5pm)</option>
-                    <option value="evening">Evening (5pm-8pm)</option>
-                  </select>
-                </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">Property Address</label>
+                <input
+                  type="text"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3"
+                />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-2">Anything else we should know?</label>
+                <label className="block text-sm font-medium mb-2">Notes</label>
                 <textarea
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   rows={3}
-                  placeholder="Access issues, timeline, special requests..."
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-green-500"
+                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3"
                 />
               </div>
             </div>
           </div>
         )}
 
-        {/* Step 5: Results / Confirmation */}
+        {/* Step 5: Results */}
         {step === 'results' && (
           <div className="text-center py-8">
             <div className="w-20 h-20 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
               <CheckCircle className="w-10 h-10" />
             </div>
-            <h2 className="text-3xl font-bold mb-4">Estimate Request Received!</h2>
-            <p className="text-gray-400 mb-8 max-w-md mx-auto">
-              We&apos;ll review your request and contact you within 2 hours during business hours.
-            </p>
+            <h2 className="text-3xl font-bold mb-4">Quote Submitted!</h2>
+            <p className="text-gray-400 mb-8">We&apos;ll contact you within 2 hours during business hours.</p>
 
             {estimate && (
-              <div className="bg-gray-800 rounded-xl p-6 mb-8 max-w-md mx-auto">
-                <div className="text-sm text-gray-400 mb-2">Your Estimate</div>
-                <div className="text-3xl font-bold text-green-400">
-                  {formatCurrency(estimate.lowEstimate)} - {formatCurrency(estimate.highEstimate)}
+              <div className="bg-gray-800 rounded-xl p-6 mb-8 max-w-md mx-auto text-left">
+                <div className="text-center mb-4">
+                  <div className="text-sm text-gray-400">Your Quote</div>
+                  <div className="text-3xl font-bold text-green-400">{formatCurrency(estimate.total)}</div>
                 </div>
-                <p className="text-gray-400 text-sm mt-2">
-                  Final price confirmed after site assessment
-                </p>
+                <div className="border-t border-gray-700 pt-4 space-y-2 text-sm">
+                  {estimate.lineItems.map((item, i) => (
+                    <div key={i} className="flex justify-between">
+                      <span className="text-gray-400">{item.description}</span>
+                      <span>{formatCurrency(item.amount)}</span>
+                    </div>
+                  ))}
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Transport</span>
+                    <span>{formatCurrency(estimate.transport)}</span>
+                  </div>
+                </div>
+                <div className="mt-4 pt-4 border-t border-gray-700">
+                  <div className="text-xs text-gray-500 font-mono">{estimate.methodology}</div>
+                </div>
               </div>
             )}
 
-            <div className="space-y-4">
-              <div className="text-gray-400">
-                Need it faster?
-              </div>
-              <a
-                href="tel:3868435266"
-                className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 px-8 py-4 rounded-lg font-semibold text-lg"
-              >
-                <Phone className="w-5 h-5" />
-                Call (386) 843-5266
-              </a>
-            </div>
-
-            <div className="mt-12 text-left bg-gray-800 rounded-xl p-6">
-              <h3 className="font-semibold mb-4">What Happens Next?</h3>
-              <ol className="space-y-3 text-gray-400">
-                <li className="flex gap-3">
-                  <span className="bg-green-600 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm shrink-0">1</span>
-                  <span>We review your property details and estimate</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="bg-gray-700 w-6 h-6 rounded-full flex items-center justify-center text-sm shrink-0">2</span>
-                  <span>We call to discuss your project and schedule a site visit if needed</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="bg-gray-700 w-6 h-6 rounded-full flex items-center justify-center text-sm shrink-0">3</span>
-                  <span>You receive a written quote with guaranteed pricing</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="bg-gray-700 w-6 h-6 rounded-full flex items-center justify-center text-sm shrink-0">4</span>
-                  <span>25% deposit schedules your job, balance due on completion</span>
-                </li>
-              </ol>
-            </div>
+            <a
+              href="tel:3868435266"
+              className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 px-8 py-4 rounded-lg font-semibold text-lg"
+            >
+              <Phone className="w-5 h-5" />
+              Call (386) 843-5266
+            </a>
           </div>
         )}
 
-        {/* Navigation Buttons */}
+        {/* Navigation */}
         {step !== 'results' && (
           <div className="flex justify-between mt-8 pt-6 border-t border-gray-800">
             {step !== 'service' ? (
-              <button
-                onClick={handleBack}
-                className="flex items-center gap-2 text-gray-400 hover:text-white"
-              >
-                <ArrowLeft className="w-5 h-5" />
-                Back
+              <button onClick={handleBack} className="flex items-center gap-2 text-gray-400 hover:text-white">
+                <ArrowLeft className="w-5 h-5" /> Back
               </button>
-            ) : (
-              <div />
-            )}
+            ) : <div />}
             <button
               onClick={handleNext}
               disabled={!canProceed() || submitting}
-              className="flex items-center gap-2 bg-green-600 hover:bg-green-700 disabled:bg-gray-700 disabled:text-gray-500 px-6 py-3 rounded-lg font-medium"
+              className="flex items-center gap-2 bg-green-600 hover:bg-green-700 disabled:bg-gray-700 px-6 py-3 rounded-lg font-medium"
             >
               {submitting ? (
-                <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                  Submitting...
-                </>
+                <><Loader2 className="w-5 h-5 animate-spin" /> Submitting...</>
               ) : step === 'contact' ? (
-                <>
-                  Submit Request
-                  <ArrowRight className="w-5 h-5" />
-                </>
+                <>Submit Quote Request <ArrowRight className="w-5 h-5" /></>
               ) : (
-                <>
-                  Continue
-                  <ArrowRight className="w-5 h-5" />
-                </>
+                <>Continue <ArrowRight className="w-5 h-5" /></>
               )}
             </button>
           </div>
