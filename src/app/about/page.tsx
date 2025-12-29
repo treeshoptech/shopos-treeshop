@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Users, Truck, Shield, Award, Youtube, ArrowRight } from 'lucide-react'
+import { Header, Footer } from '@/components/layout'
 
 const values = [
   { icon: Shield, title: 'Transparency', description: 'Consistent pricing means no surprises. You know the cost before we start.' },
@@ -14,7 +15,9 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <div>
+    <>
+      <Header />
+      <div>
       {/* Hero */}
       <section className="py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
         <div className="max-w-7xl mx-auto px-4">
@@ -170,6 +173,8 @@ export default function AboutPage() {
           </Link>
         </div>
       </section>
-    </div>
+      </div>
+      <Footer />
+    </>
   )
 }
