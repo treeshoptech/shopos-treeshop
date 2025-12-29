@@ -14,7 +14,7 @@ function StoreNav() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/store" className="flex items-center gap-2">
-            <img src="/logos/treeshop-logo.svg" alt="TreeShop" className="h-8" />
+            <img src="/logos/treeshop-logo.png" alt="TreeShop" className="h-10" />
             <span className="font-bold text-xl text-orange-400">Store</span>
           </Link>
 

@@ -14,7 +14,7 @@ function ProNav() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/pro" className="flex items-center gap-2">
-            <img src="/logos/treeshop-logo.svg" alt="TreeShop" className="h-8" />
+            <img src="/logos/treeshop-logo.png" alt="TreeShop" className="h-10" />
             <span className="font-bold text-xl text-purple-400">Pro</span>
           </Link>
 
@@ -52,7 +52,7 @@ function ProFooter() {
         <div className="grid md:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <img src="/logos/treeshop-logo.svg" alt="TreeShop" className="h-7" />
+              <img src="/logos/treeshop-logo.png" alt="TreeShop" className="h-8" />
               <span className="font-bold text-purple-400">Pro</span>
             </div>
             <p className="text-gray-400 text-sm">

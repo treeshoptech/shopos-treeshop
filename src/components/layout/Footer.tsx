@@ -38,7 +38,7 @@ export function Footer() {
           {/* Brand column */}
           <div className="lg:col-span-1">
             <Link href="/" className="inline-block mb-4">
-              <img src="/logos/treeshop-logo.svg" alt="TreeShop" className="h-8" />
+              <img src="/logos/treeshop-logo.png" alt="TreeShop" className="h-10" />
             </Link>
             <p className="mt-4 text-gray-400 text-sm">
               Professional forestry mulching and land clearing in Central Florida.
