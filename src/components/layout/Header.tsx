@@ -71,16 +71,14 @@ export function Header() {
               <span>Central Florida&apos;s Land Clearing Experts</span>
             </div>
             <div className="flex items-center gap-4">
-              {!isPro && (
-                <Link href="/pro" className="text-green-400 hover:text-green-300">
-                  For Operators →
-                </Link>
-              )}
-              {isPro && (
-                <Link href="/" className="text-gray-400 hover:text-white">
-                  ← TreeShop Services
-                </Link>
-              )}
+              <Link href="/resources" className="hover:text-green-400">Resources</Link>
+              <Link href="/store/book" className="text-orange-400 hover:text-orange-300 font-medium">
+                Book Online →
+              </Link>
+              <span className="text-gray-600">|</span>
+              <Link href="/pro" className="text-purple-400 hover:text-purple-300">
+                For Operators →
+              </Link>
             </div>
           </div>
         </div>
