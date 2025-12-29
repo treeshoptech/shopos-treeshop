@@ -87,39 +87,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Equipment */}
-      <section className="py-20 bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-4">Our Equipment</h2>
-          <p className="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
-            Professional-grade fleet maintained to Army Corps standards. We know our true hourly costs—and price accordingly.
-          </p>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {equipment.map((item) => (
-              <div key={item.name} className="bg-gray-800 rounded-xl p-6 relative">
-                {item.status === 'upgrading' && (
-                  <div className="absolute top-2 right-2 bg-yellow-600/20 border border-yellow-600 text-yellow-400 text-xs px-2 py-1 rounded">
-                    Upgrading 2026
-                  </div>
-                )}
-                <div className="aspect-video bg-gray-700 rounded-lg mb-4 flex items-center justify-center">
-                  <Truck className="w-12 h-12 text-gray-500" />
-                </div>
-                <h3 className="font-semibold mb-1">{item.name}</h3>
-                <div className="text-green-400 text-sm mb-2">{item.rate}</div>
-                <p className="text-gray-400 text-sm">{item.description}</p>
-              </div>
-            ))}
-          </div>
-          <div className="mt-8 text-center">
-            <p className="text-gray-500 text-sm">
-              Equipment rates calculated using Army Corps cost methodology.
-              Fleet upgrade scheduled for 2026 with latest technology.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* YouTube / ShopOS Teaser */}
       <section className="py-20 bg-gray-950">
         <div className="max-w-7xl mx-auto px-4">
