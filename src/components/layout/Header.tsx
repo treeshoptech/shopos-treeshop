@@ -88,9 +88,9 @@ export function Header() {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <Link href={isPro ? '/pro' : isStore ? '/store' : '/'} className="flex items-center gap-2">
-              <span className="text-2xl font-bold text-white">
-                {isPro ? 'TreeShop Pro' : isStore ? 'TreeShop Store' : 'TreeShop'}
-              </span>
+              <img src="/logos/treeshop-logo.svg" alt="TreeShop" className="h-8" />
+              {isPro && <span className="text-xl font-bold text-purple-400">Pro</span>}
+              {isStore && <span className="text-xl font-bold text-orange-400">Store</span>}
             </Link>
 
             {/* Desktop nav */}
