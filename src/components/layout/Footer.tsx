@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Phone, Mail, MapPin } from 'lucide-react'
+import { Phone, Mail, MapPin, Facebook, Instagram, Youtube } from 'lucide-react'
 
 const serviceLinks = [
   { label: 'Forestry Mulching', href: '/services/forestry-mulching' },
@@ -57,6 +57,35 @@ export function Footer() {
                 <MapPin className="w-4 h-4 mt-1" />
                 <span>Serving Central Florida<br />Volusia • Seminole • Orange • Brevard • Lake</span>
               </div>
+            </div>
+            <div className="mt-6 flex items-center gap-4">
+              <a
+                href="https://www.facebook.com/profile.php?id=61585837227807"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="text-gray-400 hover:text-blue-400 transition-colors"
+              >
+                <Facebook className="w-5 h-5" />
+              </a>
+              <a
+                href="https://www.instagram.com/fltreeshop"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="text-gray-400 hover:text-blue-400 transition-colors"
+              >
+                <Instagram className="w-5 h-5" />
+              </a>
+              <a
+                href="https://www.youtube.com/@TheTreeShop"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube"
+                className="text-gray-400 hover:text-red-400 transition-colors"
+              >
+                <Youtube className="w-5 h-5" />
+              </a>
             </div>
           </div>
 

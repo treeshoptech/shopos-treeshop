@@ -64,6 +64,7 @@ export default function RootLayout({
               },
               "sameAs": [
                 "https://www.youtube.com/@TheTreeShop",
+                "https://www.facebook.com/profile.php?id=61585837227807",
                 "https://www.facebook.com/fltreeshop",
                 "https://www.instagram.com/fltreeshop"
               ],
@@ -140,6 +141,7 @@ export default function RootLayout({
               "foundingDate": "2015",
               "sameAs": [
                 "https://www.youtube.com/@TheTreeShop",
+                "https://www.facebook.com/profile.php?id=61585837227807",
                 "https://www.facebook.com/fltreeshop",
                 "https://www.instagram.com/fltreeshop"
               ]
