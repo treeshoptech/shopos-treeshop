@@ -91,8 +91,32 @@ export default function ForestryMulchingPage() {
                 The result? Clean, cleared land in hours instead of days, with no debris piles, burn permits, or dump fees.
               </p>
             </div>
-            <div className="bg-gray-800 rounded-xl aspect-video flex items-center justify-center text-gray-500">
-              Video/Image: Mulcher in action
+            <div className="bg-gray-800 rounded-xl overflow-hidden">
+              <div className="grid grid-cols-2 gap-1">
+                <div className="relative">
+                  <img
+                    src="/images/forestry-mulching-before.jpg"
+                    alt="Forestry mulching before - Citrus Springs residential project"
+                    className="w-full h-auto object-cover"
+                  />
+                  <div className="absolute top-2 left-2 bg-black/70 px-3 py-1 rounded text-sm font-medium">
+                    Before
+                  </div>
+                </div>
+                <div className="relative">
+                  <img
+                    src="/images/forestry-mulching-after.jpg"
+                    alt="Forestry mulching after - Citrus Springs residential project"
+                    className="w-full h-auto object-cover"
+                  />
+                  <div className="absolute top-2 left-2 bg-blue-600 px-3 py-1 rounded text-sm font-medium">
+                    After
+                  </div>
+                </div>
+              </div>
+              <div className="p-4 text-center text-sm text-gray-400">
+                Citrus Springs Residential Project - Before &amp; After
+              </div>
             </div>
           </div>
         </div>
