@@ -368,67 +368,231 @@ export default function EstimatePage() {
             </div>
           )}
 
-          {/* Step 4: Quote */}
+          {/* Step 4: Quote - THE CLOSER */}
           {step === 'quote' && quote && (
             <div>
               <div className="text-center mb-8">
                 <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
                 <h2 className="text-2xl font-bold mb-2">Your Estimate</h2>
-                <p className="text-gray-400">Based on the information you provided</p>
+                <p className="text-gray-400">For {address || 'your property'}</p>
               </div>
 
-              <div className="bg-gray-800 rounded-xl p-8 mb-8">
-                <div className="text-center">
+              <div className="bg-gray-800 rounded-xl p-8 mb-6">
+                <div className="text-center mb-6">
                   <div className="text-sm text-gray-400 mb-2">Estimated Project Cost</div>
-                  <div className="text-5xl font-bold text-green-400 mb-4">
+                  <div className="text-5xl font-bold text-green-400 mb-2">
                     ${quote.total.toLocaleString()}
                   </div>
-                  <p className="text-gray-400 text-sm">
-                    Final price confirmed after site visit
-                  </p>
+                  <p className="text-gray-500 text-sm">Final price confirmed after site visit</p>
                 </div>
 
-                <div className="border-t border-gray-700 mt-6 pt-6">
-                  <h3 className="font-semibold mb-3">What's Included:</h3>
-                  <ul className="space-y-2 text-gray-300">
-                    <li className="flex items-center gap-2">
-                      <CheckCircle className="w-5 h-5 text-green-400" />
-                      Professional service
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <CheckCircle className="w-5 h-5 text-green-400" />
-                      All equipment & labor
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <CheckCircle className="w-5 h-5 text-green-400" />
-                      Debris cleanup
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <CheckCircle className="w-5 h-5 text-green-400" />
-                      No hidden fees
-                    </li>
-                  </ul>
+                <div className="bg-gray-900 rounded-lg p-4 mb-6">
+                  <h3 className="text-sm font-medium text-gray-400 mb-2">Your Project</h3>
+                  <div className="text-white">
+                    {selectedService === 'forestry-mulching' && (
+                      <p>{acres} acre{acres !== 1 ? 's' : ''} • Trees up to {dbh}" diameter</p>
+                    )}
+                    {selectedService === 'land-clearing' && (
+                      <p>{acres} acre{acres !== 1 ? 's' : ''} • Complete lot clearing</p>
+                    )}
+                    {selectedService === 'stump-grinding' && (
+                      <p>{stumpCount} stump{stumpCount !== 1 ? 's' : ''} • {stumpSize} size</p>
+                    )}
+                    {selectedService === 'freedomdrains' && (
+                      <p>{drainagePackage.charAt(0).toUpperCase() + drainagePackage.slice(1)} package</p>
+                    )}
+                  </div>
                 </div>
+
+                <div className="border-t border-gray-700 pt-6">
+                  <h3 className="font-semibold mb-4">What's Included:</h3>
+
+                  {selectedService === 'forestry-mulching' && (
+                    <ul className="space-y-3">
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
+                        <div>
+                          <span className="font-medium">One Machine Does It All</span>
+                          <p className="text-gray-400 text-sm">No separate crews for cutting, chipping, and hauling</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
+                        <div>
+                          <span className="font-medium">No Hauling Costs</span>
+                          <p className="text-gray-400 text-sm">Mulch stays on-site as ground cover (saves you $$)</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
+                        <div>
+                          <span className="font-medium">Minimal Soil Disturbance</span>
+                          <p className="text-gray-400 text-sm">No ruts, no erosion, ready to use immediately</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
+                        <div>
+                          <span className="font-medium">Usually Done in 1 Day</span>
+                          <p className="text-gray-400 text-sm">Most residential lots cleared same-day</p>
+                        </div>
+                      </li>
+                    </ul>
+                  )}
+
+                  {selectedService === 'land-clearing' && (
+                    <ul className="space-y-3">
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
+                        <div>
+                          <span className="font-medium">Complete Site Preparation</span>
+                          <p className="text-gray-400 text-sm">Ready for construction, landscaping, or agriculture</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
+                        <div>
+                          <span className="font-medium">Selective or Full Clearing</span>
+                          <p className="text-gray-400 text-sm">We work around trees you want to keep</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
+                        <div>
+                          <span className="font-medium">Stump Removal Included</span>
+                          <p className="text-gray-400 text-sm">No surprise charges for stumps</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
+                        <div>
+                          <span className="font-medium">10 Years Experience</span>
+                          <p className="text-gray-400 text-sm">500+ projects—we know this land</p>
+                        </div>
+                      </li>
+                    </ul>
+                  )}
+
+                  {selectedService === 'stump-grinding' && (
+                    <ul className="space-y-3">
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
+                        <div>
+                          <span className="font-medium">Ground Below Grade</span>
+                          <p className="text-gray-400 text-sm">6-8" below surface—grass grows right over</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
+                        <div>
+                          <span className="font-medium">Any Size Stump</span>
+                          <p className="text-gray-400 text-sm">From small shrubs to massive oaks</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
+                        <div>
+                          <span className="font-medium">Grindings Cleanup</span>
+                          <p className="text-gray-400 text-sm">We rake and level—no pile left behind</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
+                        <div>
+                          <span className="font-medium">Fill Dirt Available</span>
+                          <p className="text-gray-400 text-sm">Optional topsoil for seamless lawn repair</p>
+                        </div>
+                      </li>
+                    </ul>
+                  )}
+
+                  {selectedService === 'freedomdrains' && (
+                    <ul className="space-y-3">
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-blue-400 mt-0.5 shrink-0" />
+                        <div>
+                          <span className="font-medium text-blue-400">LIFETIME No-Clog Guarantee</span>
+                          <p className="text-gray-400 text-sm">If it ever clogs, we fix it free. Forever. No other company offers this.</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-blue-400 mt-0.5 shrink-0" />
+                        <div>
+                          <span className="font-medium">Works on Flat Ground</span>
+                          <p className="text-gray-400 text-sm">Hydroblox uses capillary action—no slope needed</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-blue-400 mt-0.5 shrink-0" />
+                        <div>
+                          <span className="font-medium">No Gravel to Clog</span>
+                          <p className="text-gray-400 text-sm">French drains fail in 3-7 years in Florida. Ours don't.</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-blue-400 mt-0.5 shrink-0" />
+                        <div>
+                          <span className="font-medium">Installed in 1 Day</span>
+                          <p className="text-gray-400 text-sm">Narrow surgical trench—minimal lawn damage</p>
+                        </div>
+                      </li>
+                    </ul>
+                  )}
+                </div>
+              </div>
+
+              <div className="bg-gray-800/50 rounded-xl p-6 mb-6">
+                <h3 className="font-semibold mb-4">Why TreeShop?</h3>
+                <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-400" />
+                    <span>10 years in Central Florida</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-400" />
+                    <span>500+ projects completed</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-400" />
+                    <span>Price = Quote (no surprises)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-400" />
+                    <span>Licensed & Insured</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-green-900/30 border border-green-500/30 rounded-xl p-4 mb-6 text-center">
+                <p className="text-green-300">
+                  <span className="font-semibold">Currently scheduling:</span> Usually within 1-2 weeks
+                </p>
               </div>
 
               <div className="space-y-4">
                 <a
                   href="tel:3868435266"
-                  className="block w-full bg-green-600 hover:bg-green-700 py-4 rounded-lg font-semibold text-center"
+                  className="block w-full bg-green-600 hover:bg-green-700 py-4 rounded-lg font-semibold text-center text-lg"
                 >
                   Call to Schedule: (386) 843-5266
                 </a>
-                <a
-                  href="/store/book"
+                <Link
+                  href={`/store/book`}
                   className="block w-full bg-gray-700 hover:bg-gray-600 py-4 rounded-lg font-semibold text-center"
                 >
-                  Book Online & Pay Deposit
-                </a>
+                  Book Online & Pay 25% Deposit
+                </Link>
               </div>
 
               <p className="text-center text-gray-500 text-sm mt-6">
                 We'll call you within 24 hours to confirm details and schedule.
               </p>
+
+              <div className="mt-8 text-center">
+                <p className="text-gray-500 text-sm">
+                  <span className="text-green-400">Our 2026 Promise:</span> From first contact to invoice in 20 days or less.
+                </p>
+              </div>
             </div>
           )}
         </div>
