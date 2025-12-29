@@ -304,15 +304,14 @@ export default function EstimatePage() {
                 {/* Live Calculation Display */}
                 {estimate && (
                   <div className="bg-gray-800 border border-green-600/50 rounded-xl p-6">
-                    <div className="flex items-center gap-2 mb-4">
-                      <Calculator className="w-5 h-5 text-green-400" />
-                      <span className="font-semibold">Live Calculation</span>
-                    </div>
-                    <div className="text-3xl font-bold text-green-400 mb-2">
-                      {formatCurrency(estimate.total)}
-                    </div>
-                    <div className="text-sm text-gray-400 font-mono">
-                      {estimate.methodology}
+                    <div className="text-center">
+                      <div className="text-sm text-gray-400 mb-2">Estimated Cost</div>
+                      <div className="text-4xl font-bold text-green-400">
+                        {formatCurrency(estimate.total)}
+                      </div>
+                      <div className="text-sm text-gray-500 mt-2">
+                        Transport included
+                      </div>
                     </div>
                   </div>
                 )}
@@ -355,15 +354,14 @@ export default function EstimatePage() {
 
                 {estimate && (
                   <div className="bg-gray-800 border border-green-600/50 rounded-xl p-6">
-                    <div className="flex items-center gap-2 mb-4">
-                      <Calculator className="w-5 h-5 text-green-400" />
-                      <span className="font-semibold">Live Calculation</span>
-                    </div>
-                    <div className="text-3xl font-bold text-green-400 mb-2">
-                      {formatCurrency(estimate.total)}
-                    </div>
-                    <div className="text-sm text-gray-400 font-mono">
-                      {estimate.methodology}
+                    <div className="text-center">
+                      <div className="text-sm text-gray-400 mb-2">Estimated Cost</div>
+                      <div className="text-4xl font-bold text-green-400">
+                        {formatCurrency(estimate.total)}
+                      </div>
+                      <div className="text-sm text-gray-500 mt-2">
+                        Transport included
+                      </div>
                     </div>
                   </div>
                 )}
@@ -664,9 +662,6 @@ export default function EstimatePage() {
                     <span className="text-gray-400">Transport</span>
                     <span>{formatCurrency(estimate.transport)}</span>
                   </div>
-                </div>
-                <div className="mt-4 pt-4 border-t border-gray-700">
-                  <div className="text-xs text-gray-500 font-mono">{estimate.methodology}</div>
                 </div>
               </div>
             )}
