@@ -135,9 +135,8 @@ export default function HomePage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {stats.map((stat) => (
                 <div key={stat.label} className="text-center">
-                  <div className="text-3xl lg:text-4xl font-bold text-green-400 flex items-center justify-center gap-1">
+                  <div className="text-3xl lg:text-4xl font-bold text-green-400">
                     {stat.value}
-                    {stat.icon && <stat.icon className="w-6 h-6 fill-current" />}
                   </div>
                   <div className="text-gray-400 text-sm mt-1">{stat.label}</div>
                 </div>
