@@ -51,7 +51,7 @@ const stats = [
   { value: '10+', label: 'Years Experience' },
   { value: '500+', label: 'Projects Completed' },
   { value: '32', label: 'Communities Served' },
-  { value: '4.9', label: 'Star Rating', icon: Star },
+  { value: '7', label: 'Counties Served' },
 ]
 
 const process = [
@@ -67,26 +67,7 @@ const serviceAreas = [
   'Kissimmee', 'Winter Park',
 ]
 
-const testimonials = [
-  {
-    quote: "They cleared 2 acres in one day. No mess, fair price, exactly what they quoted.",
-    author: "Mike R.",
-    location: "Port Orange",
-    service: "Forestry Mulching",
-  },
-  {
-    quote: "After 3 French drains failed, FreedomDrains finally solved our flooding. Should've called them first.",
-    author: "Sarah T.",
-    location: "Ormond Beach",
-    service: "FreedomDrains",
-  },
-  {
-    quote: "Professional from start to finish. The online quote matched the final bill exactly.",
-    author: "David L.",
-    location: "DeLand",
-    service: "Land Clearing",
-  },
-]
+// Reviews section removed - will use real Google reviews only
 
 const resources = [
   { title: 'Land Clearing Estimator', description: 'Get an instant quote', icon: Calculator, href: '/estimate' },
@@ -337,44 +318,19 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Testimonials */}
+        {/* Google Reviews */}
         <section className="py-20 bg-gray-950">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl lg:text-4xl font-bold mb-4">What Our Customers Say</h2>
-              <div className="flex items-center justify-center gap-2 text-yellow-400">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-6 h-6 fill-current" />
-                ))}
-                <span className="text-white ml-2">4.9 out of 5</span>
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              {testimonials.map((testimonial, index) => (
-                <div key={index} className="bg-gray-800 rounded-xl p-6">
-                  <div className="flex gap-1 mb-4">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
-                    ))}
-                  </div>
-                  <p className="text-gray-300 mb-4">"{testimonial.quote}"</p>
-                  <div className="flex items-center justify-between text-sm">
-                    <div>
-                      <div className="font-semibold">{testimonial.author}</div>
-                      <div className="text-gray-500">{testimonial.location}</div>
-                    </div>
-                    <div className="text-green-400 text-xs">{testimonial.service}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="text-center mt-8">
-              <Link href="/reviews" className="text-green-400 hover:underline">
-                Read All Reviews →
-              </Link>
-            </div>
+          <div className="max-w-7xl mx-auto px-4 text-center">
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4">See What Our Customers Say</h2>
+            <p className="text-gray-400 mb-8">Read real reviews from Central Florida homeowners on Google.</p>
+            <a
+              href="https://www.google.com/search?q=TreeShop+LLC+New+Smyrna+Beach+reviews"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 px-8 py-4 rounded-lg font-semibold"
+            >
+              Read Reviews on Google <ArrowRight className="w-5 h-5" />
+            </a>
           </div>
         </section>
 
