@@ -1,41 +1,32 @@
 import Link from 'next/link'
-import { CheckCircle, ArrowRight, Calculator } from 'lucide-react'
-import { DBH_PACKAGES, BILLING_RATES, PPH_RATES, getExampleCalculation } from '@/lib/pricing'
+import { CheckCircle, ArrowRight, Shield } from 'lucide-react'
 
-const formulas = [
+const services = [
   {
     service: 'Forestry Mulching',
-    formula: 'MulchingScore = DBH_Package × Acres',
-    pph: '2.0',
-    rate: `$${BILLING_RATES['forestry-mulching']}/hr`,
-    example: getExampleCalculation('forestry-mulching'),
+    description: 'Clear brush and trees up to 15" diameter',
+    typical: '1-8 hours depending on acreage and tree size',
   },
   {
     service: 'Land Clearing',
-    formula: 'ClearingScore = Acres × (DBH ÷ 12) × Height',
-    pph: '10.6',
-    rate: `$${BILLING_RATES['land-clearing']}/hr`,
-    example: getExampleCalculation('land-clearing'),
+    description: 'Complete lot preparation for construction',
+    typical: 'Custom quote based on property assessment',
   },
   {
     service: 'Stump Grinding',
-    formula: 'StumpScore = DBH² × (Height + Depth)',
-    pph: '8,000',
-    rate: `$${BILLING_RATES['stump-grinding']}/hr`,
-    example: getExampleCalculation('stump-grinding'),
+    description: 'Remove stumps below grade',
+    typical: 'Priced per stump based on diameter',
   },
   {
-    service: 'Tree Removal',
-    formula: 'TreeScore = H × (D ÷ 12) × R²',
-    pph: '5,400',
-    rate: `$${BILLING_RATES['tree-removal']}/hr`,
-    example: getExampleCalculation('tree-removal'),
+    service: 'FreedomDrains',
+    description: 'HydroBlox drainage with lifetime guarantee',
+    typical: '$30-60 per linear foot',
   },
 ]
 
 export const metadata = {
-  title: 'Score-Based Pricing | TreeShop',
-  description: 'Transparent, formula-based pricing for forestry mulching, land clearing, and stump grinding. Know the math behind your quote.',
+  title: 'Transparent Pricing | TreeShop',
+  description: 'Fair, consistent pricing for forestry mulching, land clearing, and stump grinding in Central Florida.',
 }
 
 export default function PricingPage() {
@@ -44,54 +35,48 @@ export default function PricingPage() {
       {/* Hero */}
       <section className="py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
         <div className="max-w-7xl mx-auto px-4">
-          <h1 className="text-4xl lg:text-5xl font-bold mb-4">Score-Based Pricing</h1>
+          <h1 className="text-4xl lg:text-5xl font-bold mb-4">Transparent Pricing</h1>
           <p className="text-xl text-gray-300 max-w-2xl">
-            No guessing. No gut-feel estimates. Every quote is calculated from measured inputs using documented formulas.
+            Every quote is calculated from measured inputs. No guessing, no hidden fees.
           </p>
         </div>
       </section>
 
-      {/* Master Formula */}
+      {/* Our Approach */}
       <section className="py-12 bg-gray-950">
         <div className="max-w-4xl mx-auto px-4">
           <div className="bg-gray-800 rounded-xl p-8">
             <div className="flex items-center gap-3 mb-6">
-              <Calculator className="w-8 h-8 text-green-500" />
-              <h2 className="text-2xl font-bold">The Master Formula</h2>
+              <Shield className="w-8 h-8 text-green-500" />
+              <h2 className="text-2xl font-bold">How We Price</h2>
             </div>
-            <div className="font-mono text-lg space-y-2 text-green-400">
-              <div>Production Hours = Score ÷ PPH</div>
-              <div>Line Item Cost = Hours × Billing Rate</div>
-              <div>Project Total = Line Items + Transport + Factors</div>
-            </div>
+            <p className="text-gray-300 mb-4">
+              We use a systematic approach based on 10 years of production data. Every quote considers:
+            </p>
+            <ul className="space-y-2 text-gray-300">
+              <li>• Property acreage</li>
+              <li>• Tree diameter and density</li>
+              <li>• Site access and terrain</li>
+              <li>• Distance from our base</li>
+            </ul>
             <p className="text-gray-400 mt-4">
-              All pricing targets <strong className="text-white">50% margin</strong>. We know our costs to the dollar.
+              The result? Consistent, fair pricing that reflects the actual work required.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Service Formulas */}
+      {/* Services */}
       <section className="py-20 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Service Formulas</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">Our Services</h2>
           <div className="grid md:grid-cols-2 gap-8">
-            {formulas.map((f) => (
-              <div key={f.service} className="bg-gray-800 rounded-xl p-6">
-                <h3 className="text-xl font-semibold mb-4 text-green-400">{f.service}</h3>
-                <div className="font-mono text-sm bg-gray-900 rounded-lg p-4 mb-4">
-                  {f.formula}
-                </div>
-                <div className="grid grid-cols-2 gap-4 text-sm mb-4">
-                  <div>
-                    <span className="text-gray-400">PPH:</span> <span className="font-semibold">{f.pph}</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-400">Rate:</span> <span className="font-semibold">{f.rate}</span>
-                  </div>
-                </div>
-                <div className="text-sm text-gray-400">
-                  <strong>Example:</strong> {f.example}
+            {services.map((s) => (
+              <div key={s.service} className="bg-gray-800 rounded-xl p-6">
+                <h3 className="text-xl font-semibold mb-3 text-green-400">{s.service}</h3>
+                <p className="text-gray-300 mb-4">{s.description}</p>
+                <div className="text-gray-400 text-sm">
+                  <strong>Typical project:</strong> {s.typical}
                 </div>
               </div>
             ))}
@@ -99,36 +84,26 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* DBH Packages */}
+      {/* Trust */}
       <section className="py-20 bg-gray-950">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-4">DBH Packages</h2>
-          <p className="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
-            DBH = Diameter at Breast Height (4.5&apos; from ground). We price based on the largest trees requiring clearing.
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold mb-4">The Price We Quote Is the Price You Pay</h2>
+          <p className="text-gray-400 max-w-2xl mx-auto mb-8">
+            No surprise fees. No "we found more than expected" upsells. Your written quote is guaranteed.
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
-            {(Object.entries(DBH_PACKAGES) as [string, { range: string; vegetation: string }][]).map(([pkg, info]) => (
-              <div key={pkg} className="bg-gray-800 rounded-xl p-4 text-center">
-                <div className="text-3xl font-bold text-green-400 mb-1">{pkg}&quot;</div>
-                <div className="text-sm text-gray-400">{info.range}</div>
-                <div className="text-xs text-gray-500 mt-2">{info.vegetation}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Transport */}
-      <section className="py-20 bg-gray-900">
-        <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-8">Transport Pricing</h2>
-          <div className="bg-gray-800 rounded-xl p-8 text-center">
-            <div className="text-5xl font-bold text-green-400 mb-2">${BILLING_RATES.transport}/hr</div>
-            <div className="text-gray-400 mb-4">Round-trip from base</div>
-            <p className="text-sm text-gray-500">
-              TreeShop HQ: 3634 Watermelon Lane, New Smyrna Beach, FL 32168<br />
-              Transport time calculated via actual route to your property.
-            </p>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-gray-800 rounded-lg p-6">
+              <div className="text-3xl font-bold text-green-400 mb-2">$1,800</div>
+              <div className="text-gray-400 text-sm">Minimum project size</div>
+            </div>
+            <div className="bg-gray-800 rounded-lg p-6">
+              <div className="text-3xl font-bold text-green-400 mb-2">25%</div>
+              <div className="text-gray-400 text-sm">Deposit to book</div>
+            </div>
+            <div className="bg-gray-800 rounded-lg p-6">
+              <div className="text-3xl font-bold text-green-400 mb-2">0</div>
+              <div className="text-gray-400 text-sm">Hidden fees</div>
+            </div>
           </div>
         </div>
       </section>

@@ -1,22 +1,15 @@
 import Link from 'next/link'
 import { Users, Truck, Shield, Award, Youtube, ArrowRight } from 'lucide-react'
 
-const equipment = [
-  { name: 'CAT 265 Skid Steer', rate: '$64.62/hr', description: 'Primary mulching platform (Upgrading 2026)', status: 'upgrading' },
-  { name: 'FAE Mulcher Head', rate: '$35.80/hr', description: 'Handles trees up to 10" DBH' },
-  { name: 'Fecon Blackhawk', rate: '$21.77/hr', description: 'Stump grinding specialist' },
-  { name: 'F450 Service Truck', rate: '$64.62/hr', description: 'Crew transport & support' },
-]
-
 const values = [
-  { icon: Shield, title: 'Transparency', description: 'DBH pricing means no surprises. You know the cost before we start.' },
-  { icon: Award, title: 'Craftsmanship', description: '16+ years refining our process. Every job done right.' },
+  { icon: Shield, title: 'Transparency', description: 'Consistent pricing means no surprises. You know the cost before we start.' },
+  { icon: Award, title: 'Craftsmanship', description: '10 years refining our process. Every job done right.' },
   { icon: Users, title: 'Family-Owned', description: 'Jeremiah & Lacey run every aspect. You work with owners, not employees.' },
 ]
 
 export const metadata = {
   title: 'About TreeShop | Central Florida Land Clearing Experts',
-  description: 'Meet the team behind TreeShop. 16+ years of forestry mulching and land clearing experience in Central Florida. Family-owned, transparent pricing.',
+  description: 'Meet the team behind TreeShop. 10 years of forestry mulching and land clearing experience in Central Florida. Family-owned, transparent pricing.',
 }
 
 export default function AboutPage() {
@@ -30,7 +23,7 @@ export default function AboutPage() {
               The Team Behind TreeShop
             </h1>
             <p className="text-xl text-gray-300">
-              Family-owned. Operator-run. 16 years of transforming Central Florida properties.
+              Family-owned. Operator-run. 10 years of transforming Central Florida properties.
             </p>
           </div>
         </div>
@@ -48,13 +41,13 @@ export default function AboutPage() {
                   Two companies quote the same job, get wildly different numbers. Neither can explain why.
                 </p>
                 <p>
-                  Jeremiah spent 16 years in the field, obsessing over the math. What actually drives job cost?
-                  Tree diameter. Density. Access. He built scoring formulas—MulchingScore, StumpScore, TreeScore—that
-                  turn gut-feel estimates into predictable pricing.
+                  Jeremiah spent 10 years in the field, obsessing over the math. What actually drives job cost?
+                  Tree diameter. Density. Access. He built a systematic pricing approach that
+                  turns gut-feel estimates into predictable quotes.
                 </p>
                 <p>
                   Today, TreeShop runs on those systems. Every quote is calculated, not guessed.
-                  That&apos;s why we can show you the breakdown. That&apos;s why there are no surprises.
+                  That&apos;s why our pricing is consistent. That&apos;s why there are no surprises.
                 </p>
                 <p>
                   Lacey handles operations, keeping jobs on schedule and customers informed.
