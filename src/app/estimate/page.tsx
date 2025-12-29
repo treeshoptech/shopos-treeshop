@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { Trees, CircleDot, Droplets, Shovel, ArrowRight, ArrowLeft, MapPin, User, Phone, Mail, CheckCircle, Loader2 } from 'lucide-react'
 import { MetaEvents } from '@/components/analytics/MetaPixel'
 import { Header, Footer } from '@/components/layout'
+import MapboxAddressInput from '@/components/MapboxAddressInput'
 
 const services = [
   { id: 'forestry-mulching', name: 'Forestry Mulching', description: 'Clear brush and trees up to 15" DBH, leave mulch behind', icon: Trees },
@@ -44,6 +45,7 @@ export default function EstimatePage() {
 
   const [selectedService, setSelectedService] = useState<string | null>(null)
   const [address, setAddress] = useState('')
+  const [coordinates, setCoordinates] = useState<{ lat: number; lng: number } | null>(null)
   const [acres, setAcres] = useState<number>(1)
   const [dbh, setDbh] = useState<number>(6)
   const [stumpCount, setStumpCount] = useState<number>(1)
@@ -180,12 +182,13 @@ export default function EstimatePage() {
                     <MapPin className="w-4 h-4 inline mr-2" />
                     Property Address (optional)
                   </label>
-                  <input
-                    type="text"
+                  <MapboxAddressInput
                     value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    placeholder="123 Main St, City, FL"
-                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3"
+                    onChange={(addr, coords) => {
+                      setAddress(addr)
+                      if (coords) setCoordinates(coords)
+                    }}
+                    placeholder="Start typing your address..."
                   />
                 </div>
 
