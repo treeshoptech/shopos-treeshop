@@ -82,7 +82,7 @@ export default function HomePage() {
       <Header />
       <div>
         {/* Hero Section */}
-        <section className="relative py-20 lg:py-28 bg-gradient-to-br from-gray-900 via-green-900/20 to-gray-900 overflow-hidden">
+        <section className="relative py-20 lg:py-28 bg-gradient-to-br from-gray-900 via-blue-900/30 to-gray-900 overflow-hidden">
           <div className="max-w-7xl mx-auto px-4">
             <div className="max-w-3xl">
               <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
@@ -99,7 +99,7 @@ export default function HomePage() {
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <Link
                   href="/estimate"
-                  className="inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
+                  className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
                 >
                   Get Your Free Quote <ArrowRight className="w-5 h-5" />
                 </Link>
@@ -113,15 +113,15 @@ export default function HomePage() {
 
               <div className="flex flex-wrap items-center gap-6 text-sm text-gray-400">
                 <span className="flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500" />
+                  <CheckCircle className="w-5 h-5 text-blue-500" />
                   Licensed & Insured
                 </span>
                 <span className="flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500" />
+                  <CheckCircle className="w-5 h-5 text-blue-500" />
                   Free Estimates
                 </span>
                 <span className="flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-500" />
+                  <CheckCircle className="w-5 h-5 text-blue-500" />
                   Same-Day Quotes
                 </span>
               </div>
@@ -135,7 +135,7 @@ export default function HomePage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {stats.map((stat) => (
                 <div key={stat.label} className="text-center">
-                  <div className="text-3xl lg:text-4xl font-bold text-green-400">
+                  <div className="text-3xl lg:text-4xl font-bold text-blue-400">
                     {stat.value}
                   </div>
                   <div className="text-gray-400 text-sm mt-1">{stat.label}</div>
@@ -161,17 +161,17 @@ export default function HomePage() {
                 <Link
                   key={service.title}
                   href={service.href}
-                  className="group bg-gray-800 rounded-2xl p-8 hover:ring-2 hover:ring-green-500/50 transition-all relative overflow-hidden"
+                  className="group bg-gray-800 rounded-2xl p-8 hover:ring-2 hover:ring-blue-500/50 transition-all relative overflow-hidden"
                 >
                   {service.badge && (
                     <div className="absolute top-4 right-4 bg-blue-600 text-xs px-3 py-1 rounded-full">
                       {service.badge}
                     </div>
                   )}
-                  <div className="w-14 h-14 bg-green-600/20 rounded-xl flex items-center justify-center mb-6">
-                    <service.icon className="w-7 h-7 text-green-400" />
+                  <div className="w-14 h-14 bg-blue-600/20 rounded-xl flex items-center justify-center mb-6">
+                    <service.icon className="w-7 h-7 text-blue-400" />
                   </div>
-                  <h3 className="text-2xl font-bold mb-3 group-hover:text-green-400 transition-colors">
+                  <h3 className="text-2xl font-bold mb-3 group-hover:text-blue-400 transition-colors">
                     {service.title}
                   </h3>
                   <p className="text-gray-400 mb-4">{service.description}</p>
@@ -182,7 +182,7 @@ export default function HomePage() {
                       </li>
                     ))}
                   </ul>
-                  <span className="inline-flex items-center gap-2 text-green-400 font-medium">
+                  <span className="inline-flex items-center gap-2 text-blue-400 font-medium">
                     Learn More <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </span>
                 </Link>
@@ -190,7 +190,7 @@ export default function HomePage() {
             </div>
 
             <div className="text-center mt-8">
-              <Link href="/services" className="text-green-400 hover:underline">
+              <Link href="/services" className="text-blue-400 hover:underline">
                 View All Services →
               </Link>
             </div>
@@ -212,8 +212,8 @@ export default function HomePage() {
 
                 <div className="space-y-6">
                   <div className="flex gap-4">
-                    <div className="w-12 h-12 bg-green-600/20 rounded-lg flex items-center justify-center shrink-0">
-                      <Shield className="w-6 h-6 text-green-400" />
+                    <div className="w-12 h-12 bg-blue-600/20 rounded-lg flex items-center justify-center shrink-0">
+                      <Shield className="w-6 h-6 text-blue-400" />
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">Transparent Pricing</h3>
@@ -224,8 +224,8 @@ export default function HomePage() {
                   </div>
 
                   <div className="flex gap-4">
-                    <div className="w-12 h-12 bg-green-600/20 rounded-lg flex items-center justify-center shrink-0">
-                      <Clock className="w-6 h-6 text-green-400" />
+                    <div className="w-12 h-12 bg-blue-600/20 rounded-lg flex items-center justify-center shrink-0">
+                      <Clock className="w-6 h-6 text-blue-400" />
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">Fast Turnaround</h3>
@@ -236,8 +236,8 @@ export default function HomePage() {
                   </div>
 
                   <div className="flex gap-4">
-                    <div className="w-12 h-12 bg-green-600/20 rounded-lg flex items-center justify-center shrink-0">
-                      <Award className="w-6 h-6 text-green-400" />
+                    <div className="w-12 h-12 bg-blue-600/20 rounded-lg flex items-center justify-center shrink-0">
+                      <Award className="w-6 h-6 text-blue-400" />
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">10 Years Experience</h3>
@@ -248,8 +248,8 @@ export default function HomePage() {
                   </div>
 
                   <div className="flex gap-4">
-                    <div className="w-12 h-12 bg-green-600/20 rounded-lg flex items-center justify-center shrink-0">
-                      <Users className="w-6 h-6 text-green-400" />
+                    <div className="w-12 h-12 bg-blue-600/20 rounded-lg flex items-center justify-center shrink-0">
+                      <Users className="w-6 h-6 text-blue-400" />
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">Local & Family-Owned</h3>
@@ -270,7 +270,7 @@ export default function HomePage() {
                 <div className="space-y-4">
                   <Link
                     href="/estimate"
-                    className="block text-center bg-green-600 hover:bg-green-700 py-4 rounded-lg font-semibold transition-colors"
+                    className="block text-center bg-blue-600 hover:bg-blue-700 py-4 rounded-lg font-semibold transition-colors"
                   >
                     Use Online Estimator
                   </Link>
@@ -306,7 +306,7 @@ export default function HomePage() {
                   {index < process.length - 1 && (
                     <div className="hidden md:block absolute top-6 left-1/2 w-full h-0.5 bg-gray-700" />
                   )}
-                  <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 relative z-10">
+                  <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4 relative z-10">
                     {item.step}
                   </div>
                   <h3 className="font-semibold mb-2">{item.title}</h3>
@@ -326,7 +326,7 @@ export default function HomePage() {
               href="https://www.google.com/search?q=TreeShop+LLC+New+Smyrna+Beach+reviews"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 px-8 py-4 rounded-lg font-semibold"
+              className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-lg font-semibold"
             >
               Read Reviews on Google <ArrowRight className="w-5 h-5" />
             </a>
@@ -348,7 +348,7 @@ export default function HomePage() {
                 <Link
                   key={area}
                   href={`/areas/${area.toLowerCase().replace(/ /g, '-')}`}
-                  className="bg-gray-800 hover:bg-gray-750 hover:ring-1 hover:ring-green-500/50 rounded-lg px-4 py-3 text-center text-sm transition-all"
+                  className="bg-gray-800 hover:bg-gray-750 hover:ring-1 hover:ring-blue-500/50 rounded-lg px-4 py-3 text-center text-sm transition-all"
                 >
                   {area}
                 </Link>
@@ -358,7 +358,7 @@ export default function HomePage() {
             <div className="text-center">
               <Link
                 href="/areas"
-                className="inline-flex items-center gap-2 text-green-400 hover:underline"
+                className="inline-flex items-center gap-2 text-blue-400 hover:underline"
               >
                 View All 32 Service Areas <ArrowRight className="w-4 h-4" />
               </Link>
@@ -383,10 +383,10 @@ export default function HomePage() {
                   href={resource.href}
                   target={resource.external ? '_blank' : undefined}
                   rel={resource.external ? 'noopener noreferrer' : undefined}
-                  className="bg-gray-800 rounded-xl p-6 hover:ring-2 hover:ring-green-500/50 transition-all group"
+                  className="bg-gray-800 rounded-xl p-6 hover:ring-2 hover:ring-blue-500/50 transition-all group"
                 >
-                  <resource.icon className="w-10 h-10 text-green-400 mb-4" />
-                  <h3 className="font-semibold mb-1 group-hover:text-green-400">{resource.title}</h3>
+                  <resource.icon className="w-10 h-10 text-blue-400 mb-4" />
+                  <h3 className="font-semibold mb-1 group-hover:text-blue-400">{resource.title}</h3>
                   <p className="text-gray-400 text-sm">{resource.description}</p>
                 </Link>
               ))}
@@ -395,24 +395,24 @@ export default function HomePage() {
         </section>
 
         {/* Final CTA */}
-        <section className="py-20 bg-green-600">
+        <section className="py-20 bg-blue-600">
           <div className="max-w-4xl mx-auto px-4 text-center">
             <h2 className="text-3xl lg:text-4xl font-bold mb-4">
               Ready to Clear Your Property?
             </h2>
-            <p className="text-green-100 text-xl mb-8">
+            <p className="text-blue-100 text-xl mb-8">
               Get your free quote in minutes. No obligation, no pressure.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/estimate"
-                className="inline-flex items-center justify-center gap-2 bg-white text-green-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
+                className="inline-flex items-center justify-center gap-2 bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
               >
                 Get Your Free Quote <ArrowRight className="w-5 h-5" />
               </Link>
               <a
                 href="tel:3868435266"
-                className="inline-flex items-center justify-center gap-2 border-2 border-white hover:bg-green-700 px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
+                className="inline-flex items-center justify-center gap-2 border-2 border-white hover:bg-blue-700 px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
               >
                 <Phone className="w-5 h-5" /> (386) 843-5266
               </a>

@@ -25,6 +25,7 @@ const mainNavItems: NavItem[] = [
   },
   { label: 'Areas We Serve', href: '/areas' },
   { label: 'Pricing', href: '/pricing' },
+  { label: 'Resources', href: '/resources' },
   { label: 'Gallery', href: '/gallery' },
   { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },
@@ -58,12 +59,12 @@ export function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-gray-900 border-b border-gray-800">
+      <header className="sticky top-0 z-50 bg-black border-b border-gray-800">
         {/* Top utility bar */}
-        <div className="bg-gray-950 py-2 px-4 text-sm hidden md:block">
+        <div className="bg-black/50 py-2 px-4 text-sm hidden md:block">
           <div className="max-w-7xl mx-auto flex justify-between items-center">
             <div className="flex items-center gap-4 text-gray-400">
-              <a href="tel:3868435266" className="flex items-center gap-1 hover:text-white">
+              <a href="tel:3868435266" className="flex items-center gap-1 hover:text-blue-400">
                 <Phone className="w-4 h-4" />
                 (386) 843-5266
               </a>
@@ -71,12 +72,11 @@ export function Header() {
               <span>Central Florida&apos;s Land Clearing Experts</span>
             </div>
             <div className="flex items-center gap-4">
-              <Link href="/resources" className="hover:text-green-400">Resources</Link>
-              <Link href="/store/book" className="text-orange-400 hover:text-orange-300 font-medium">
+              <Link href="/store/book" className="text-blue-400 hover:text-blue-300 font-medium">
                 Book Online →
               </Link>
               <span className="text-gray-600">|</span>
-              <Link href="/pro" className="text-purple-400 hover:text-purple-300">
+              <Link href="/pro" className="text-blue-400 hover:text-blue-300">
                 For Operators →
               </Link>
             </div>
@@ -134,7 +134,7 @@ export function Header() {
             <div className="flex items-center gap-4">
               <Link
                 href={ctaHref}
-                className="hidden md:block bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+                className="hidden md:block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
               >
                 {ctaText}
               </Link>
