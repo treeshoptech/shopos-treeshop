@@ -45,7 +45,7 @@ export default function GalleryPage() {
                 onClick={() => setFilter(service)}
                 className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors ${
                   filter === service
-                    ? 'bg-green-600 text-white'
+                    ? 'bg-blue-600 text-white'
                     : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                 }`}
               >
@@ -70,7 +70,7 @@ export default function GalleryPage() {
                   <div className="absolute top-2 left-2 bg-black/70 px-2 py-1 rounded text-xs">
                     Before
                   </div>
-                  <div className="absolute top-2 right-2 bg-green-600/90 px-2 py-1 rounded text-xs">
+                  <div className="absolute top-2 right-2 bg-blue-600/90 px-2 py-1 rounded text-xs">
                     After
                   </div>
                 </div>

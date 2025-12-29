@@ -73,7 +73,7 @@ export default async function LocationPage({ params }: Props) {
       {/* Hero */}
       <section className="py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center gap-2 text-green-400 mb-4">
+          <div className="flex items-center gap-2 text-blue-400 mb-4">
             <Link href="/areas" className="hover:underline">Service Areas</Link>
             <span>/</span>
             <span>{location.county} County</span>
@@ -101,7 +101,7 @@ export default async function LocationPage({ params }: Props) {
           <div className="flex flex-col sm:flex-row gap-4 mt-8">
             <Link
               href={`/estimate?location=${location.slug}`}
-              className="inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 px-6 py-4 rounded-lg font-semibold text-lg"
+              className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 px-6 py-4 rounded-lg font-semibold text-lg"
             >
               Get a Free Quote
               <ArrowRight className="w-5 h-5" />
@@ -126,14 +126,14 @@ export default async function LocationPage({ params }: Props) {
               <Link
                 key={service.name}
                 href={service.href}
-                className="group bg-gray-800 rounded-xl p-6 hover:ring-2 hover:ring-green-500/50 transition-all"
+                className="group bg-gray-800 rounded-xl p-6 hover:ring-2 hover:ring-blue-500/50 transition-all"
               >
-                <service.icon className="w-10 h-10 text-green-500 mb-4" />
-                <h3 className="text-xl font-semibold mb-2 group-hover:text-green-400 transition-colors">
+                <service.icon className="w-10 h-10 text-blue-500 mb-4" />
+                <h3 className="text-xl font-semibold mb-2 group-hover:text-blue-400 transition-colors">
                   {service.name}
                 </h3>
                 <p className="text-gray-400 text-sm mb-3">{service.description}</p>
-                <div className="text-green-400 font-semibold">{service.rate}</div>
+                <div className="text-blue-400 font-semibold">{service.rate}</div>
               </Link>
             ))}
           </div>
@@ -152,7 +152,7 @@ export default async function LocationPage({ params }: Props) {
               <ul className="space-y-2">
                 {location.localFeatures.map((feature, i) => (
                   <li key={i} className="flex items-center gap-3 text-gray-300">
-                    <CheckCircle className="w-5 h-5 text-green-500 shrink-0" />
+                    <CheckCircle className="w-5 h-5 text-blue-500 shrink-0" />
                     {feature}
                   </li>
                 ))}
@@ -172,7 +172,7 @@ export default async function LocationPage({ params }: Props) {
               {transportCost > 0 && (
                 <div className="mt-8 bg-gray-800 rounded-xl p-6">
                   <h3 className="font-semibold mb-2">Transport to {location.city}</h3>
-                  <div className="text-3xl font-bold text-green-400 mb-2">
+                  <div className="text-3xl font-bold text-blue-400 mb-2">
                     ${transportCost}
                   </div>
                   <p className="text-gray-400 text-sm">
@@ -207,23 +207,23 @@ export default async function LocationPage({ params }: Props) {
       )}
 
       {/* CTA */}
-      <section className="py-20 bg-green-600">
+      <section className="py-20 bg-blue-600">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Clear Your {location.city} Property?</h2>
-          <p className="text-green-100 mb-8">
+          <p className="text-blue-100 mb-8">
             Get a score-based quote in minutes. No guessing, no surprises.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href={`/estimate?location=${location.slug}`}
-              className="inline-flex items-center justify-center gap-2 bg-white text-green-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg"
+              className="inline-flex items-center justify-center gap-2 bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg"
             >
               Get Your Quote
               <ArrowRight className="w-5 h-5" />
             </Link>
             <a
               href="tel:3868435266"
-              className="inline-flex items-center justify-center gap-2 border-2 border-white hover:bg-green-700 px-8 py-4 rounded-lg font-semibold text-lg"
+              className="inline-flex items-center justify-center gap-2 border-2 border-white hover:bg-blue-700 px-8 py-4 rounded-lg font-semibold text-lg"
             >
               <Phone className="w-5 h-5" />
               (386) 843-5266

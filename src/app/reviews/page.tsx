@@ -39,7 +39,7 @@ export default function ReviewsPage() {
               href="https://www.google.com/search?q=TreeShop+LLC+New+Smyrna+Beach+reviews"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 px-8 py-4 rounded-lg font-semibold text-lg"
+              className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-lg font-semibold text-lg"
             >
               View Reviews on Google <ExternalLink className="w-5 h-5" />
             </a>
@@ -52,33 +52,33 @@ export default function ReviewsPage() {
           {/* Why Trust Us */}
           <div className="mt-12 grid md:grid-cols-3 gap-6">
             <div className="bg-gray-800 rounded-xl p-6 text-center">
-              <div className="text-3xl font-bold text-green-400 mb-2">500+</div>
+              <div className="text-3xl font-bold text-blue-400 mb-2">500+</div>
               <div className="text-gray-400">Projects Completed</div>
             </div>
             <div className="bg-gray-800 rounded-xl p-6 text-center">
-              <div className="text-3xl font-bold text-green-400 mb-2">10</div>
+              <div className="text-3xl font-bold text-blue-400 mb-2">10</div>
               <div className="text-gray-400">Years in Business</div>
             </div>
             <div className="bg-gray-800 rounded-xl p-6 text-center">
-              <div className="text-3xl font-bold text-green-400 mb-2">32</div>
+              <div className="text-3xl font-bold text-blue-400 mb-2">32</div>
               <div className="text-gray-400">Cities Served</div>
             </div>
           </div>
 
           {/* CTA */}
-          <div className="mt-12 bg-green-600 rounded-2xl p-8 text-center">
+          <div className="mt-12 bg-blue-600 rounded-2xl p-8 text-center">
             <h2 className="text-2xl font-bold mb-4">Ready to Get Started?</h2>
-            <p className="text-green-100 mb-6">Join the hundreds of satisfied customers across Central Florida.</p>
+            <p className="text-blue-100 mb-6">Join the hundreds of satisfied customers across Central Florida.</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/estimate"
-                className="inline-flex items-center justify-center gap-2 bg-white text-green-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold"
+                className="inline-flex items-center justify-center gap-2 bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold"
               >
                 Get Your Free Quote <ArrowRight className="w-5 h-5" />
               </Link>
               <a
                 href="tel:3868435266"
-                className="inline-flex items-center justify-center gap-2 border-2 border-white hover:bg-green-700 px-8 py-4 rounded-lg font-semibold"
+                className="inline-flex items-center justify-center gap-2 border-2 border-white hover:bg-blue-700 px-8 py-4 rounded-lg font-semibold"
               >
                 Call (386) 843-5266
               </a>

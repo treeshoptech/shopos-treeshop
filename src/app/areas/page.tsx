@@ -14,7 +14,7 @@ export default function AreasPage() {
       <section className="py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center gap-3 mb-4">
-            <MapPin className="w-10 h-10 text-green-500" />
+            <MapPin className="w-10 h-10 text-blue-500" />
             <h1 className="text-4xl font-bold">Service Areas</h1>
           </div>
           <p className="text-xl text-gray-300 max-w-2xl mb-6">
@@ -47,9 +47,9 @@ export default function AreasPage() {
                     <Link
                       key={location.slug}
                       href={`/areas/${location.slug}`}
-                      className="group bg-gray-800 hover:bg-gray-750 rounded-lg p-4 transition-all hover:ring-2 hover:ring-green-500/50"
+                      className="group bg-gray-800 hover:bg-gray-750 rounded-lg p-4 transition-all hover:ring-2 hover:ring-blue-500/50"
                     >
-                      <div className="font-medium group-hover:text-green-400 transition-colors">
+                      <div className="font-medium group-hover:text-blue-400 transition-colors">
                         {location.city}
                       </div>
                       {location.distanceFromHQ > 0 && (
@@ -58,7 +58,7 @@ export default function AreasPage() {
                         </div>
                       )}
                       {location.tier === 1 && (
-                        <div className="text-xs text-green-500 mt-1">Primary</div>
+                        <div className="text-xs text-blue-500 mt-1">Primary</div>
                       )}
                     </Link>
                   ))}
@@ -94,7 +94,7 @@ export default function AreasPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="tel:3868435266"
-              className="inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 px-6 py-3 rounded-lg font-semibold"
+              className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-semibold"
             >
               <Phone className="w-5 h-5" />
               (386) 843-5266

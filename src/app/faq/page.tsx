@@ -70,7 +70,7 @@ export default function FAQPage() {
         <div className="max-w-4xl mx-auto px-4">
           {faqCategories.map((category) => (
             <div key={category.name} className="mb-12">
-              <h2 className="text-2xl font-bold mb-6 text-green-400">{category.name}</h2>
+              <h2 className="text-2xl font-bold mb-6 text-blue-400">{category.name}</h2>
               <div className="space-y-4">
                 {category.faqs.map((faq, i) => (
                   <details
@@ -102,7 +102,7 @@ export default function FAQPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 px-6 py-3 rounded-lg font-medium"
+              className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium"
             >
               Contact Us
               <ArrowRight className="w-4 h-4" />

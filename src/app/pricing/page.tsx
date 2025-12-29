@@ -47,7 +47,7 @@ export default function PricingPage() {
         <div className="max-w-4xl mx-auto px-4">
           <div className="bg-gray-800 rounded-xl p-8">
             <div className="flex items-center gap-3 mb-6">
-              <Shield className="w-8 h-8 text-green-500" />
+              <Shield className="w-8 h-8 text-blue-500" />
               <h2 className="text-2xl font-bold">How We Price</h2>
             </div>
             <p className="text-gray-300 mb-4">
@@ -73,7 +73,7 @@ export default function PricingPage() {
           <div className="grid md:grid-cols-2 gap-8">
             {services.map((s) => (
               <div key={s.service} className="bg-gray-800 rounded-xl p-6">
-                <h3 className="text-xl font-semibold mb-3 text-green-400">{s.service}</h3>
+                <h3 className="text-xl font-semibold mb-3 text-blue-400">{s.service}</h3>
                 <p className="text-gray-300 mb-4">{s.description}</p>
                 <div className="text-gray-400 text-sm">
                   <strong>Typical project:</strong> {s.typical}
@@ -93,15 +93,15 @@ export default function PricingPage() {
           </p>
           <div className="grid md:grid-cols-3 gap-6">
             <div className="bg-gray-800 rounded-lg p-6">
-              <div className="text-3xl font-bold text-green-400 mb-2">$1,800</div>
+              <div className="text-3xl font-bold text-blue-400 mb-2">$1,800</div>
               <div className="text-gray-400 text-sm">Minimum project size</div>
             </div>
             <div className="bg-gray-800 rounded-lg p-6">
-              <div className="text-3xl font-bold text-green-400 mb-2">25%</div>
+              <div className="text-3xl font-bold text-blue-400 mb-2">25%</div>
               <div className="text-gray-400 text-sm">Deposit to book</div>
             </div>
             <div className="bg-gray-800 rounded-lg p-6">
-              <div className="text-3xl font-bold text-green-400 mb-2">0</div>
+              <div className="text-3xl font-bold text-blue-400 mb-2">0</div>
               <div className="text-gray-400 text-sm">Hidden fees</div>
             </div>
           </div>
@@ -109,13 +109,13 @@ export default function PricingPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-green-600">
+      <section className="py-20 bg-blue-600">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">See Your Quote Calculated</h2>
-          <p className="text-green-100 mb-8">Enter your property details. Watch the math work.</p>
+          <p className="text-blue-100 mb-8">Enter your property details. Watch the math work.</p>
           <Link
             href="/estimate"
-            className="inline-flex items-center gap-2 bg-white text-green-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg"
+            className="inline-flex items-center gap-2 bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg"
           >
             Get Your Quote
             <ArrowRight className="w-5 h-5" />

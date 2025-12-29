@@ -106,7 +106,7 @@ export default function FrenchDrainLifespanPage() {
     <div className="min-h-screen bg-gray-900">
       <div className="max-w-3xl mx-auto px-4 py-12">
         <div className="flex items-center gap-3 mb-2">
-          <Clock className="w-8 h-8 text-yellow-500" />
+          <Clock className="w-8 h-8 text-blue-500" />
           <h1 className="text-3xl font-bold">French Drain Failure Predictor</h1>
         </div>
         <p className="text-gray-400 mb-8">
@@ -134,7 +134,7 @@ export default function FrenchDrainLifespanPage() {
                     key={s}
                     onClick={() => setSoilType(s)}
                     className={`p-3 rounded-lg capitalize ${
-                      soilType === s ? 'bg-yellow-600' : 'bg-gray-700'
+                      soilType === s ? 'bg-blue-600' : 'bg-gray-700'
                     }`}
                   >
                     {s}
@@ -152,7 +152,7 @@ export default function FrenchDrainLifespanPage() {
                     key={f}
                     onClick={() => setFabricUsed(f)}
                     className={`p-3 rounded-lg capitalize ${
-                      fabricUsed === f ? 'bg-yellow-600' : 'bg-gray-700'
+                      fabricUsed === f ? 'bg-blue-600' : 'bg-gray-700'
                     }`}
                   >
                     {f === 'unknown' ? "Don't know" : f}
@@ -169,13 +169,13 @@ export default function FrenchDrainLifespanPage() {
                     key={symptom.id}
                     onClick={() => toggleSymptom(symptom.id)}
                     className={`w-full p-3 rounded-lg text-left flex items-center gap-3 ${
-                      selectedSymptoms.includes(symptom.id) ? 'bg-yellow-600' : 'bg-gray-700'
+                      selectedSymptoms.includes(symptom.id) ? 'bg-blue-600' : 'bg-gray-700'
                     }`}
                   >
                     <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
                       selectedSymptoms.includes(symptom.id) ? 'bg-white border-white' : 'border-gray-500'
                     }`}>
-                      {selectedSymptoms.includes(symptom.id) && <Check className="w-4 h-4 text-yellow-600" />}
+                      {selectedSymptoms.includes(symptom.id) && <Check className="w-4 h-4 text-blue-600" />}
                     </div>
                     {symptom.label}
                   </button>
@@ -186,7 +186,7 @@ export default function FrenchDrainLifespanPage() {
             <button
               onClick={calculate}
               disabled={!age}
-              className="w-full bg-yellow-600 hover:bg-yellow-700 disabled:bg-gray-600 py-4 rounded-lg font-semibold text-lg"
+              className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 py-4 rounded-lg font-semibold text-lg"
             >
               Check My Drain
             </button>
@@ -214,7 +214,7 @@ export default function FrenchDrainLifespanPage() {
 
             <div className="bg-gray-800 rounded-xl p-8">
               <div className="flex items-center gap-3 mb-4">
-                <Lock className="w-6 h-6 text-yellow-400" />
+                <Lock className="w-6 h-6 text-blue-400" />
                 <h3 className="text-xl font-semibold">Get Your Drain Report Card</h3>
               </div>
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -228,7 +228,7 @@ export default function FrenchDrainLifespanPage() {
                 />
                 <button
                   type="submit"
-                  className="w-full bg-yellow-600 hover:bg-yellow-700 py-4 rounded-lg font-semibold"
+                  className="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-lg font-semibold"
                 >
                   Send My Report Card
                 </button>

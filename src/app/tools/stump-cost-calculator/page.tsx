@@ -36,7 +36,7 @@ export default function StumpCostCalculatorPage() {
     <div className="min-h-screen bg-gray-900">
       <div className="max-w-3xl mx-auto px-4 py-12">
         <div className="flex items-center gap-3 mb-2">
-          <CircleDot className="w-8 h-8 text-green-500" />
+          <CircleDot className="w-8 h-8 text-blue-500" />
           <h1 className="text-3xl font-bold">Stump Cost Calculator</h1>
         </div>
         <p className="text-gray-400 mb-2">
@@ -51,7 +51,7 @@ export default function StumpCostCalculatorPage() {
             <h2 className="text-xl font-semibold">Your Stumps</h2>
             <button
               onClick={addStump}
-              className="flex items-center gap-2 text-green-400 hover:text-green-300"
+              className="flex items-center gap-2 text-blue-400 hover:text-blue-300"
             >
               <Plus className="w-5 h-5" /> Add Stump
             </button>
@@ -109,12 +109,12 @@ export default function StumpCostCalculatorPage() {
           </div>
 
           {estimate && (
-            <div className="mt-8 bg-green-900/30 border border-green-600/50 rounded-xl p-6">
+            <div className="mt-8 bg-blue-900/30 border border-blue-600/50 rounded-xl p-6">
               <div className="flex items-center gap-3 mb-4">
-                <Calculator className="w-8 h-8 text-green-400" />
+                <Calculator className="w-8 h-8 text-blue-400" />
                 <div>
-                  <div className="text-sm text-green-400">Total Estimate</div>
-                  <div className="text-4xl font-bold text-green-400">
+                  <div className="text-sm text-blue-400">Total Estimate</div>
+                  <div className="text-4xl font-bold text-blue-400">
                     {formatCurrency(estimate.total)}
                   </div>
                 </div>
@@ -143,7 +143,7 @@ export default function StumpCostCalculatorPage() {
             <div className="mt-6 text-center">
               <a
                 href={`/estimate?service=stump-grinding`}
-                className="inline-block bg-green-600 hover:bg-green-700 px-8 py-4 rounded-lg font-semibold"
+                className="inline-block bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-lg font-semibold"
               >
                 Get Official Quote
               </a>

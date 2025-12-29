@@ -73,7 +73,7 @@ export default function ToolsPage() {
       <section className="py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center gap-3 mb-4">
-            <Calculator className="w-10 h-10 text-green-500" />
+            <Calculator className="w-10 h-10 text-blue-500" />
             <h1 className="text-4xl font-bold">Free Tools</h1>
           </div>
           <p className="text-xl text-gray-300 max-w-2xl">
@@ -92,13 +92,13 @@ export default function ToolsPage() {
                   <Link
                     key={tool.id}
                     href={tool.href}
-                    className="group bg-gray-800 rounded-xl p-6 hover:bg-gray-750 transition-all hover:ring-2 hover:ring-green-500/50"
+                    className="group bg-gray-800 rounded-xl p-6 hover:bg-gray-750 transition-all hover:ring-2 hover:ring-blue-500/50"
                   >
                     <div className="flex items-start gap-4">
-                      <tool.icon className="w-10 h-10 text-green-500 shrink-0" />
+                      <tool.icon className="w-10 h-10 text-blue-500 shrink-0" />
                       <div className="flex-1">
                         <div className="flex items-center gap-2">
-                          <h3 className="text-xl font-semibold group-hover:text-green-400 transition-colors">
+                          <h3 className="text-xl font-semibold group-hover:text-blue-400 transition-colors">
                             {tool.name}
                           </h3>
                           {tool.gated && (

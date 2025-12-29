@@ -18,7 +18,7 @@ export default function BlogPage() {
       <section className="py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center gap-3 mb-4">
-            <BookOpen className="w-10 h-10 text-green-500" />
+            <BookOpen className="w-10 h-10 text-blue-500" />
             <h1 className="text-4xl font-bold">TreeShop Blog</h1>
           </div>
           <p className="text-xl text-gray-300 max-w-2xl">
@@ -53,7 +53,7 @@ export default function BlogPage() {
             {posts.map((post) => (
               <article
                 key={post.slug}
-                className="bg-gray-800 rounded-xl overflow-hidden hover:ring-2 hover:ring-green-500/50 transition-all group"
+                className="bg-gray-800 rounded-xl overflow-hidden hover:ring-2 hover:ring-blue-500/50 transition-all group"
               >
                 {post.featuredImage && (
                   <div className="aspect-video bg-gray-700">
@@ -70,7 +70,7 @@ export default function BlogPage() {
                       {post.readingTime} min read
                     </span>
                   </div>
-                  <h2 className="text-xl font-bold mb-2 group-hover:text-green-400 transition-colors">
+                  <h2 className="text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors">
                     <Link href={`/blog/${post.slug}`}>
                       {post.title}
                     </Link>
@@ -88,7 +88,7 @@ export default function BlogPage() {
                     </span>
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="text-green-400 text-sm flex items-center gap-1 hover:underline"
+                      className="text-blue-400 text-sm flex items-center gap-1 hover:underline"
                     >
                       Read more <ArrowRight className="w-4 h-4" />
                     </Link>

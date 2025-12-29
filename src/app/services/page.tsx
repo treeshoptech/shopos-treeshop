@@ -65,16 +65,16 @@ export default function ServicesPage() {
               <Link
                 key={service.id}
                 href={service.href}
-                className="group bg-gray-800 rounded-xl p-8 hover:bg-gray-750 transition-all hover:ring-2 hover:ring-green-500/50"
+                className="group bg-gray-800 rounded-xl p-8 hover:bg-gray-750 transition-all hover:ring-2 hover:ring-blue-500/50"
               >
-                <service.icon className="w-12 h-12 text-green-500 mb-4" />
-                <h2 className="text-2xl font-bold mb-2 group-hover:text-green-400 transition-colors">
+                <service.icon className="w-12 h-12 text-blue-500 mb-4" />
+                <h2 className="text-2xl font-bold mb-2 group-hover:text-blue-400 transition-colors">
                   {service.name}
                 </h2>
                 <p className="text-gray-400 mb-4">{service.description}</p>
                 <div className="flex items-center justify-between">
-                  <span className="text-green-400 font-semibold">{service.priceRange}</span>
-                  <span className="flex items-center gap-1 text-gray-400 group-hover:text-green-400 transition-colors">
+                  <span className="text-blue-400 font-semibold">{service.priceRange}</span>
+                  <span className="flex items-center gap-1 text-gray-400 group-hover:text-blue-400 transition-colors">
                     Learn More <ArrowRight className="w-4 h-4" />
                   </span>
                 </div>
@@ -87,14 +87,14 @@ export default function ServicesPage() {
       {/* Not Sure CTA */}
       <section className="py-20 bg-gray-950">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <HelpCircle className="w-16 h-16 text-green-500 mx-auto mb-6" />
+          <HelpCircle className="w-16 h-16 text-blue-500 mx-auto mb-6" />
           <h2 className="text-3xl font-bold mb-4">Not Sure Which Service You Need?</h2>
           <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
             Tell us about your property and goals. We&apos;ll recommend the right approach and give you transparent pricing.
           </p>
           <Link
             href="/estimate"
-            className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 px-8 py-4 rounded-lg font-semibold text-lg"
+            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-lg font-semibold text-lg"
           >
             Get a Free Estimate
             <ArrowRight className="w-5 h-5" />

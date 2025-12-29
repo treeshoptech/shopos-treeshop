@@ -56,11 +56,11 @@ export default function ContactPage() {
 
               <div className="space-y-6">
                 <a href="tel:3868435266" className="flex items-start gap-4 group">
-                  <div className="bg-green-600 p-3 rounded-lg">
+                  <div className="bg-blue-600 p-3 rounded-lg">
                     <Phone className="w-6 h-6" />
                   </div>
                   <div>
-                    <div className="font-semibold group-hover:text-green-400">(386) 843-5266</div>
+                    <div className="font-semibold group-hover:text-blue-400">(386) 843-5266</div>
                     <div className="text-gray-400 text-sm">Call or text anytime</div>
                   </div>
                 </a>
@@ -70,7 +70,7 @@ export default function ContactPage() {
                     <Mail className="w-6 h-6" />
                   </div>
                   <div>
-                    <div className="font-semibold group-hover:text-green-400">office@fltreeshop.com</div>
+                    <div className="font-semibold group-hover:text-blue-400">office@fltreeshop.com</div>
                     <div className="text-gray-400 text-sm">We respond within 2 hours</div>
                   </div>
                 </a>
@@ -114,8 +114,8 @@ export default function ContactPage() {
               <h2 className="text-2xl font-bold mb-6">Send a Message</h2>
 
               {status === 'success' ? (
-                <div className="bg-green-600/20 border border-green-600 rounded-lg p-6 text-center">
-                  <div className="text-green-400 text-xl font-semibold mb-2">Message Sent!</div>
+                <div className="bg-blue-600/20 border border-blue-600 rounded-lg p-6 text-center">
+                  <div className="text-blue-400 text-xl font-semibold mb-2">Message Sent!</div>
                   <p className="text-gray-300">We&apos;ll get back to you within 2 hours.</p>
                 </div>
               ) : (
@@ -127,7 +127,7 @@ export default function ContactPage() {
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:border-green-500"
+                      className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500"
                     />
                   </div>
 
@@ -139,7 +139,7 @@ export default function ContactPage() {
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:border-green-500"
+                        className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500"
                       />
                     </div>
                     <div>
@@ -149,7 +149,7 @@ export default function ContactPage() {
                         required
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:border-green-500"
+                        className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500"
                       />
                     </div>
                   </div>
@@ -159,7 +159,7 @@ export default function ContactPage() {
                     <select
                       value={formData.service}
                       onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                      className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:border-green-500"
+                      className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500"
                     >
                       <option value="">Select a service...</option>
                       {services.map((service) => (
@@ -175,14 +175,14 @@ export default function ContactPage() {
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder="Tell us about your project..."
-                      className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:border-green-500"
+                      className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500"
                     />
                   </div>
 
                   <button
                     type="submit"
                     disabled={status === 'submitting'}
-                    className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-600 text-white py-4 rounded-lg font-semibold flex items-center justify-center gap-2"
+                    className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 text-white py-4 rounded-lg font-semibold flex items-center justify-center gap-2"
                   >
                     {status === 'submitting' ? 'Sending...' : (
                       <>

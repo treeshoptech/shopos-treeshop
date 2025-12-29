@@ -48,7 +48,7 @@ export default function ForestryMulchingPage() {
       <section className="py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
         <div className="max-w-7xl mx-auto px-4">
           <div className="max-w-3xl">
-            <div className="text-green-400 font-medium mb-2">FORESTRY MULCHING</div>
+            <div className="text-blue-400 font-medium mb-2">FORESTRY MULCHING</div>
             <h1 className="text-4xl lg:text-5xl font-bold mb-6">
               Transform Overgrown Land Into Usable Property
             </h1>
@@ -58,7 +58,7 @@ export default function ForestryMulchingPage() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="/estimate?service=forestry-mulching"
-                className="inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 px-8 py-4 rounded-lg font-semibold text-lg"
+                className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-lg font-semibold text-lg"
               >
                 Get Your Free Quote
                 <ArrowRight className="w-5 h-5" />
@@ -105,7 +105,7 @@ export default function ForestryMulchingPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {benefits.map((benefit) => (
               <div key={benefit.title} className="text-center">
-                <benefit.icon className="w-12 h-12 text-green-500 mx-auto mb-4" />
+                <benefit.icon className="w-12 h-12 text-blue-500 mx-auto mb-4" />
                 <h3 className="text-xl font-semibold mb-2">{benefit.title}</h3>
                 <p className="text-gray-400">{benefit.description}</p>
               </div>
@@ -123,7 +123,7 @@ export default function ForestryMulchingPage() {
               <div className="grid grid-cols-2 gap-4">
                 {applications.map((app) => (
                   <div key={app} className="flex items-center gap-2">
-                    <CheckCircle className="w-5 h-5 text-green-500 shrink-0" />
+                    <CheckCircle className="w-5 h-5 text-blue-500 shrink-0" />
                     <span className="text-gray-300">{app}</span>
                   </div>
                 ))}
@@ -155,7 +155,7 @@ export default function ForestryMulchingPage() {
           </p>
           <div className="bg-gray-800 rounded-xl p-8 text-center max-w-3xl mx-auto">
             <h3 className="text-xl font-semibold mb-6">The Formula</h3>
-            <div className="font-mono text-xl text-green-400 mb-4">
+            <div className="font-mono text-xl text-blue-400 mb-4">
               MulchingScore = DBH × Acres ÷ 2.0 PPH × $475/hr
             </div>
             <div className="text-gray-400 mb-6">
@@ -163,7 +163,7 @@ export default function ForestryMulchingPage() {
             </div>
             <div className="grid grid-cols-4 md:grid-cols-7 gap-2">
               {packages.map((pkg) => (
-                <div key={pkg.dbh} className={`p-3 rounded-lg ${pkg.popular ? 'bg-green-600' : 'bg-gray-700'}`}>
+                <div key={pkg.dbh} className={`p-3 rounded-lg ${pkg.popular ? 'bg-blue-600' : 'bg-gray-700'}`}>
                   <div className="text-2xl font-bold">{pkg.dbh}&quot;</div>
                   <div className="text-xs text-gray-300">{pkg.name}</div>
                 </div>
@@ -185,7 +185,7 @@ export default function ForestryMulchingPage() {
               { step: '4', title: 'Transform', desc: 'We mulch. You pay balance. Property transformed.' },
             ].map((item) => (
               <div key={item.step} className="text-center">
-                <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
+                <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
                   {item.step}
                 </div>
                 <h3 className="font-semibold mb-2">{item.title}</h3>
@@ -215,21 +215,21 @@ export default function ForestryMulchingPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-green-600">
+      <section className="py-20 bg-blue-600">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Clear Your Property?</h2>
-          <p className="text-green-100 mb-8">Get a transparent quote with no surprises.</p>
+          <p className="text-blue-100 mb-8">Get a transparent quote with no surprises.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/estimate?service=forestry-mulching"
-              className="inline-flex items-center justify-center gap-2 bg-white text-green-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg"
+              className="inline-flex items-center justify-center gap-2 bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg"
             >
               Get Your Free Quote
               <ArrowRight className="w-5 h-5" />
             </Link>
             <a
               href="tel:3868435266"
-              className="inline-flex items-center justify-center gap-2 bg-green-700 hover:bg-green-800 px-8 py-4 rounded-lg font-semibold text-lg"
+              className="inline-flex items-center justify-center gap-2 bg-blue-700 hover:bg-blue-800 px-8 py-4 rounded-lg font-semibold text-lg"
             >
               <Phone className="w-5 h-5" />
               Call Now

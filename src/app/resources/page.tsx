@@ -42,17 +42,17 @@ export default function ResourcesPage() {
           <div className="grid md:grid-cols-3 gap-6 mb-16">
             <Link
               href="/estimate"
-              className="bg-green-600 hover:bg-green-700 rounded-xl p-6 text-center transition-colors"
+              className="bg-blue-600 hover:bg-blue-700 rounded-xl p-6 text-center transition-colors"
             >
               <Calculator className="w-12 h-12 mx-auto mb-4" />
               <h3 className="text-xl font-bold mb-2">Get a Quote</h3>
-              <p className="text-green-100">Instant online estimate</p>
+              <p className="text-blue-100">Instant online estimate</p>
             </Link>
             <Link
               href="/tools"
-              className="bg-gray-800 hover:ring-2 hover:ring-green-500/50 rounded-xl p-6 text-center transition-all"
+              className="bg-gray-800 hover:ring-2 hover:ring-blue-500/50 rounded-xl p-6 text-center transition-all"
             >
-              <Wrench className="w-12 h-12 mx-auto mb-4 text-green-400" />
+              <Wrench className="w-12 h-12 mx-auto mb-4 text-blue-400" />
               <h3 className="text-xl font-bold mb-2">All Calculators</h3>
               <p className="text-gray-400">7 free tools</p>
             </Link>
@@ -76,10 +76,10 @@ export default function ResourcesPage() {
                 <Link
                   key={tool.name}
                   href={tool.href}
-                  className="bg-gray-800 rounded-xl p-6 hover:ring-2 hover:ring-green-500/50 transition-all group"
+                  className="bg-gray-800 rounded-xl p-6 hover:ring-2 hover:ring-blue-500/50 transition-all group"
                 >
-                  <tool.icon className="w-8 h-8 text-green-400 mb-4" />
-                  <h3 className="font-semibold mb-2 group-hover:text-green-400">{tool.name}</h3>
+                  <tool.icon className="w-8 h-8 text-blue-400 mb-4" />
+                  <h3 className="font-semibold mb-2 group-hover:text-blue-400">{tool.name}</h3>
                   <p className="text-gray-400 text-sm">{tool.description}</p>
                 </Link>
               ))}
@@ -90,7 +90,7 @@ export default function ResourcesPage() {
           <section className="mb-16">
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-2xl font-bold">Guides & Articles</h2>
-              <Link href="/blog" className="text-green-400 hover:underline">
+              <Link href="/blog" className="text-blue-400 hover:underline">
                 View All →
               </Link>
             </div>
@@ -99,12 +99,12 @@ export default function ResourcesPage() {
                 <Link
                   key={article.title}
                   href={article.href}
-                  className="bg-gray-800 rounded-xl p-6 hover:ring-2 hover:ring-green-500/50 transition-all group flex items-start gap-4"
+                  className="bg-gray-800 rounded-xl p-6 hover:ring-2 hover:ring-blue-500/50 transition-all group flex items-start gap-4"
                 >
-                  <BookOpen className="w-8 h-8 text-green-400 shrink-0" />
+                  <BookOpen className="w-8 h-8 text-blue-400 shrink-0" />
                   <div>
-                    <span className="text-xs text-green-400 uppercase tracking-wide">{article.category}</span>
-                    <h3 className="font-semibold group-hover:text-green-400 mt-1">{article.title}</h3>
+                    <span className="text-xs text-blue-400 uppercase tracking-wide">{article.category}</span>
+                    <h3 className="font-semibold group-hover:text-blue-400 mt-1">{article.title}</h3>
                   </div>
                 </Link>
               ))}

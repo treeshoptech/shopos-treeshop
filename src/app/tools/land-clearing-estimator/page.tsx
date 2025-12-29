@@ -62,7 +62,7 @@ export default function LandClearingEstimatorPage() {
     <div className="min-h-screen bg-gray-900">
       <div className="max-w-3xl mx-auto px-4 py-12">
         <div className="flex items-center gap-3 mb-2">
-          <Trees className="w-8 h-8 text-green-500" />
+          <Trees className="w-8 h-8 text-blue-500" />
           <h1 className="text-3xl font-bold">Land Clearing Estimator</h1>
         </div>
         <p className="text-gray-400 mb-8">
@@ -91,7 +91,7 @@ export default function LandClearingEstimatorPage() {
                     key={pkg}
                     onClick={() => setDbhPackage(parseInt(pkg) as DBHPackage)}
                     className={`p-3 rounded-lg text-center ${
-                      dbhPackage === parseInt(pkg) ? 'bg-green-600' : 'bg-gray-700 hover:bg-gray-650'
+                      dbhPackage === parseInt(pkg) ? 'bg-blue-600' : 'bg-gray-700 hover:bg-gray-650'
                     }`}
                   >
                     <div className="text-xl font-bold">{pkg}&quot;</div>
@@ -102,10 +102,10 @@ export default function LandClearingEstimatorPage() {
             </div>
 
             {estimate && (
-              <div className="bg-green-900/30 border border-green-600/50 rounded-xl p-6">
+              <div className="bg-blue-900/30 border border-blue-600/50 rounded-xl p-6">
                 <div className="text-center mb-4">
-                  <div className="text-sm text-green-400">Estimated Cost</div>
-                  <div className="text-4xl font-bold text-green-400">
+                  <div className="text-sm text-blue-400">Estimated Cost</div>
+                  <div className="text-4xl font-bold text-blue-400">
                     {formatCurrency(estimate.total)}
                   </div>
                   <div className="text-sm text-gray-400 mt-1">
@@ -121,7 +121,7 @@ export default function LandClearingEstimatorPage() {
             <button
               onClick={handleCalculate}
               disabled={!estimate}
-              className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-600 py-4 rounded-lg font-semibold text-lg flex items-center justify-center gap-2"
+              className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 py-4 rounded-lg font-semibold text-lg flex items-center justify-center gap-2"
             >
               Get Detailed Breakdown <ArrowRight className="w-5 h-5" />
             </button>
@@ -130,9 +130,9 @@ export default function LandClearingEstimatorPage() {
 
         {showGate && !submitted && (
           <div className="space-y-6">
-            <div className="bg-green-900/30 border border-green-600/50 rounded-xl p-6">
+            <div className="bg-blue-900/30 border border-blue-600/50 rounded-xl p-6">
               <div className="text-center">
-                <div className="text-4xl font-bold text-green-400 mb-2">
+                <div className="text-4xl font-bold text-blue-400 mb-2">
                   {formatCurrency(estimate!.total)}
                 </div>
                 <div className="text-gray-300">
@@ -143,7 +143,7 @@ export default function LandClearingEstimatorPage() {
 
             <div className="bg-gray-800 rounded-xl p-8">
               <div className="flex items-center gap-3 mb-4">
-                <Lock className="w-6 h-6 text-green-400" />
+                <Lock className="w-6 h-6 text-blue-400" />
                 <h3 className="text-xl font-semibold">Get Your Full Quote</h3>
               </div>
               <p className="text-gray-400 mb-6">
@@ -168,7 +168,7 @@ export default function LandClearingEstimatorPage() {
                 />
                 <button
                   type="submit"
-                  className="w-full bg-green-600 hover:bg-green-700 py-4 rounded-lg font-semibold"
+                  className="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-lg font-semibold"
                 >
                   Send My Quote
                 </button>
@@ -184,7 +184,7 @@ export default function LandClearingEstimatorPage() {
             <p className="text-gray-400 mb-6">We&apos;ll contact you within 2 hours during business hours.</p>
             <a
               href="tel:3868435266"
-              className="inline-block bg-green-600 hover:bg-green-700 px-8 py-4 rounded-lg font-semibold"
+              className="inline-block bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-lg font-semibold"
             >
               Call Now: (386) 843-5266
             </a>
