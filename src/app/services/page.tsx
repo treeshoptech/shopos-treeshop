@@ -22,7 +22,7 @@ const services = [
   {
     id: 'stump-grinding',
     name: 'Stump Grinding',
-    description: 'Remove unsightly stumps below grade. Our Fecon Blackhawk handles any size stump with precision.',
+    description: 'Remove unsightly stumps below grade. Professional equipment handles any size stump with precision.',
     icon: CircleDot,
     priceRange: '$150 - $500+ per stump',
     href: '/services/stump-grinding',

@@ -30,10 +30,10 @@ const packages = [
 ]
 
 const faqs = [
-  { q: 'What size trees can you mulch?', a: 'Our FAE mulcher on the CAT 265 handles trees up to 10" diameter efficiently. Larger trees can be felled first and then processed.' },
+  { q: 'What size trees can you mulch?', a: 'We handle trees up to 15" diameter efficiently. Larger trees can be felled first and then processed.' },
   { q: 'What\'s left after mulching?', a: 'A 2-4" layer of wood chips and organic material spread evenly across the cleared area. It breaks down naturally and enriches the soil.' },
   { q: 'How long does it take?', a: 'Most residential lots (1-3 acres) are completed in a single day. Larger properties may take 2-3 days.' },
-  { q: 'Do you remove stumps?', a: 'Our mulcher takes stumps down to 2-4" below grade. For deeper grinding, we use our dedicated stump grinder at additional cost.' },
+  { q: 'Do you remove stumps?', a: 'Forestry mulching cuts trees flush with the ground but doesn\'t grind the stump. For complete stump removal, we offer stump grinding as a separate service—most customers add this for a finished look.' },
 ]
 
 export const metadata = {
@@ -153,45 +153,40 @@ export default function ForestryMulchingPage() {
                 ))}
               </div>
             </div>
-            <div>
-              <h2 className="text-3xl font-bold mb-6">Our Equipment</h2>
-              <div className="space-y-4">
-                <div className="bg-gray-800 rounded-lg p-4">
-                  <div className="font-semibold">CAT 265 Skid Steer</div>
-                  <div className="text-gray-400 text-sm">Primary platform for the mulcher head. High-flow hydraulics for maximum cutting power.</div>
-                </div>
-                <div className="bg-gray-800 rounded-lg p-4">
-                  <div className="font-semibold">FAE Mulcher Head</div>
-                  <div className="text-gray-400 text-sm">Industrial-grade forestry mulcher. Handles trees up to 10" DBH. Fixed carbide teeth for durability.</div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
       {/* Pricing */}
       <section className="py-20 bg-gray-950">
-        <div className="max-w-7xl mx-auto px-4">
+        <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-4">Transparent DBH Pricing</h2>
-          <p className="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
-            Price calculated from measured inputs. No guessing, no surprises.
+          <p className="text-gray-400 text-center mb-12">
+            Price based on your property size and tree diameter. No guessing, no surprises.
           </p>
-          <div className="bg-gray-800 rounded-xl p-8 text-center max-w-3xl mx-auto">
-            <h3 className="text-xl font-semibold mb-6">The Formula</h3>
-            <div className="font-mono text-xl text-blue-400 mb-4">
-              MulchingScore = DBH × Acres ÷ 2.0 PPH × $475/hr
-            </div>
-            <div className="text-gray-400 mb-6">
-              Example: 2 acres × 8&quot; DBH = 16 score ÷ 2.0 = 8 hrs × $475 = <strong className="text-white">$3,800</strong> + transport
-            </div>
-            <div className="grid grid-cols-4 md:grid-cols-7 gap-2">
+
+          <div className="bg-gray-800 rounded-xl p-8">
+            <h3 className="text-xl font-semibold text-center mb-6">Select Your Largest Tree Size</h3>
+
+            <div className="grid grid-cols-3 md:grid-cols-7 gap-3 mb-8">
               {packages.map((pkg) => (
-                <div key={pkg.dbh} className={`p-3 rounded-lg ${pkg.popular ? 'bg-blue-600' : 'bg-gray-700'}`}>
+                <div key={pkg.dbh} className={`${pkg.popular ? 'bg-blue-600' : 'bg-gray-700'} rounded-lg p-4 text-center`}>
                   <div className="text-2xl font-bold">{pkg.dbh}&quot;</div>
-                  <div className="text-xs text-gray-300">{pkg.name}</div>
+                  <div className="text-xs text-gray-400">{pkg.label}</div>
                 </div>
               ))}
+            </div>
+
+            <div className="text-center">
+              <p className="text-gray-400 mb-4">
+                Larger trees = more time = higher cost. It&apos;s that simple.
+              </p>
+              <a
+                href="/estimate"
+                className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-lg font-semibold"
+              >
+                Get Your Exact Price →
+              </a>
             </div>
           </div>
         </div>

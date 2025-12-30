@@ -54,7 +54,7 @@ export default async function LocationPage({ params }: Props) {
     },
     {
       name: 'Stump Grinding',
-      description: 'Remove stumps below grade with our Fecon Blackhawk',
+      description: 'Remove stumps below grade with professional equipment',
       icon: Trees,
       rate: `$${BILLING_RATES['stump-grinding']}/hr`,
       href: '/services/stump-grinding',

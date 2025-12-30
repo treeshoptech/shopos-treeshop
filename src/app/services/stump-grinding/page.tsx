@@ -33,7 +33,7 @@ export default function StumpGrindingPage() {
               Remove Stumps Cleanly & Completely
             </h1>
             <p className="text-xl text-gray-300 mb-8">
-              Our Fecon Blackhawk grinds any size stump below grade. No excavation, no mess, no trace—just level ground ready for whatever&apos;s next.
+              Our professional stump grinder handles any size stump below grade. No excavation, no mess, no trace—just level ground ready for whatever&apos;s next.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
@@ -126,20 +126,16 @@ export default function StumpGrindingPage() {
       <section className="py-20 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="bg-gray-800 rounded-xl aspect-video flex items-center justify-center text-gray-500">
-              Fecon Blackhawk Image
-            </div>
             <div>
-              <h2 className="text-3xl font-bold mb-6">Our Equipment</h2>
-              <h3 className="text-xl font-semibold text-blue-400 mb-3">Fecon Blackhawk</h3>
+              <h2 className="text-3xl font-bold mb-6">Professional Equipment</h2>
               <p className="text-gray-300 mb-4">
-                Purpose-built stump grinder with carbide teeth that chew through any wood species. Compact enough for backyard access, powerful enough for the biggest stumps.
+                We use professional-grade stump grinding equipment designed for Florida's toughest stumps. Compact enough for backyard access, powerful enough for massive oaks.
               </p>
               <ul className="space-y-2 text-gray-400">
                 <li>• Handles stumps of any diameter</li>
-                <li>• Grinds 12&quot;+ below grade when needed</li>
-                <li>• Minimal ground disturbance</li>
-                <li>• Fits through 36&quot; gate openings</li>
+                <li>• Grinds 6-12&quot; below grade</li>
+                <li>• Minimal lawn disturbance</li>
+                <li>• Fits through 36&quot; gates</li>
               </ul>
             </div>
           </div>
