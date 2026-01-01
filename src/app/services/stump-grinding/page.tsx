@@ -55,6 +55,25 @@ export default function StumpGrindingPage() {
         </div>
       </section>
 
+      {/* Project Photo */}
+      <section className="py-20 bg-gray-950">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Professional Stump Removal</h2>
+            <p className="text-gray-400">Clean results, no trace left behind</p>
+          </div>
+          <div className="max-w-4xl mx-auto">
+            <div className="rounded-xl overflow-hidden">
+              <img
+                src="/images/stump-grinding-1.jpg"
+                alt="Multiple stump removal project in Volusia County"
+                className="w-full h-96 object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Why Remove */}
       <section className="py-20 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4">

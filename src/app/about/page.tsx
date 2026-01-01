@@ -59,8 +59,12 @@ export default function AboutPage() {
               </div>
             </div>
             <div className="bg-gray-800 rounded-xl p-8">
-              <div className="aspect-video bg-gray-700 rounded-lg mb-6 flex items-center justify-center text-gray-500">
-                Team Photo Placeholder
+              <div className="aspect-video rounded-lg mb-6 overflow-hidden">
+                <img
+                  src="/images/team-equipment.jpg"
+                  alt="Lacey Anderson with Fecon forestry mulcher"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="text-center">
                 <div className="text-xl font-semibold">Jeremiah & Lacey Anderson</div>
@@ -71,8 +75,34 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Values */}
+      {/* Equipment */}
       <section className="py-20 bg-gray-950">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Professional Equipment Fleet</h2>
+            <p className="text-gray-400">CAT excavators, forestry mulchers, and specialized equipment</p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="rounded-xl overflow-hidden">
+              <img
+                src="/images/excavator-dramatic-sky.jpg"
+                alt="CAT excavator for land clearing"
+                className="w-full h-80 object-cover"
+              />
+            </div>
+            <div className="rounded-xl overflow-hidden">
+              <img
+                src="/images/company-truck-equipment.jpg"
+                alt="TreeShop fleet with equipment"
+                className="w-full h-80 object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Values */}
+      <section className="py-20 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">What We Stand For</h2>
           <div className="grid md:grid-cols-3 gap-8">

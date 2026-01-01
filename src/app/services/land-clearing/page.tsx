@@ -63,6 +63,39 @@ export default function LandClearingPage() {
         </div>
       </section>
 
+      {/* Project Photos */}
+      <section className="py-20 bg-gray-950">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Recent Land Clearing Projects</h2>
+            <p className="text-gray-400">See the quality of our work across Central Florida</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="rounded-xl overflow-hidden">
+              <img
+                src="/images/land-clearing-1.jpg"
+                alt="Selective clearing project in Volusia County"
+                className="w-full h-64 object-cover"
+              />
+            </div>
+            <div className="rounded-xl overflow-hidden">
+              <img
+                src="/images/land-clearing-2.jpg"
+                alt="Complete site preparation in Central Florida"
+                className="w-full h-64 object-cover"
+              />
+            </div>
+            <div className="rounded-xl overflow-hidden">
+              <img
+                src="/images/land-clearing-3.jpg"
+                alt="Residential lot strip for new construction"
+                className="w-full h-64 object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Types */}
       <section className="py-20 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4">

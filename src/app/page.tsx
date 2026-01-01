@@ -145,6 +145,49 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* Project Showcase */}
+        <section className="py-20 bg-gray-900">
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl lg:text-4xl font-bold mb-4">Real Projects, Real Results</h2>
+              <p className="text-gray-400 max-w-2xl mx-auto">
+                See the transformation. From overgrown lots to clear, usable land.
+              </p>
+            </div>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="rounded-xl overflow-hidden group cursor-pointer">
+                <img
+                  src="/images/forestry-309-excavator.jpg"
+                  alt="CAT 309 excavator with forestry mulching head"
+                  className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div className="rounded-xl overflow-hidden group cursor-pointer">
+                <img
+                  src="/images/land-clearing-2.jpg"
+                  alt="Complete land clearing project"
+                  className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div className="rounded-xl overflow-hidden group cursor-pointer">
+                <img
+                  src="/images/excavator-dramatic-sky.jpg"
+                  alt="Land clearing equipment in action"
+                  className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+            </div>
+            <div className="text-center mt-8">
+              <Link
+                href="/gallery"
+                className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-semibold"
+              >
+                View All Projects <ArrowRight className="w-5 h-5" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
         {/* Services Section */}
         <section className="py-20">
           <div className="max-w-7xl mx-auto px-4">
