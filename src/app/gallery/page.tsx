@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { MapPin, Filter } from 'lucide-react'
+import { Header, Footer } from '@/components/layout'
 
 // Placeholder projects - will be replaced with real data
 const projects = [
@@ -23,7 +24,9 @@ export default function GalleryPage() {
     : projects.filter(p => p.service === filter)
 
   return (
-    <div>
+    <>
+      <Header />
+      <div>
       {/* Hero */}
       <section className="py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
         <div className="max-w-7xl mx-auto px-4">
@@ -96,5 +99,7 @@ export default function GalleryPage() {
         </div>
       </section>
     </div>
+      <Footer />
+    </>
   )
 }

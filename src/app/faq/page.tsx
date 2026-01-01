@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
+import { Header, Footer } from '@/components/layout'
 
 const faqCategories = [
   {
@@ -54,7 +55,9 @@ export const metadata = {
 
 export default function FAQPage() {
   return (
-    <div>
+    <>
+      <Header />
+      <div>
       {/* Hero */}
       <section className="py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
         <div className="max-w-7xl mx-auto px-4">
@@ -117,5 +120,7 @@ export default function FAQPage() {
         </div>
       </section>
     </div>
+      <Footer />
+    </>
   )
 }

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { MapPin, Phone, ArrowRight } from 'lucide-react'
 import { locations, counties, HQ_LOCATION } from '@/data/locations'
+import { Header, Footer } from '@/components/layout'
 
 export const metadata = {
   title: 'Service Areas | TreeShop Central Florida',
@@ -9,7 +10,9 @@ export const metadata = {
 
 export default function AreasPage() {
   return (
-    <div className="min-h-screen bg-gray-900">
+    <>
+      <Header />
+      <div className="min-h-screen bg-gray-900">
       {/* Hero */}
       <section className="py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
         <div className="max-w-7xl mx-auto px-4">
@@ -110,5 +113,7 @@ export default function AreasPage() {
         </div>
       </section>
     </div>
+      <Footer />
+    </>
   )
 }

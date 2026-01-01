@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Calculator, Droplets, Clock, CloudRain, Trees, CircleDot } from 'lucide-react'
+import { Header, Footer } from '@/components/layout'
 
 const tools = [
   {
@@ -69,7 +70,9 @@ export const metadata = {
 
 export default function ToolsPage() {
   return (
-    <div className="min-h-screen bg-gray-900">
+    <>
+      <Header />
+      <div className="min-h-screen bg-gray-900">
       <section className="py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center gap-3 mb-4">
@@ -118,5 +121,7 @@ export default function ToolsPage() {
         </div>
       </section>
     </div>
+      <Footer />
+    </>
   )
 }

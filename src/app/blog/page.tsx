@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { BookOpen, Clock, ArrowRight } from 'lucide-react'
 import { getAllPosts, getAllCategories } from '@/lib/blog'
 import { categoryLabels, categoryColors } from '@/types/blog'
+import { Header, Footer } from '@/components/layout'
 
 export const metadata = {
   title: 'Blog | TreeShop',
@@ -13,7 +14,9 @@ export default function BlogPage() {
   const categories = getAllCategories()
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <>
+      <Header />
+      <div className="min-h-screen bg-gray-900">
       {/* Hero */}
       <section className="py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
         <div className="max-w-7xl mx-auto px-4">
@@ -118,5 +121,7 @@ export default function BlogPage() {
         </div>
       </section>
     </div>
+      <Footer />
+    </>
   )
 }
