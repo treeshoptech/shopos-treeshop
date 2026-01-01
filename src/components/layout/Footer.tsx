@@ -24,11 +24,7 @@ const companyLinks = [
   { label: 'Contact', href: '/contact' },
 ]
 
-const operatorLinks = [
-  { label: 'For Operators', href: '/pro' },
-  { label: 'Founding Member', href: '/pro/founding-member' },
-  { label: 'ShopOS Platform', href: '/pro/shopos' },
-]
+// Operator links removed - B2C focus only
 
 export function Footer() {
   return (
@@ -131,19 +127,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* For Operators */}
-          <div>
-            <h3 className="font-semibold text-white mb-4">For Operators</h3>
-            <ul className="space-y-2">
-              {operatorLinks.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="text-gray-400 hover:text-white text-sm">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
 
         {/* Bottom bar */}
@@ -158,9 +141,6 @@ export function Footer() {
             <Link href="/terms" className="text-gray-500 hover:text-white">
               Terms of Service
             </Link>
-            <span className="text-gray-600">
-              Powered by <Link href="/pro/shopos" className="text-green-500 hover:text-green-400">ShopOS</Link>
-            </span>
           </div>
         </div>
       </div>

@@ -72,13 +72,7 @@ export function Header() {
               <span>Central Florida&apos;s Land Clearing Experts</span>
             </div>
             <div className="flex items-center gap-4">
-              <Link href="/store/book" className="text-blue-400 hover:text-blue-300 font-medium">
-                Book Online →
-              </Link>
-              <span className="text-gray-600">|</span>
-              <Link href="/pro" className="text-blue-400 hover:text-blue-300">
-                For Operators →
-              </Link>
+              <span className="text-gray-400">Licensed & Insured • Same-Day Quotes</span>
             </div>
           </div>
         </div>

@@ -573,16 +573,10 @@ export default function EstimatePage() {
               <div className="space-y-4">
                 <a
                   href="tel:3868435266"
-                  className="block w-full bg-green-600 hover:bg-green-700 py-4 rounded-lg font-semibold text-center text-lg"
+                  className="block w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-lg font-semibold text-center text-lg"
                 >
                   Call to Schedule: (386) 843-5266
                 </a>
-                <Link
-                  href={`/store/book`}
-                  className="block w-full bg-gray-700 hover:bg-gray-600 py-4 rounded-lg font-semibold text-center"
-                >
-                  Book Online & Pay 25% Deposit
-                </Link>
               </div>
 
               <p className="text-center text-gray-500 text-sm mt-6">

@@ -280,12 +280,6 @@ export default function HomePage() {
                   >
                     Call (386) 843-5266
                   </a>
-                  <Link
-                    href="/store/book"
-                    className="block text-center border border-orange-500 text-orange-400 hover:bg-orange-500/10 py-4 rounded-lg font-semibold transition-colors"
-                  >
-                    Book Online & Pay Deposit
-                  </Link>
                 </div>
               </div>
             </div>
