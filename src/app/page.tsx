@@ -388,6 +388,33 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* Facebook Feed */}
+        <section className="py-20 bg-gray-900">
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl lg:text-4xl font-bold mb-4">Follow Our Latest Projects</h2>
+              <p className="text-gray-400">See our recent work, tips, and updates on Facebook</p>
+            </div>
+            <div className="max-w-xl mx-auto">
+              <div
+                className="fb-page"
+                data-href="https://www.facebook.com/TreeShopFlorida"
+                data-tabs="timeline"
+                data-width="500"
+                data-height="600"
+                data-small-header="false"
+                data-adapt-container-width="true"
+                data-hide-cover="false"
+                data-show-facepile="true"
+              >
+                <blockquote cite="https://www.facebook.com/TreeShopFlorida" className="fb-xfbml-parse-ignore">
+                  <a href="https://www.facebook.com/TreeShopFlorida">TreeShop Florida</a>
+                </blockquote>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Final CTA */}
         <section className="py-20 bg-blue-600">
           <div className="max-w-4xl mx-auto px-4 text-center">

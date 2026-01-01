@@ -57,7 +57,7 @@ export function Footer() {
             </div>
             <div className="mt-6 flex items-center gap-4">
               <a
-                href="https://www.facebook.com/profile.php?id=61585837227807"
+                href="https://www.facebook.com/TreeShopFlorida"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"

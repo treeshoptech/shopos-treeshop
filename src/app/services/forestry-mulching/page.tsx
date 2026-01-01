@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { CheckCircle, ArrowRight, Phone, Leaf, Clock, DollarSign, Shield } from 'lucide-react'
+import { FacebookShare } from '@/components/social/FacebookShare'
 
 const benefits = [
   { icon: Leaf, title: 'Eco-Friendly', description: 'Mulch returns nutrients to soil. No burning, no hauling.' },
@@ -70,6 +71,9 @@ export default function ForestryMulchingPage() {
                 <Phone className="w-5 h-5" />
                 (386) 843-5266
               </a>
+            </div>
+            <div className="mt-6">
+              <FacebookShare title="Professional Forestry Mulching in Central Florida - TreeShop" />
             </div>
           </div>
         </div>

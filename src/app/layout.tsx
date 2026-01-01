@@ -20,6 +20,24 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} bg-gray-900 text-white min-h-screen`}>
+        {/* Facebook SDK */}
+        <div id="fb-root"></div>
+        <Script
+          id="facebook-sdk"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v18.0";
+                fjs.parentNode.insertBefore(js, fjs);
+              }(document, 'script', 'facebook-jssdk'));
+            `
+          }}
+        />
+
         <MetaPixel />
         <AnalyticsProvider>
           {children}
@@ -64,8 +82,7 @@ export default function RootLayout({
               },
               "sameAs": [
                 "https://www.youtube.com/@TheTreeShop",
-                "https://www.facebook.com/profile.php?id=61585837227807",
-                "https://www.facebook.com/fltreeshop",
+                "https://www.facebook.com/TreeShopFlorida",
                 "https://www.instagram.com/fltreeshop"
               ],
               "openingHoursSpecification": [
@@ -141,8 +158,7 @@ export default function RootLayout({
               "foundingDate": "2015",
               "sameAs": [
                 "https://www.youtube.com/@TheTreeShop",
-                "https://www.facebook.com/profile.php?id=61585837227807",
-                "https://www.facebook.com/fltreeshop",
+                "https://www.facebook.com/TreeShopFlorida",
                 "https://www.instagram.com/fltreeshop"
               ]
             })
