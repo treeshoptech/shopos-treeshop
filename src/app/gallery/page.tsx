@@ -15,6 +15,9 @@ const projects = [
   { id: 8, service: 'Land Clearing', location: 'Central Florida', acres: 1.5, image: '/images/land-clearing-ground-level.jpg', description: 'Ground-level clearing with new growth' },
   { id: 9, service: 'Forestry Mulching', location: 'Central Florida', acres: 3, image: '/images/forestry-after-19.jpg', description: 'Complete forestry mulching project' },
   { id: 10, service: 'Land Clearing', location: 'Central Florida', acres: 2, image: '/images/project-7473.jpg', description: 'Land clearing project' },
+  { id: 11, service: 'Land Clearing', location: 'Central Florida', acres: 3, image: '/images/excavator-dramatic-sky.jpg', description: 'CAT excavator land clearing' },
+  { id: 12, service: 'Forestry Mulching', location: 'Central Florida', acres: 2, image: '/images/team-equipment.jpg', description: 'Forestry mulcher equipment' },
+  { id: 13, service: 'Land Clearing', location: 'Central Florida', acres: 2, image: '/images/company-truck-equipment.jpg', description: 'Company fleet with equipment' },
 ]
 
 const services = ['All', 'Forestry Mulching', 'Land Clearing', 'Stump Grinding', 'Drainage']
