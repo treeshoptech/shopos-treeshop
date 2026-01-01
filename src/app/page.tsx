@@ -431,30 +431,22 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Facebook Feed */}
+        {/* Social Follow */}
         <section className="py-20 bg-gray-900">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl lg:text-4xl font-bold mb-4">Follow Our Latest Projects</h2>
-              <p className="text-gray-400">See our recent work, tips, and updates on Facebook</p>
-            </div>
-            <div className="max-w-xl mx-auto">
-              <div
-                className="fb-page"
-                data-href="https://www.facebook.com/TreeShopFlorida"
-                data-tabs="timeline"
-                data-width="500"
-                data-height="600"
-                data-small-header="false"
-                data-adapt-container-width="true"
-                data-hide-cover="false"
-                data-show-facepile="true"
-              >
-                <blockquote cite="https://www.facebook.com/TreeShopFlorida" className="fb-xfbml-parse-ignore">
-                  <a href="https://www.facebook.com/TreeShopFlorida">TreeShop Florida</a>
-                </blockquote>
-              </div>
-            </div>
+          <div className="max-w-4xl mx-auto px-4 text-center">
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4">Follow Our Latest Projects</h2>
+            <p className="text-gray-400 text-xl mb-8">
+              See our recent work, equipment updates, and project photos on Facebook
+            </p>
+            <a
+              href="https://www.facebook.com/TreeShopFlorida"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
+            >
+              <ArrowRight className="w-5 h-5" />
+              Follow us on Facebook
+            </a>
           </div>
         </section>
 
