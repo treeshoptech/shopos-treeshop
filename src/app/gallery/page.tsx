@@ -63,16 +63,14 @@ export default function GalleryPage() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProjects.map((project) => (
-              <div key={project.id} className="bg-gray-800 rounded-xl overflow-hidden group">
-                {/* Before/After placeholder */}
-                <div className="aspect-video bg-gray-700 relative">
-                  <div className="absolute inset-0 flex items-center justify-center text-gray-500">
-                    Before / After Slider
-                  </div>
-                  <div className="absolute top-2 left-2 bg-black/70 px-2 py-1 rounded text-xs">
-                    Before
-                  </div>
-                  <div className="absolute top-2 right-2 bg-blue-600/90 px-2 py-1 rounded text-xs">
+              <div key={project.id} className="bg-gray-800 rounded-xl overflow-hidden group hover:ring-2 hover:ring-blue-500 transition-all">
+                <div className="aspect-video bg-gray-700 relative overflow-hidden">
+                  <img
+                    src={project.image}
+                    alt={`${project.service} - ${project.location}`}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute top-2 right-2 bg-blue-600/90 px-2 py-1 rounded text-xs font-medium">
                     After
                   </div>
                 </div>
@@ -81,10 +79,11 @@ export default function GalleryPage() {
                     <span className="bg-gray-700 px-2 py-1 rounded text-sm">{project.service}</span>
                     <span className="text-gray-400 text-sm">{project.acres} acres</span>
                   </div>
-                  <div className="flex items-center gap-1 text-gray-400 text-sm">
+                  <div className="flex items-center gap-1 text-gray-400 text-sm mb-1">
                     <MapPin className="w-4 h-4" />
                     {project.location}
                   </div>
+                  <p className="text-gray-500 text-sm">{project.description}</p>
                 </div>
               </div>
             ))}
