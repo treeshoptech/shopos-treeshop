@@ -11,6 +11,10 @@ const projects = [
   { id: 4, service: 'Land Clearing', location: 'Central Florida', acres: 2, image: '/images/land-clearing-2.jpg', description: 'Complete site preparation' },
   { id: 5, service: 'Land Clearing', location: 'Residential', acres: 1, image: '/images/land-clearing-3.jpg', description: 'Lot strip for new construction' },
   { id: 6, service: 'Stump Grinding', location: 'Volusia County', acres: 0.5, image: '/images/stump-grinding-1.jpg', description: 'Multiple stump removal' },
+  { id: 7, service: 'Forestry Mulching', location: 'Central Florida', acres: 2, image: '/images/forestry-309-excavator.jpg', description: '309 excavator with diamond forestry mulching head' },
+  { id: 8, service: 'Land Clearing', location: 'Central Florida', acres: 1.5, image: '/images/land-clearing-ground-level.jpg', description: 'Ground-level clearing with new growth' },
+  { id: 9, service: 'Forestry Mulching', location: 'Central Florida', acres: 3, image: '/images/forestry-after-19.jpg', description: 'Complete forestry mulching project' },
+  { id: 10, service: 'Land Clearing', location: 'Central Florida', acres: 2, image: '/images/project-7473.jpg', description: 'Land clearing project' },
 ]
 
 const services = ['All', 'Forestry Mulching', 'Land Clearing', 'Stump Grinding', 'Drainage']
