@@ -50,7 +50,10 @@ type Step = 'service' | 'details' | 'contact' | 'quote'
 export default function EstimatePage() {
   const [step, setStep] = useState<Step>('service')
   const [loading, setLoading] = useState(false)
-  const [quote, setQuote] = useState<{ total: number } | null>(null)
+  const [quote, setQuote] = useState<{
+    total: number
+    breakdown?: { clearing?: number; hauling?: number }
+  } | null>(null)
 
   const [selectedService, setSelectedService] = useState<string | null>(null)
   const [address, setAddress] = useState('')
@@ -446,7 +449,7 @@ export default function EstimatePage() {
                       <p>{acres} acre{acres !== 1 ? 's' : ''} • Trees up to {dbh}" diameter</p>
                     )}
                     {selectedService === 'land-clearing' && (
-                      <p>{acres} acre{acres !== 1 ? 's' : ''} • Complete lot clearing</p>
+                      <p>{acres} acre{acres !== 1 ? 's' : ''} • Complete site prep with haul away</p>
                     )}
                     {selectedService === 'stump-grinding' && (
                       <p>{stumpCount} stump{stumpCount !== 1 ? 's' : ''} • {stumpSize} size</p>
@@ -456,6 +459,27 @@ export default function EstimatePage() {
                     )}
                   </div>
                 </div>
+
+                {/* Cost Breakdown - LAND CLEARING ONLY */}
+                {selectedService === 'land-clearing' && quote.breakdown && (
+                  <div className="bg-gray-900 rounded-lg p-4 mb-6">
+                    <h3 className="text-sm font-medium text-gray-400 mb-3">Cost Breakdown</h3>
+                    <div className="space-y-2">
+                      <div className="flex justify-between">
+                        <span className="text-gray-300">Clearing & Grubbing (70%)</span>
+                        <span className="text-white">${quote.breakdown.clearing?.toLocaleString()}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-300">Hauling & Disposal (30%)</span>
+                        <span className="text-white">${quote.breakdown.hauling?.toLocaleString()}</span>
+                      </div>
+                      <div className="border-t border-gray-700 pt-2 mt-2 flex justify-between font-semibold">
+                        <span>Total</span>
+                        <span className="text-blue-400">${quote.total.toLocaleString()}</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
 
                 <div className="border-t border-gray-700 pt-6">
                   <h3 className="font-semibold mb-4">What's Included:</h3>
@@ -496,31 +520,31 @@ export default function EstimatePage() {
                   {selectedService === 'land-clearing' && (
                     <ul className="space-y-3">
                       <li className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
+                        <CheckCircle className="w-5 h-5 text-blue-400 mt-0.5 shrink-0" />
                         <div>
                           <span className="font-medium">Complete Site Preparation</span>
-                          <p className="text-gray-400 text-sm">Ready for construction, landscaping, or agriculture</p>
+                          <p className="text-gray-400 text-sm">Cleared to dirt, ready for construction</p>
                         </div>
                       </li>
                       <li className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
+                        <CheckCircle className="w-5 h-5 text-blue-400 mt-0.5 shrink-0" />
                         <div>
-                          <span className="font-medium">Selective or Full Clearing</span>
+                          <span className="font-medium">Full Root Grubbing</span>
+                          <p className="text-gray-400 text-sm">All roots removed—not just cut flush</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-blue-400 mt-0.5 shrink-0" />
+                        <div>
+                          <span className="font-medium">Hauling & Disposal Included</span>
+                          <p className="text-gray-400 text-sm">All debris removed from your property</p>
+                        </div>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-blue-400 mt-0.5 shrink-0" />
+                        <div>
+                          <span className="font-medium">Selective Clearing Available</span>
                           <p className="text-gray-400 text-sm">We work around trees you want to keep</p>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
-                        <div>
-                          <span className="font-medium">Stump Removal Included</span>
-                          <p className="text-gray-400 text-sm">No surprise charges for stumps</p>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
-                        <div>
-                          <span className="font-medium">10 Years Experience</span>
-                          <p className="text-gray-400 text-sm">500+ projects—we know this land</p>
                         </div>
                       </li>
                     </ul>

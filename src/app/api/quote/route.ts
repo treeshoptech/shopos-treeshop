@@ -62,7 +62,15 @@ export async function POST(request: NextRequest) {
 
         const basePerAcre = perAcreByDBH[closestDBH] || 32000
         total = Math.max(MINIMUMS['land-clearing'], Math.round(basePerAcre * acres))
-        break
+
+        const clearing = Math.round(total * 0.7)
+        const hauling = Math.round(total * 0.3)
+
+        return NextResponse.json({
+          total,
+          service,
+          breakdown: { clearing, hauling },
+        })
       }
 
       case 'stump-grinding': {
