@@ -47,10 +47,21 @@ export async function POST(request: NextRequest) {
       }
 
       case 'land-clearing': {
-        const score = acres * (dbh / 12) * 30
-        const productionHours = score / 10.6
-        const serviceCost = productionHours * 875
-        total = Math.max(MINIMUMS['land-clearing'], Math.round(serviceCost + 375))
+        const perAcreByDBH: Record<number, number> = {
+          4: 18000,
+          8: 24000,
+          12: 32000,
+          18: 42000,
+          24: 55000,
+        }
+
+        const dbhKeys = [4, 8, 12, 18, 24]
+        const closestDBH = dbhKeys.reduce((prev, curr) =>
+          Math.abs(curr - dbh) < Math.abs(prev - dbh) ? curr : prev
+        )
+
+        const basePerAcre = perAcreByDBH[closestDBH] || 32000
+        total = Math.max(MINIMUMS['land-clearing'], Math.round(basePerAcre * acres))
         break
       }
 

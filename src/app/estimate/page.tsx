@@ -24,6 +24,14 @@ const dbhPackages = [
   { value: 15, label: 'Very Large Trees (up to 15")' },
 ]
 
+const landClearingDBH = [
+  { value: 4, label: '4"', description: 'Light - brush & saplings' },
+  { value: 8, label: '8"', description: 'Medium - young trees' },
+  { value: 12, label: '12"', description: 'Standard - established trees' },
+  { value: 18, label: '18"', description: 'Heavy - mature trees' },
+  { value: 24, label: '24+"', description: 'Extreme - large trees' },
+]
+
 const stumpSizes = [
   { value: 'small', label: 'Small (under 12" diameter)' },
   { value: 'medium', label: 'Medium (12-24" diameter)' },
@@ -66,6 +74,9 @@ export default function EstimatePage() {
 
   const handleServiceSelect = (serviceId: string) => {
     setSelectedService(serviceId)
+    if (serviceId === 'land-clearing') {
+      setDbh(12)
+    }
     setStep('details')
   }
 
@@ -193,7 +204,7 @@ export default function EstimatePage() {
                   />
                 </div>
 
-                {(selectedService === 'forestry-mulching' || selectedService === 'land-clearing') && (
+                {selectedService === 'forestry-mulching' && (
                   <>
                     <div>
                       <label className="block text-sm font-medium mb-2">How many acres need clearing?</label>
@@ -219,6 +230,47 @@ export default function EstimatePage() {
                           <option key={pkg.value} value={pkg.value}>{pkg.label}</option>
                         ))}
                       </select>
+                    </div>
+                  </>
+                )}
+
+                {selectedService === 'land-clearing' && (
+                  <>
+                    <div>
+                      <label className="block text-sm font-medium mb-2">How many acres need clearing?</label>
+                      <input
+                        type="number"
+                        min={0.25}
+                        step={0.25}
+                        value={acres}
+                        onChange={(e) => setAcres(Math.max(0.25, parseFloat(e.target.value) || 0.25))}
+                        className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3"
+                      />
+                      <p className="text-gray-500 text-sm mt-1">Minimum 0.25 acres</p>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-2">What's the largest tree size?</label>
+                      <div className="grid grid-cols-5 gap-2">
+                        {landClearingDBH.map((pkg) => (
+                          <button
+                            key={pkg.value}
+                            type="button"
+                            onClick={() => setDbh(pkg.value)}
+                            className={`p-3 rounded-lg text-center transition-all ${
+                              dbh === pkg.value
+                                ? 'bg-blue-600 ring-2 ring-blue-400'
+                                : 'bg-gray-700 hover:bg-gray-600'
+                            }`}
+                          >
+                            <div className="text-xl font-bold">{pkg.label}</div>
+                            <div className="text-xs text-gray-400">{pkg.description}</div>
+                          </button>
+                        ))}
+                      </div>
+                      <p className="text-gray-500 text-sm mt-2">
+                        Measure the largest tree trunk at chest height
+                      </p>
                     </div>
                   </>
                 )}
