@@ -172,7 +172,7 @@ export default function ForestryMulchingPage() {
               {packages.map((pkg) => (
                 <div key={pkg.dbh} className={`${pkg.popular ? 'bg-blue-600' : 'bg-gray-700'} rounded-lg p-4 text-center`}>
                   <div className="text-2xl font-bold">{pkg.dbh}&quot;</div>
-                  <div className="text-xs text-gray-400">{pkg.label}</div>
+                  <div className="text-xs text-gray-400">{pkg.name}</div>
                 </div>
               ))}
             </div>
