@@ -4,14 +4,13 @@ import { useState } from 'react'
 import { MapPin, Filter } from 'lucide-react'
 import { Header, Footer } from '@/components/layout'
 
-// Placeholder projects - will be replaced with real data
 const projects = [
-  { id: 1, service: 'Forestry Mulching', location: 'Daytona Beach', acres: 2.5, before: '/images/gallery/1-before.jpg', after: '/images/gallery/1-after.jpg' },
-  { id: 2, service: 'Land Clearing', location: 'Orlando', acres: 5, before: '/images/gallery/2-before.jpg', after: '/images/gallery/2-after.jpg' },
-  { id: 3, service: 'Stump Grinding', location: 'Port Orange', acres: 0.5, before: '/images/gallery/3-before.jpg', after: '/images/gallery/3-after.jpg' },
-  { id: 4, service: 'Forestry Mulching', location: 'Sanford', acres: 3, before: '/images/gallery/4-before.jpg', after: '/images/gallery/4-after.jpg' },
-  { id: 5, service: 'Drainage', location: 'Deltona', acres: 1, before: '/images/gallery/5-before.jpg', after: '/images/gallery/5-after.jpg' },
-  { id: 6, service: 'Land Clearing', location: 'Palm Coast', acres: 4, before: '/images/gallery/6-before.jpg', after: '/images/gallery/6-after.jpg' },
+  { id: 1, service: 'Forestry Mulching', location: 'Citrus Springs', acres: 2, image: '/images/forestry-after-citrus.jpg', description: 'Residential lot cleared' },
+  { id: 2, service: 'Forestry Mulching', location: 'Central Florida', acres: 3, image: '/images/forestry-after-1.jpg', description: 'Complete understory clearing' },
+  { id: 3, service: 'Land Clearing', location: 'Volusia County', acres: 1.5, image: '/images/land-clearing-1.jpg', description: 'Selective clearing with tree preservation' },
+  { id: 4, service: 'Land Clearing', location: 'Central Florida', acres: 2, image: '/images/land-clearing-2.jpg', description: 'Complete site preparation' },
+  { id: 5, service: 'Land Clearing', location: 'Residential', acres: 1, image: '/images/land-clearing-3.jpg', description: 'Lot strip for new construction' },
+  { id: 6, service: 'Stump Grinding', location: 'Volusia County', acres: 0.5, image: '/images/stump-grinding-1.jpg', description: 'Multiple stump removal' },
 ]
 
 const services = ['All', 'Forestry Mulching', 'Land Clearing', 'Stump Grinding', 'Drainage']
