@@ -22,6 +22,7 @@ const companyLinks = [
   { label: 'Reviews', href: '/reviews' },
   { label: 'FAQ', href: '/faq' },
   { label: 'Contact', href: '/contact' },
+  { label: 'Government Contracting', href: '/government' },
 ]
 
 // Operator links removed - B2C focus only
