@@ -61,25 +61,6 @@ const process = [
   { step: '4', title: 'You Enjoy It', description: 'Clean property, no debris, ready for your next project.' },
 ]
 
-const serviceRegions = [
-  {
-    name: 'Central Florida',
-    counties: [
-      { name: 'Orange County', cities: ['Orlando', 'Winter Park', 'Apopka', 'Winter Garden'] },
-      { name: 'Seminole County', cities: ['Sanford', 'Oviedo'] },
-      { name: 'Osceola County', cities: ['Kissimmee'] },
-      { name: 'Lake County', cities: ['Clermont'] },
-    ]
-  },
-  {
-    name: 'East Coast Florida',
-    counties: [
-      { name: 'Volusia County', cities: ['Daytona Beach', 'New Smyrna Beach', 'DeLand', 'Port Orange'] },
-      { name: 'Brevard County', cities: ['Melbourne', 'Titusville', 'Cocoa Beach', 'Palm Bay'] },
-    ]
-  },
-]
-
 // Reviews section removed - will use real Google reviews only
 
 const resources = [
@@ -380,52 +361,6 @@ export default function HomePage() {
             >
               Read Reviews on Google <ArrowRight className="w-5 h-5" />
             </a>
-          </div>
-        </section>
-
-        {/* Service Areas */}
-        <section className="py-20">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl lg:text-4xl font-bold mb-4">Areas We Serve</h2>
-              <p className="text-gray-400">
-                Serving 67 counties statewide with a focus on Central and East Coast Florida.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-8 mb-8">
-              {serviceRegions.map((region) => (
-                <div key={region.name} className="bg-gray-800 rounded-xl p-6">
-                  <h3 className="text-xl font-bold mb-4 text-blue-400">{region.name}</h3>
-                  <div className="space-y-4">
-                    {region.counties.map((county) => (
-                      <div key={county.name}>
-                        <div className="font-semibold text-white mb-2">{county.name}</div>
-                        <div className="flex flex-wrap gap-2">
-                          {county.cities.map((city) => (
-                            <span
-                              key={city}
-                              className="text-sm text-gray-400 bg-gray-700 px-3 py-1 rounded-full"
-                            >
-                              {city}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="text-center">
-              <Link
-                href="/locations"
-                className="inline-flex items-center gap-2 text-blue-400 hover:underline"
-              >
-                View All Service Areas <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
           </div>
         </section>
 
