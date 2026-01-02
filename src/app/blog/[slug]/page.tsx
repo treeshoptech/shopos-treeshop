@@ -39,7 +39,7 @@ function renderContent(content: string): string {
     // Inline code
     .replace(/`([^`]+)`/g, '<code class="bg-gray-800 px-1 rounded">$1</code>')
     // Links
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-blue-400 hover:underline">$1</a>')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-green-400 hover:underline">$1</a>')
     // Lists
     .replace(/^- (.*$)/gim, '<li class="ml-4 mb-2">$1</li>')
     .replace(/^(\d+)\. (.*$)/gim, '<li class="ml-4 mb-2">$2</li>')
@@ -153,9 +153,9 @@ export default async function PostPage({ params }: Props) {
                 <Link
                   key={related.slug}
                   href={`/blog/${related.slug}`}
-                  className="bg-gray-800 rounded-lg p-4 hover:ring-2 hover:ring-blue-500/50 transition-all"
+                  className="bg-gray-800 rounded-lg p-4 hover:ring-2 hover:ring-green-500/50 transition-all"
                 >
-                  <h3 className="font-semibold mb-2 hover:text-blue-400">
+                  <h3 className="font-semibold mb-2 hover:text-green-400">
                     {related.title}
                   </h3>
                   <span className="text-gray-500 text-sm">
@@ -177,9 +177,9 @@ export default async function PostPage({ params }: Props) {
           </p>
           <Link
             href="/estimate"
-            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-lg font-semibold text-lg"
+            className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 px-8 py-4 rounded-lg font-semibold text-lg"
           >
-            Get Your Free Quote
+            What's Your Goal?
             <ArrowRight className="w-5 h-5" />
           </Link>
         </div>

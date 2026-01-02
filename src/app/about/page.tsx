@@ -108,7 +108,7 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-3 gap-8">
             {values.map((value) => (
               <div key={value.title} className="text-center">
-                <value.icon className="w-12 h-12 text-blue-500 mx-auto mb-4" />
+                <value.icon className="w-12 h-12 text-green-500 mx-auto mb-4" />
                 <h3 className="text-xl font-semibold mb-2">{value.title}</h3>
                 <p className="text-gray-400">{value.description}</p>
               </div>
@@ -138,7 +138,7 @@ export default function AboutPage() {
               </a>
             </div>
             <div className="bg-gray-800 rounded-xl p-8">
-              <div className="text-2xl font-bold text-blue-400 mb-4">ShopOS</div>
+              <div className="text-2xl font-bold text-green-400 mb-4">ShopOS</div>
               <h3 className="text-2xl font-bold mb-4">For Tree Service Operators</h3>
               <p className="text-gray-400 mb-6">
                 The systems we built to run TreeShop? We&apos;re packaging them for other operators.
@@ -146,7 +146,7 @@ export default function AboutPage() {
               </p>
               <Link
                 href="/pro"
-                className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300"
+                className="inline-flex items-center gap-2 text-green-400 hover:text-green-300"
               >
                 Learn About ShopOS
                 <ArrowRight className="w-4 h-4" />
@@ -157,15 +157,15 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-blue-600">
+      <section className="py-20 bg-green-600">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Work Together?</h2>
-          <p className="text-blue-100 mb-8">Get a transparent quote with no surprises.</p>
+          <p className="text-green-100 mb-8">Get a transparent quote with no surprises.</p>
           <Link
             href="/estimate"
-            className="inline-flex items-center gap-2 bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg"
+            className="inline-flex items-center gap-2 bg-white text-green-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg"
           >
-            Get Your Free Quote
+            What's Your Goal?
             <ArrowRight className="w-5 h-5" />
           </Link>
         </div>

@@ -1,11 +1,86 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import Link from 'next/link'
-import { Trees, CircleDot, Droplets, Shovel, ArrowRight, ArrowLeft, MapPin, User, Phone, Mail, CheckCircle, Loader2 } from 'lucide-react'
+import { useSearchParams } from 'next/navigation'
+import { Trees, CircleDot, Droplets, Shovel, ArrowRight, ArrowLeft, MapPin, User, Phone, Mail, CheckCircle, Loader2, Home, Sprout, Scissors, CloudRain, TreeDeciduous, TrendingUp } from 'lucide-react'
 import { MetaEvents } from '@/components/analytics/MetaPixel'
 import { Header, Footer } from '@/components/layout'
 import MapboxAddressInput from '@/components/MapboxAddressInput'
+
+// Goal definitions with icons and descriptions
+const goals = [
+  {
+    id: 'construction',
+    name: 'Build Something',
+    description: 'House, barn, shop—I need construction-ready land',
+    icon: Home,
+  },
+  {
+    id: 'agricultural',
+    name: 'Create Usable Land',
+    description: 'Pasture, farming, outdoor space',
+    icon: Sprout,
+  },
+  {
+    id: 'cleanup',
+    name: 'Clean Up Overgrowth',
+    description: 'Reclaim my property from the jungle',
+    icon: Scissors,
+  },
+  {
+    id: 'drainage',
+    name: 'Fix Drainage Problems',
+    description: 'Standing water, flooding, soggy yard',
+    icon: CloudRain,
+  },
+  {
+    id: 'stumps',
+    name: 'Remove Stumps',
+    description: 'I have stumps that need to go',
+    icon: TreeDeciduous,
+  },
+  {
+    id: 'value',
+    name: 'Increase Property Value',
+    description: 'Maximize land value for sale or refinance',
+    icon: TrendingUp,
+  },
+]
+
+// Goal to solution mapping
+const goalToSolution = {
+  construction: {
+    name: 'Site Prep Package',
+    includes: ['Land clearing', 'Root grubbing', 'Stump removal', 'Haul away'],
+    primaryService: 'land-clearing',
+  },
+  agricultural: {
+    name: 'Land Reclamation Package',
+    includes: ['Forestry mulching', 'Selective clearing', 'Optional drainage'],
+    primaryService: 'forestry-mulching',
+  },
+  cleanup: {
+    name: 'Overgrowth Clearing Package',
+    includes: ['Forestry mulching', 'Brush removal', 'Tree management'],
+    primaryService: 'forestry-mulching',
+  },
+  drainage: {
+    name: 'Drainage Solution Package',
+    includes: ['FreedomDrains installation', 'Lifetime no-clog guarantee', 'Optional clearing'],
+    primaryService: 'freedomdrains',
+  },
+  stumps: {
+    name: 'Stump Removal Package',
+    includes: ['Stump grinding', 'Below-grade removal', 'Cleanup included'],
+    primaryService: 'stump-grinding',
+  },
+  value: {
+    name: 'Property Enhancement Package',
+    includes: ['Strategic clearing', 'Drainage improvement', 'Site optimization'],
+    primaryService: 'land-clearing',
+  },
+}
 
 const services = [
   { id: 'forestry-mulching', name: 'Forestry Mulching', description: 'Clear brush and trees up to 15" DBH, leave mulch behind', icon: Trees },
@@ -45,16 +120,18 @@ const drainagePackages = [
   { value: 'complete', label: 'Complete (150+ LF) - Comprehensive system' },
 ]
 
-type Step = 'service' | 'details' | 'contact' | 'quote'
+type Step = 'goal' | 'service' | 'details' | 'contact' | 'quote'
 
-export default function EstimatePage() {
-  const [step, setStep] = useState<Step>('service')
+function EstimateFlow() {
+  const searchParams = useSearchParams()
+  const [step, setStep] = useState<Step>('goal')
   const [loading, setLoading] = useState(false)
   const [quote, setQuote] = useState<{
     total: number
     breakdown?: { clearing?: number; hauling?: number }
   } | null>(null)
 
+  const [selectedGoal, setSelectedGoal] = useState<string | null>(null)
   const [selectedService, setSelectedService] = useState<string | null>(null)
   const [address, setAddress] = useState('')
   const [coordinates, setCoordinates] = useState<{ lat: number; lng: number } | null>(null)
@@ -69,17 +146,37 @@ export default function EstimatePage() {
   const [email, setEmail] = useState('')
   const [notes, setNotes] = useState('')
 
+  // Handle URL params for goal pre-selection
+  useEffect(() => {
+    const goalParam = searchParams?.get('goal')
+    if (goalParam && goalToSolution[goalParam as keyof typeof goalToSolution]) {
+      setSelectedGoal(goalParam)
+      const solution = goalToSolution[goalParam as keyof typeof goalToSolution]
+      setSelectedService(solution.primaryService)
+      if (solution.primaryService === 'land-clearing') {
+        setDbh(12)
+      }
+      setStep('details')
+    }
+  }, [searchParams])
+
   useEffect(() => {
     if (selectedService) {
       MetaEvents.QuoteStarted(selectedService)
     }
   }, [selectedService])
 
-  const handleServiceSelect = (serviceId: string) => {
-    setSelectedService(serviceId)
-    if (serviceId === 'land-clearing') {
+  const handleGoalSelect = (goalId: string) => {
+    setSelectedGoal(goalId)
+    const solution = goalToSolution[goalId as keyof typeof goalToSolution]
+    setSelectedService(solution.primaryService)
+    if (solution.primaryService === 'land-clearing') {
       setDbh(12)
     }
+    setStep('service')
+  }
+
+  const handleServiceConfirm = () => {
     setStep('details')
   }
 
@@ -101,6 +198,7 @@ export default function EstimatePage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           service: selectedService,
+          goal: selectedGoal,
           address,
           acres,
           dbh,
@@ -127,9 +225,12 @@ export default function EstimatePage() {
   }
 
   const goBack = () => {
+    if (step === 'service') setStep('goal')
     if (step === 'details') setStep('service')
     if (step === 'contact') setStep('details')
   }
+
+  const currentSolution = selectedGoal ? goalToSolution[selectedGoal as keyof typeof goalToSolution] : null
 
   return (
     <>
@@ -138,51 +239,109 @@ export default function EstimatePage() {
         <div className="max-w-2xl mx-auto px-4">
           <div className="mb-8">
             <h1 className="text-3xl font-bold mb-2">Get Your Free Quote</h1>
-            <p className="text-gray-400">Instant pricing. No obligation. No surprises.</p>
+            <p className="text-gray-400">One project. One invoice. Your land transformed.</p>
           </div>
 
           {/* Progress */}
           <div className="flex items-center gap-2 mb-8">
-            {['service', 'details', 'contact', 'quote'].map((s, i) => (
+            {['goal', 'service', 'details', 'contact', 'quote'].map((s, i) => (
               <div key={s} className="flex items-center">
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
                   step === s ? 'bg-green-600' :
-                  ['service', 'details', 'contact', 'quote'].indexOf(step) > i ? 'bg-green-600/50' : 'bg-gray-700'
+                  ['goal', 'service', 'details', 'contact', 'quote'].indexOf(step) > i ? 'bg-green-600/50' : 'bg-gray-700'
                 }`}>
                   {i + 1}
                 </div>
-                {i < 3 && <div className={`w-8 h-0.5 ${
-                  ['service', 'details', 'contact', 'quote'].indexOf(step) > i ? 'bg-green-600/50' : 'bg-gray-700'
+                {i < 4 && <div className={`w-8 h-0.5 ${
+                  ['goal', 'service', 'details', 'contact', 'quote'].indexOf(step) > i ? 'bg-green-600/50' : 'bg-gray-700'
                 }`} />}
               </div>
             ))}
           </div>
 
-          {/* Step 1: Service */}
-          {step === 'service' && (
+          {/* Step 1: Goal Selection */}
+          {step === 'goal' && (
             <div>
-              <h2 className="text-xl font-semibold mb-6">What service do you need?</h2>
-              <div className="space-y-4">
-                {services.map((service) => (
+              <h2 className="text-xl font-semibold mb-2">What's your goal?</h2>
+              <p className="text-gray-400 mb-6">Choose the outcome you want for your property</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {goals.map((goal) => (
                   <button
-                    key={service.id}
-                    onClick={() => handleServiceSelect(service.id)}
-                    className="w-full text-left p-6 rounded-xl border-2 border-gray-700 bg-gray-800 hover:border-gray-600 transition-all"
+                    key={goal.id}
+                    onClick={() => handleGoalSelect(goal.id)}
+                    className="text-left p-6 rounded-xl border-2 border-gray-700 bg-gray-800 hover:border-green-500 hover:bg-gray-750 transition-all"
                   >
-                    <div className="flex items-center gap-4">
-                      <service.icon className="w-8 h-8 text-green-400" />
-                      <div>
-                        <h3 className="font-semibold text-lg">{service.name}</h3>
-                        <p className="text-gray-400 text-sm">{service.description}</p>
-                      </div>
-                    </div>
+                    <goal.icon className="w-8 h-8 text-green-400 mb-3" />
+                    <h3 className="font-semibold text-lg mb-1">{goal.name}</h3>
+                    <p className="text-gray-400 text-sm">{goal.description}</p>
                   </button>
                 ))}
               </div>
             </div>
           )}
 
-          {/* Step 2: Details */}
+          {/* Step 2: Service Confirmation */}
+          {step === 'service' && currentSolution && (
+            <div>
+              <button onClick={goBack} className="flex items-center gap-2 text-gray-400 hover:text-white mb-6">
+                <ArrowLeft className="w-4 h-4" /> Back
+              </button>
+
+              <div className="bg-green-900/20 border border-green-500/30 rounded-xl p-6 mb-6">
+                <div className="flex items-start gap-4">
+                  <CheckCircle className="w-8 h-8 text-green-400 shrink-0 mt-1" />
+                  <div>
+                    <h2 className="text-xl font-semibold mb-2 text-green-400">{currentSolution.name}</h2>
+                    <p className="text-gray-300 mb-4">Complete solution for your goal</p>
+                    <div className="space-y-2">
+                      {currentSolution.includes.map((item, i) => (
+                        <div key={i} className="flex items-center gap-2">
+                          <CheckCircle className="w-4 h-4 text-green-400 shrink-0" />
+                          <span className="text-gray-300">{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold mb-4">Want to add or change services?</h3>
+                <div className="space-y-3">
+                  {services.map((service) => (
+                    <button
+                      key={service.id}
+                      onClick={() => setSelectedService(service.id)}
+                      className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
+                        selectedService === service.id
+                          ? 'border-green-500 bg-green-500/10 ring-2 ring-green-500/30'
+                          : 'border-gray-700 bg-gray-800 hover:border-gray-600'
+                      }`}
+                    >
+                      <div className="flex items-center gap-4">
+                        <service.icon className={`w-6 h-6 ${
+                          selectedService === service.id ? 'text-green-400' : 'text-gray-400'
+                        }`} />
+                        <div>
+                          <h4 className="font-semibold">{service.name}</h4>
+                          <p className="text-gray-400 text-sm">{service.description}</p>
+                        </div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <button
+                onClick={handleServiceConfirm}
+                className="w-full bg-green-600 hover:bg-green-700 py-4 rounded-lg font-semibold flex items-center justify-center gap-2"
+              >
+                Continue <ArrowRight className="w-5 h-5" />
+              </button>
+            </div>
+          )}
+
+          {/* Step 3: Details */}
           {step === 'details' && (
             <div>
               <button onClick={goBack} className="flex items-center gap-2 text-gray-400 hover:text-white mb-6">
@@ -232,7 +391,7 @@ export default function EstimatePage() {
                             onClick={() => setDbh(pkg.value)}
                             className={`p-4 rounded-lg text-center transition-all ${
                               dbh === pkg.value
-                                ? 'bg-blue-600 ring-2 ring-blue-400'
+                                ? 'bg-green-600 ring-2 ring-green-500'
                                 : 'bg-gray-700 hover:bg-gray-600'
                             }`}
                           >
@@ -270,7 +429,7 @@ export default function EstimatePage() {
                             onClick={() => setDbh(pkg.value)}
                             className={`p-3 rounded-lg text-center transition-all ${
                               dbh === pkg.value
-                                ? 'bg-blue-600 ring-2 ring-blue-400'
+                                ? 'bg-green-600 ring-2 ring-green-500'
                                 : 'bg-gray-700 hover:bg-gray-600'
                             }`}
                           >
@@ -324,7 +483,7 @@ export default function EstimatePage() {
                           onClick={() => setDrainagePackage(pkg.value)}
                           className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
                             drainagePackage === pkg.value
-                              ? 'border-blue-500 bg-blue-500/10'
+                              ? 'border-green-500 bg-green-500/10'
                               : 'border-gray-700 bg-gray-800'
                           }`}
                         >
@@ -345,7 +504,7 @@ export default function EstimatePage() {
             </div>
           )}
 
-          {/* Step 3: Contact (REQUIRED) */}
+          {/* Step 4: Contact (REQUIRED) */}
           {step === 'contact' && (
             <div>
               <button onClick={goBack} className="flex items-center gap-2 text-gray-400 hover:text-white mb-6">
@@ -432,12 +591,12 @@ export default function EstimatePage() {
             </div>
           )}
 
-          {/* Step 4: Quote - THE CLOSER */}
+          {/* Step 5: Quote - THE CLOSER */}
           {step === 'quote' && quote && (
             <div>
               <div className="text-center mb-8">
                 <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                <h2 className="text-2xl font-bold mb-2">Your Estimate</h2>
+                <h2 className="text-2xl font-bold mb-2">Your Complete Solution</h2>
                 <p className="text-gray-400">For {address || 'your property'}</p>
               </div>
 
@@ -449,6 +608,21 @@ export default function EstimatePage() {
                   </div>
                   <p className="text-gray-500 text-sm">Final price confirmed after site visit</p>
                 </div>
+
+                {/* Show selected goal solution */}
+                {currentSolution && (
+                  <div className="bg-green-900/20 border border-green-500/30 rounded-lg p-4 mb-6">
+                    <h3 className="text-sm font-medium text-green-400 mb-3">{currentSolution.name}</h3>
+                    <div className="space-y-2">
+                      {currentSolution.includes.map((item, i) => (
+                        <div key={i} className="flex items-center gap-2">
+                          <CheckCircle className="w-4 h-4 text-green-400 shrink-0" />
+                          <span className="text-gray-300 text-sm">{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 <div className="bg-gray-900 rounded-lg p-4 mb-6">
                   <h3 className="text-sm font-medium text-gray-400 mb-2">Your Project</h3>
@@ -483,7 +657,7 @@ export default function EstimatePage() {
                       </div>
                       <div className="border-t border-gray-700 pt-2 mt-2 flex justify-between font-semibold">
                         <span>Total</span>
-                        <span className="text-blue-400">${quote.total.toLocaleString()}</span>
+                        <span className="text-green-400">${quote.total.toLocaleString()}</span>
                       </div>
                     </div>
                   </div>
@@ -528,28 +702,28 @@ export default function EstimatePage() {
                   {selectedService === 'land-clearing' && (
                     <ul className="space-y-3">
                       <li className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-blue-400 mt-0.5 shrink-0" />
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
                         <div>
                           <span className="font-medium">Complete Site Preparation</span>
                           <p className="text-gray-400 text-sm">Cleared to dirt, ready for construction</p>
                         </div>
                       </li>
                       <li className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-blue-400 mt-0.5 shrink-0" />
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
                         <div>
                           <span className="font-medium">Full Root Grubbing</span>
                           <p className="text-gray-400 text-sm">All roots removed—not just cut flush</p>
                         </div>
                       </li>
                       <li className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-blue-400 mt-0.5 shrink-0" />
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
                         <div>
                           <span className="font-medium">Hauling & Disposal Included</span>
                           <p className="text-gray-400 text-sm">All debris removed from your property</p>
                         </div>
                       </li>
                       <li className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-blue-400 mt-0.5 shrink-0" />
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
                         <div>
                           <span className="font-medium">Selective Clearing Available</span>
                           <p className="text-gray-400 text-sm">We work around trees you want to keep</p>
@@ -594,28 +768,28 @@ export default function EstimatePage() {
                   {selectedService === 'freedomdrains' && (
                     <ul className="space-y-3">
                       <li className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-blue-400 mt-0.5 shrink-0" />
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
                         <div>
-                          <span className="font-medium text-blue-400">LIFETIME No-Clog Guarantee</span>
+                          <span className="font-medium text-green-400">LIFETIME No-Clog Guarantee</span>
                           <p className="text-gray-400 text-sm">If it ever clogs, we fix it free. Forever. No other company offers this.</p>
                         </div>
                       </li>
                       <li className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-blue-400 mt-0.5 shrink-0" />
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
                         <div>
                           <span className="font-medium">Works on Flat Ground</span>
                           <p className="text-gray-400 text-sm">Hydroblox uses capillary action—no slope needed</p>
                         </div>
                       </li>
                       <li className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-blue-400 mt-0.5 shrink-0" />
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
                         <div>
                           <span className="font-medium">No Gravel to Clog</span>
                           <p className="text-gray-400 text-sm">French drains fail in 3-7 years in Florida. Ours don't.</p>
                         </div>
                       </li>
                       <li className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-blue-400 mt-0.5 shrink-0" />
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
                         <div>
                           <span className="font-medium">Installed in 1 Day</span>
                           <p className="text-gray-400 text-sm">Narrow surgical trench—minimal lawn damage</p>
@@ -654,10 +828,19 @@ export default function EstimatePage() {
                 </p>
               </div>
 
+              <div className="bg-green-900/20 border border-green-500/20 rounded-xl p-6 mb-6 text-center">
+                <p className="text-green-400 font-semibold text-lg mb-2">
+                  One project. One invoice. Your land transformed.
+                </p>
+                <p className="text-gray-400 text-sm">
+                  Complete solution from start to finish
+                </p>
+              </div>
+
               <div className="space-y-4">
                 <a
                   href="tel:3868435266"
-                  className="block w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-lg font-semibold text-center text-lg"
+                  className="block w-full bg-green-600 hover:bg-green-700 py-4 rounded-lg font-semibold text-center text-lg"
                 >
                   Call to Schedule: (386) 843-5266
                 </a>
@@ -678,5 +861,29 @@ export default function EstimatePage() {
       </div>
       <Footer />
     </>
+  )
+}
+
+export default function EstimatePage() {
+  return (
+    <Suspense fallback={
+      <>
+        <Header />
+        <div className="min-h-screen bg-gray-900 py-12">
+          <div className="max-w-2xl mx-auto px-4">
+            <div className="mb-8">
+              <h1 className="text-3xl font-bold mb-2">Get Your Free Quote</h1>
+              <p className="text-gray-400">One project. One invoice. Your land transformed.</p>
+            </div>
+            <div className="flex items-center justify-center py-12">
+              <Loader2 className="w-8 h-8 text-green-500 animate-spin" />
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </>
+    }>
+      <EstimateFlow />
+    </Suspense>
   )
 }

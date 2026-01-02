@@ -73,7 +73,7 @@ export default function GovernmentPage() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <a
                   href="mailto:jeremiah@treeshop.app"
-                  className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-lg font-semibold text-lg"
+                  className="inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 px-8 py-4 rounded-lg font-semibold text-lg"
                 >
                   Request Capabilities Statement
                 </a>

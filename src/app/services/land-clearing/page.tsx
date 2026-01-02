@@ -36,7 +36,7 @@ export default function LandClearingPage() {
       <section className="py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
         <div className="max-w-7xl mx-auto px-4">
           <div className="max-w-3xl">
-            <div className="text-blue-400 font-medium mb-2">LAND CLEARING</div>
+            <div className="text-green-400 font-medium mb-2">LAND CLEARING</div>
             <h1 className="text-4xl lg:text-5xl font-bold mb-6">
               Complete Lot Clearing for Your Project
             </h1>
@@ -46,9 +46,9 @@ export default function LandClearingPage() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="/estimate?service=land-clearing"
-                className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-lg font-semibold text-lg"
+                className="inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 px-8 py-4 rounded-lg font-semibold text-lg"
               >
-                Get Your Free Quote
+                What's Your Goal?
                 <ArrowRight className="w-5 h-5" />
               </Link>
               <a
@@ -59,6 +59,20 @@ export default function LandClearingPage() {
                 (386) 843-5266
               </a>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Outcome Callout */}
+      <section className="py-8 bg-gray-900">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="bg-green-900/20 border border-green-500/30 rounded-xl p-6">
+            <p className="text-green-400 font-medium mb-2">Part of Your Complete Solution</p>
+            <p className="text-gray-300">
+              Land clearing is one tool we use to transform your land. Most projects combine
+              multiple services into one seamless project. <Link href="/estimate" className="text-green-400 underline">Tell us your goal</Link> and
+              we'll recommend exactly what you need.
+            </p>
           </div>
         </div>
       </section>
@@ -103,7 +117,7 @@ export default function LandClearingPage() {
           <div className="grid md:grid-cols-2 gap-8">
             {types.map((type) => (
               <div key={type.title} className="bg-gray-800 rounded-xl p-6">
-                <type.icon className="w-10 h-10 text-blue-500 mb-4" />
+                <type.icon className="w-10 h-10 text-green-500 mb-4" />
                 <h3 className="text-xl font-semibold mb-2">{type.title}</h3>
                 <p className="text-gray-400">{type.description}</p>
               </div>
@@ -121,7 +135,7 @@ export default function LandClearingPage() {
               <div className="space-y-4">
                 {included.map((item) => (
                   <div key={item} className="flex items-center gap-3">
-                    <CheckCircle className="w-6 h-6 text-blue-500 shrink-0" />
+                    <CheckCircle className="w-6 h-6 text-green-500 shrink-0" />
                     <span className="text-gray-300">{item}</span>
                   </div>
                 ))}
@@ -136,7 +150,7 @@ export default function LandClearingPage() {
                 {timeline.map((t) => (
                   <div key={t.acres} className="flex justify-between items-center border-b border-gray-700 pb-3">
                     <span className="text-gray-300">{t.acres}</span>
-                    <span className="text-blue-400 font-semibold">{t.time}</span>
+                    <span className="text-green-400 font-semibold">{t.time}</span>
                   </div>
                 ))}
               </div>
@@ -170,21 +184,21 @@ export default function LandClearingPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-blue-600">
+      <section className="py-20 bg-green-600">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Clear Your Land?</h2>
-          <p className="text-blue-100 mb-8">Tell us about your project. Get transparent pricing.</p>
+          <p className="text-green-100 mb-8">Tell us about your project. Get transparent pricing.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/estimate?service=land-clearing"
-              className="inline-flex items-center justify-center gap-2 bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg"
+              className="inline-flex items-center justify-center gap-2 bg-white text-green-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg"
             >
-              Get Your Free Quote
+              What's Your Goal?
               <ArrowRight className="w-5 h-5" />
             </Link>
             <a
               href="tel:3868435266"
-              className="inline-flex items-center justify-center gap-2 bg-blue-700 hover:bg-blue-800 px-8 py-4 rounded-lg font-semibold text-lg"
+              className="inline-flex items-center justify-center gap-2 bg-green-700 hover:bg-green-800 px-8 py-4 rounded-lg font-semibold text-lg"
             >
               <Phone className="w-5 h-5" />
               Call Now

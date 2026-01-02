@@ -28,7 +28,7 @@ export default function StumpGrindingPage() {
       <section className="py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
         <div className="max-w-7xl mx-auto px-4">
           <div className="max-w-3xl">
-            <div className="text-blue-400 font-medium mb-2">STUMP GRINDING</div>
+            <div className="text-green-400 font-medium mb-2">STUMP GRINDING</div>
             <h1 className="text-4xl lg:text-5xl font-bold mb-6">
               Remove Stumps Cleanly & Completely
             </h1>
@@ -38,9 +38,9 @@ export default function StumpGrindingPage() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="/estimate?service=stump-grinding"
-                className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-lg font-semibold text-lg"
+                className="inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 px-8 py-4 rounded-lg font-semibold text-lg"
               >
-                Get Your Free Quote
+                What's Your Goal?
                 <ArrowRight className="w-5 h-5" />
               </Link>
               <a
@@ -51,6 +51,20 @@ export default function StumpGrindingPage() {
                 (386) 843-5266
               </a>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Outcome Callout */}
+      <section className="py-8 bg-gray-900">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="bg-green-900/20 border border-green-500/30 rounded-xl p-6">
+            <p className="text-green-400 font-medium mb-2">Part of Your Complete Solution</p>
+            <p className="text-gray-300">
+              Stump grinding is one tool we use to transform your land. Most projects combine
+              multiple services into one seamless project. <Link href="/estimate" className="text-green-400 underline">Tell us your goal</Link> and
+              we'll recommend exactly what you need.
+            </p>
           </div>
         </div>
       </section>
@@ -83,7 +97,7 @@ export default function StumpGrindingPage() {
               <div className="grid grid-cols-2 gap-4">
                 {reasons.map((reason) => (
                   <div key={reason} className="flex items-center gap-2">
-                    <CheckCircle className="w-5 h-5 text-blue-500 shrink-0" />
+                    <CheckCircle className="w-5 h-5 text-green-500 shrink-0" />
                     <span className="text-gray-300">{reason}</span>
                   </div>
                 ))}
@@ -111,7 +125,7 @@ export default function StumpGrindingPage() {
           <div className="bg-gray-800 rounded-xl p-8 mb-8">
             <div className="text-center mb-6">
               <div className="text-sm text-gray-400 uppercase">Starting at</div>
-              <div className="text-5xl font-bold text-blue-400">$150</div>
+              <div className="text-5xl font-bold text-green-400">$150</div>
               <div className="text-gray-400">per stump</div>
             </div>
             <div className="border-t border-gray-700 pt-6">
@@ -130,7 +144,7 @@ export default function StumpGrindingPage() {
                   <div className="font-medium">{opt.depth}</div>
                   <div className="text-gray-400 text-sm">{opt.description}</div>
                 </div>
-                <div className="text-blue-400 font-semibold">{opt.price}</div>
+                <div className="text-green-400 font-semibold">{opt.price}</div>
               </div>
             ))}
           </div>
@@ -162,21 +176,21 @@ export default function StumpGrindingPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-blue-600">
+      <section className="py-20 bg-green-600">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Remove Those Stumps?</h2>
-          <p className="text-blue-100 mb-8">Count your stumps, measure the biggest one, and get a quote.</p>
+          <p className="text-green-100 mb-8">Count your stumps, measure the biggest one, and get a quote.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/estimate?service=stump-grinding"
-              className="inline-flex items-center justify-center gap-2 bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg"
+              className="inline-flex items-center justify-center gap-2 bg-white text-green-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg"
             >
-              Get Your Free Quote
+              What's Your Goal?
               <ArrowRight className="w-5 h-5" />
             </Link>
             <a
               href="tel:3868435266"
-              className="inline-flex items-center justify-center gap-2 bg-blue-700 hover:bg-blue-800 px-8 py-4 rounded-lg font-semibold text-lg"
+              className="inline-flex items-center justify-center gap-2 bg-green-700 hover:bg-green-800 px-8 py-4 rounded-lg font-semibold text-lg"
             >
               <Phone className="w-5 h-5" />
               Call Now
