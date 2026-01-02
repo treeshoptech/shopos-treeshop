@@ -97,8 +97,8 @@ export default function FrenchDrainLifespanPage() {
 
   const riskColors = {
     low: 'text-green-400 bg-green-900/30 border-green-600/50',
-    moderate: 'text-yellow-400 bg-yellow-900/30 border-yellow-600/50',
-    high: 'text-orange-400 bg-orange-900/30 border-orange-600/50',
+    moderate: 'text-blue-400 bg-blue-900/30 border-blue-600/50',
+    high: 'text-red-300 bg-red-900/30 border-red-600/50',
     critical: 'text-red-400 bg-red-900/30 border-red-600/50',
   }
 

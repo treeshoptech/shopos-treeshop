@@ -34,7 +34,7 @@ const services = [
     icon: CircleDot,
     href: '/services/stump-grinding',
     features: ['Any size stump', 'Below grade', 'Debris cleanup'],
-    color: 'amber',
+    color: 'blue',
   },
   {
     title: 'FreedomDrains',

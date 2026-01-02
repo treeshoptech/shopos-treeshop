@@ -39,6 +39,6 @@ export const categoryColors: Record<BlogCategory, string> = {
   'forestry-education': 'bg-emerald-600',
   'drainage-solutions': 'bg-blue-600',
   'industry-insights': 'bg-purple-600',
-  'equipment': 'bg-orange-600',
-  'business-operations': 'bg-yellow-600',
+  'equipment': 'bg-blue-500',
+  'business-operations': 'bg-cyan-600',
 }

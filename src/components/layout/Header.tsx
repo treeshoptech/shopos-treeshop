@@ -84,7 +84,7 @@ export function Header() {
             <Link href={isPro ? '/pro' : isStore ? '/store' : '/'} className="flex items-center gap-2">
               <img src="/logos/treeshop-logo.png" alt="TreeShop" className="h-10" />
               {isPro && <span className="text-xl font-bold text-purple-400">Pro</span>}
-              {isStore && <span className="text-xl font-bold text-orange-400">Store</span>}
+              {isStore && <span className="text-xl font-bold text-blue-400">Store</span>}
             </Link>
 
             {/* Desktop nav */}
