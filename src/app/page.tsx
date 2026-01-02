@@ -50,8 +50,8 @@ const services = [
 const stats = [
   { value: '10+', label: 'Years Experience' },
   { value: '500+', label: 'Projects Completed' },
-  { value: '32', label: 'Communities Served' },
-  { value: '7', label: 'Counties Served' },
+  { value: '67', label: 'Counties Served' },
+  { value: '32+', label: 'Cities Served' },
 ]
 
 const process = [
@@ -61,10 +61,23 @@ const process = [
   { step: '4', title: 'You Enjoy It', description: 'Clean property, no debris, ready for your next project.' },
 ]
 
-const serviceAreas = [
-  'New Smyrna Beach', 'Daytona Beach', 'Port Orange', 'Ormond Beach',
-  'DeLand', 'Deltona', 'Orlando', 'Sanford', 'Palm Coast', 'Titusville',
-  'Kissimmee', 'Winter Park',
+const serviceRegions = [
+  {
+    name: 'Central Florida',
+    counties: [
+      { name: 'Orange County', cities: ['Orlando', 'Winter Park', 'Apopka', 'Winter Garden'] },
+      { name: 'Seminole County', cities: ['Sanford', 'Oviedo'] },
+      { name: 'Osceola County', cities: ['Kissimmee'] },
+      { name: 'Lake County', cities: ['Clermont'] },
+    ]
+  },
+  {
+    name: 'East Coast Florida',
+    counties: [
+      { name: 'Volusia County', cities: ['Daytona Beach', 'New Smyrna Beach', 'DeLand', 'Port Orange'] },
+      { name: 'Brevard County', cities: ['Melbourne', 'Titusville', 'Cocoa Beach', 'Palm Bay'] },
+    ]
+  },
 ]
 
 // Reviews section removed - will use real Google reviews only
@@ -89,7 +102,7 @@ export default function HomePage() {
                 Central Florida's Land Clearing & Forestry Mulching Experts
               </h1>
               <p className="text-xl lg:text-2xl text-gray-300 mb-4">
-                Transparent Pricing | Free Same-Day Quotes | 32 Communities Served
+                Transparent Pricing | Free Same-Day Quotes | Statewide Service
               </p>
               <p className="text-gray-400 mb-8 max-w-2xl">
                 From small lot clearing to large land development. Forestry mulching, stump grinding,
@@ -376,28 +389,41 @@ export default function HomePage() {
             <div className="text-center mb-12">
               <h2 className="text-3xl lg:text-4xl font-bold mb-4">Areas We Serve</h2>
               <p className="text-gray-400">
-                Serving 32 communities across Volusia, Seminole, Orange, Brevard, Lake, and Flagler counties.
+                Serving 67 counties statewide with a focus on Central and East Coast Florida.
               </p>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
-              {serviceAreas.map((area) => (
-                <Link
-                  key={area}
-                  href={`/areas/${area.toLowerCase().replace(/ /g, '-')}`}
-                  className="bg-gray-800 hover:bg-gray-750 hover:ring-1 hover:ring-blue-500/50 rounded-lg px-4 py-3 text-center text-sm transition-all"
-                >
-                  {area}
-                </Link>
+            <div className="grid md:grid-cols-2 gap-8 mb-8">
+              {serviceRegions.map((region) => (
+                <div key={region.name} className="bg-gray-800 rounded-xl p-6">
+                  <h3 className="text-xl font-bold mb-4 text-blue-400">{region.name}</h3>
+                  <div className="space-y-4">
+                    {region.counties.map((county) => (
+                      <div key={county.name}>
+                        <div className="font-semibold text-white mb-2">{county.name}</div>
+                        <div className="flex flex-wrap gap-2">
+                          {county.cities.map((city) => (
+                            <span
+                              key={city}
+                              className="text-sm text-gray-400 bg-gray-700 px-3 py-1 rounded-full"
+                            >
+                              {city}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
 
             <div className="text-center">
               <Link
-                href="/areas"
+                href="/locations"
                 className="inline-flex items-center gap-2 text-blue-400 hover:underline"
               >
-                View All 32 Service Areas <ArrowRight className="w-4 h-4" />
+                View All Service Areas <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
