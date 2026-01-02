@@ -223,16 +223,24 @@ export default function EstimatePage() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium mb-2">What's the largest tree size?</label>
-                      <select
-                        value={dbh}
-                        onChange={(e) => setDbh(parseInt(e.target.value))}
-                        className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3"
-                      >
+                      <label className="block text-sm font-medium mb-2">Select Your Largest Tree Size</label>
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                         {dbhPackages.map((pkg) => (
-                          <option key={pkg.value} value={pkg.value}>{pkg.label}</option>
+                          <button
+                            key={pkg.value}
+                            type="button"
+                            onClick={() => setDbh(pkg.value)}
+                            className={`p-4 rounded-lg text-center transition-all ${
+                              dbh === pkg.value
+                                ? 'bg-blue-600 ring-2 ring-blue-400'
+                                : 'bg-gray-700 hover:bg-gray-600'
+                            }`}
+                          >
+                            <div className="text-2xl font-bold mb-1">{pkg.value}"</div>
+                            <div className="text-xs text-gray-300">{pkg.label.replace(/\(.*\)/, '').trim()}</div>
+                          </button>
                         ))}
-                      </select>
+                      </div>
                     </div>
                   </>
                 )}
