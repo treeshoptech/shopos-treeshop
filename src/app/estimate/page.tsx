@@ -837,6 +837,81 @@ function EstimateFlow() {
                 </p>
               </div>
 
+              <div className="bg-gray-800 rounded-xl p-6 mb-6">
+                <h3 className="font-semibold text-center mb-4">To Schedule This Project</h3>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="text-center">
+                    <div className="text-sm text-gray-400 mb-1">Deposit to Reserve Date</div>
+                    <div className="text-2xl font-bold text-green-400">${Math.round((quote?.total || 0) * 0.25).toLocaleString()}</div>
+                    <div className="text-xs text-gray-500 mt-1">25% deposit</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-sm text-gray-400 mb-1">Balance on Completion</div>
+                    <div className="text-2xl font-bold text-white">${Math.round((quote?.total || 0) * 0.75).toLocaleString()}</div>
+                    <div className="text-xs text-gray-500 mt-1">75% balance</div>
+                  </div>
+                </div>
+                <p className="text-gray-500 text-xs text-center mt-4">
+                  {(quote?.total || 0) > 15000 ? 'Large projects may use milestone payments (25% / 25% / 50%)' : 'Multiple payment methods accepted'}
+                </p>
+              </div>
+
+              {/* Upsells */}
+              {selectedService && (
+                <div className="bg-gray-800 rounded-xl p-6 mb-6">
+                  <h3 className="font-semibold mb-4 text-center">Want to add more while we're there?</h3>
+                  <div className="space-y-3">
+                    {selectedService === 'forestry-mulching' && (
+                      <div className="bg-gray-700 rounded-lg p-4 border border-gray-600">
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="flex items-start gap-3 flex-1">
+                            <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
+                            <div>
+                              <p className="font-medium text-white">Add Stump Grinding</p>
+                              <p className="text-gray-400 text-sm">Remove stumps left by mulcher for finished look</p>
+                            </div>
+                          </div>
+                          <div className="text-green-400 font-semibold whitespace-nowrap">+$400-800</div>
+                        </div>
+                      </div>
+                    )}
+
+                    {selectedService === 'stump-grinding' && (
+                      <div className="bg-gray-700 rounded-lg p-4 border border-gray-600">
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="flex items-start gap-3 flex-1">
+                            <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
+                            <div>
+                              <p className="font-medium text-white">Remove Grindings</p>
+                              <p className="text-gray-400 text-sm">Haul away wood chips for clean finish</p>
+                            </div>
+                          </div>
+                          <div className="text-green-400 font-semibold whitespace-nowrap">+$150/stump</div>
+                        </div>
+                      </div>
+                    )}
+
+                    {selectedService === 'land-clearing' && (
+                      <div className="bg-gray-700 rounded-lg p-4 border border-gray-600">
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="flex items-start gap-3 flex-1">
+                            <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
+                            <div>
+                              <p className="font-medium text-white">Mulch Remaining Property</p>
+                              <p className="text-gray-400 text-sm">Clear build area, mulch the rest. Saves money, protects value.</p>
+                            </div>
+                          </div>
+                          <div className="text-green-400 font-semibold whitespace-nowrap">25% off</div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  <p className="text-gray-500 text-xs text-center mt-4">
+                    Mention these add-ons when you call to schedule
+                  </p>
+                </div>
+              )}
+
               <div className="space-y-4">
                 <a
                   href="tel:3868435266"

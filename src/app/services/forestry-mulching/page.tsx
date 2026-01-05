@@ -82,13 +82,22 @@ export default function ForestryMulchingPage() {
       {/* Outcome Callout */}
       <section className="py-8 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="bg-green-900/20 border border-green-500/30 rounded-xl p-6">
-            <p className="text-green-400 font-medium mb-2">Part of Your Complete Solution</p>
-            <p className="text-gray-300">
-              Forestry mulching is one tool we use to transform your land. Most projects combine
-              multiple services into one seamless project. <Link href="/estimate" className="text-green-400 underline">Tell us your goal</Link> and
-              we'll recommend exactly what you need.
-            </p>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="bg-green-900/20 border border-green-500/30 rounded-xl p-6">
+              <p className="text-green-400 font-medium mb-2">Part of Your Complete Solution</p>
+              <p className="text-gray-300 text-sm">
+                Forestry mulching is one tool we use to transform your land. Most projects combine
+                multiple services into one seamless project. <Link href="/estimate" className="text-green-400 underline">Tell us your goal</Link> and
+                we'll recommend exactly what you need.
+              </p>
+            </div>
+            <div className="bg-gray-800 border border-gray-700 rounded-xl p-6">
+              <p className="text-gray-400 font-medium mb-2">Equipment Transport & Delivery</p>
+              <p className="text-gray-300 text-sm">
+                Equipment transport quoted separately based on your location. Typical range: <span className="text-white font-semibold">$375-$750</span>.
+                Included in your final quote—no surprises.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -182,6 +191,30 @@ export default function ForestryMulchingPage() {
           <p className="text-gray-400 text-center mb-12">
             Price based on your property size and tree diameter. No guessing, no surprises.
           </p>
+
+          <div className="bg-green-900/20 border border-green-500/30 rounded-xl p-6 mb-8 max-w-3xl mx-auto">
+            <h3 className="text-xl font-semibold text-center mb-4 text-green-400">Expected Investment</h3>
+            <div className="grid md:grid-cols-3 gap-4 text-center">
+              <div>
+                <div className="text-sm text-gray-400 mb-1">Small Properties</div>
+                <div className="text-2xl font-bold text-white">$3,000 - $6,000</div>
+                <div className="text-xs text-gray-500 mt-1">0.5-1 acre</div>
+              </div>
+              <div>
+                <div className="text-sm text-gray-400 mb-1">Medium Properties</div>
+                <div className="text-2xl font-bold text-white">$6,000 - $15,000</div>
+                <div className="text-xs text-gray-500 mt-1">1-3 acres</div>
+              </div>
+              <div>
+                <div className="text-sm text-gray-400 mb-1">Large Properties</div>
+                <div className="text-2xl font-bold text-white">$15,000+</div>
+                <div className="text-xs text-gray-500 mt-1">3+ acres</div>
+              </div>
+            </div>
+            <p className="text-center text-gray-400 text-sm mt-4">
+              Plus equipment transport. Final quote after site visit. $1,800 project minimum.
+            </p>
+          </div>
 
           <div className="bg-gray-800 rounded-xl p-8">
             <h3 className="text-xl font-semibold text-center mb-6">Select Your Largest Tree Size</h3>

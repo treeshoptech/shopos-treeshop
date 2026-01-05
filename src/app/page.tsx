@@ -17,7 +17,7 @@ const services = [
     description: 'Clear brush, saplings, and trees up to 15" diameter. One machine does it all—no hauling, no burning. Mulch stays as ground cover.',
     icon: Trees,
     href: '/services/forestry-mulching',
-    features: ['Up to 15" diameter', 'No hauling costs', 'Same-day quotes'],
+    features: ['Up to 15" diameter', '$1,800 minimum', 'Same-day quotes'],
     color: 'green',
   },
   {
@@ -25,7 +25,7 @@ const services = [
     description: 'Complete lot preparation for construction, agriculture, or property improvement. Selective or full clearing based on your needs.',
     icon: Shovel,
     href: '/services/land-clearing',
-    features: ['Residential & commercial', 'Selective clearing', 'Site prep ready'],
+    features: ['Includes hauling', '$5,000 minimum', 'Site prep ready'],
     color: 'green',
   },
   {
@@ -33,16 +33,16 @@ const services = [
     description: 'Remove stumps below grade with professional equipment. Any size, any quantity. Clean finish ready for landscaping.',
     icon: CircleDot,
     href: '/services/stump-grinding',
-    features: ['Any size stump', 'Below grade', 'Debris cleanup'],
-    color: 'blue',
+    features: ['Any size stump', '$400 minimum', 'Debris cleanup'],
+    color: 'green',
   },
   {
     title: 'FreedomDrains',
     description: 'Florida\'s only lifetime-guaranteed drainage. Hydroblox technology that never clogs—even in our sandy soil.',
     icon: Droplets,
     href: '/services/drainage',
-    features: ['Lifetime guarantee', 'No gravel', 'Works on flat ground'],
-    color: 'blue',
+    features: ['Lifetime guarantee', '$1,750 minimum', 'Works on flat ground'],
+    color: 'green',
     badge: 'Lifetime Guarantee',
   },
 ]
@@ -256,6 +256,112 @@ export default function HomePage() {
                   </p>
                 </Link>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FM vs LC Decision Guide */}
+        <section className="py-20 bg-gray-900">
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl lg:text-4xl font-bold mb-4">Forestry Mulching vs Land Clearing</h2>
+              <p className="text-gray-400">Not sure which service you need? Here's the difference.</p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="bg-gray-800 rounded-xl p-8 border-2 border-green-500/30">
+                <div className="flex items-center gap-3 mb-4">
+                  <Trees className="w-8 h-8 text-green-400" />
+                  <h3 className="text-2xl font-bold">Forestry Mulching</h3>
+                </div>
+                <p className="text-gray-400 mb-6">
+                  Trees and brush ground into mulch that stays on your property as ground cover.
+                </p>
+
+                <div className="space-y-3 mb-6">
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
+                    <span className="text-gray-300 text-sm">Mulch left behind (no hauling)</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
+                    <span className="text-gray-300 text-sm">Trees up to 15" diameter</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
+                    <span className="text-gray-300 text-sm">Natural erosion control</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 shrink-0" />
+                    <span className="text-gray-300 text-sm">Cost-effective option</span>
+                  </div>
+                </div>
+
+                <div className="bg-green-900/20 border border-green-500/30 rounded-lg p-4 mb-4">
+                  <p className="text-green-400 font-semibold mb-1">Best For:</p>
+                  <p className="text-gray-300 text-sm">
+                    Recreational land, trails, pastures, fire breaks, hunting property
+                  </p>
+                </div>
+
+                <div className="text-center">
+                  <div className="text-sm text-gray-400 mb-1">Typical Range</div>
+                  <div className="text-3xl font-bold text-green-400">$3K - $15K</div>
+                  <div className="text-xs text-gray-500 mt-1">Per acre, based on tree size</div>
+                </div>
+              </div>
+
+              <div className="bg-gray-800 rounded-xl p-8 border-2 border-gray-600">
+                <div className="flex items-center gap-3 mb-4">
+                  <Shovel className="w-8 h-8 text-gray-400" />
+                  <h3 className="text-2xl font-bold">Land Clearing</h3>
+                </div>
+                <p className="text-gray-400 mb-6">
+                  Complete removal of trees, stumps, and roots. All debris hauled away, site cleared to bare dirt.
+                </p>
+
+                <div className="space-y-3 mb-6">
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 text-gray-400 mt-0.5 shrink-0" />
+                    <span className="text-gray-300 text-sm">Everything removed (hauled away)</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 text-gray-400 mt-0.5 shrink-0" />
+                    <span className="text-gray-300 text-sm">Root grubbing included</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 text-gray-400 mt-0.5 shrink-0" />
+                    <span className="text-gray-300 text-sm">Bare dirt, construction-ready</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 text-gray-400 mt-0.5 shrink-0" />
+                    <span className="text-gray-300 text-sm">More expensive (hauling)</span>
+                  </div>
+                </div>
+
+                <div className="bg-gray-700 border border-gray-600 rounded-lg p-4 mb-4">
+                  <p className="text-gray-300 font-semibold mb-1">Best For:</p>
+                  <p className="text-gray-400 text-sm">
+                    Home construction, buildings, concrete work, anything requiring permits
+                  </p>
+                </div>
+
+                <div className="text-center">
+                  <div className="text-sm text-gray-400 mb-1">Typical Range</div>
+                  <div className="text-3xl font-bold text-white">$11K - $50K+</div>
+                  <div className="text-xs text-gray-500 mt-1">Per acre, includes hauling</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 text-center">
+              <p className="text-gray-400 mb-4">Still not sure? We'll help you figure it out.</p>
+              <Link
+                href="/estimate"
+                className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 px-8 py-4 rounded-lg font-semibold"
+              >
+                What's Your Goal? <ArrowRight className="w-5 h-5" />
+              </Link>
             </div>
           </div>
         </section>

@@ -58,13 +58,22 @@ export default function StumpGrindingPage() {
       {/* Outcome Callout */}
       <section className="py-8 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="bg-green-900/20 border border-green-500/30 rounded-xl p-6">
-            <p className="text-green-400 font-medium mb-2">Part of Your Complete Solution</p>
-            <p className="text-gray-300">
-              Stump grinding is one tool we use to transform your land. Most projects combine
-              multiple services into one seamless project. <Link href="/estimate" className="text-green-400 underline">Tell us your goal</Link> and
-              we'll recommend exactly what you need.
-            </p>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="bg-green-900/20 border border-green-500/30 rounded-xl p-6">
+              <p className="text-green-400 font-medium mb-2">Part of Your Complete Solution</p>
+              <p className="text-gray-300 text-sm">
+                Stump grinding is one tool we use to transform your land. Most projects combine
+                multiple services into one seamless project. <Link href="/estimate" className="text-green-400 underline">Tell us your goal</Link> and
+                we'll recommend exactly what you need.
+              </p>
+            </div>
+            <div className="bg-gray-800 border border-gray-700 rounded-xl p-6">
+              <p className="text-gray-400 font-medium mb-2">Equipment Transport & Delivery</p>
+              <p className="text-gray-300 text-sm">
+                Equipment transport quoted separately based on your location. Typical range: <span className="text-white font-semibold">$375-$750</span>.
+                Included in your final quote—no surprises.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -149,9 +158,11 @@ export default function StumpGrindingPage() {
             ))}
           </div>
 
-          <p className="text-gray-500 text-sm text-center mt-6">
-            $300 minimum applies • Volume discounts for 5+ stumps
-          </p>
+          <div className="bg-green-900/20 border border-green-500/30 rounded-xl p-4 mt-6 max-w-2xl mx-auto">
+            <p className="text-center text-gray-300 text-sm">
+              <span className="font-semibold text-green-400">$400 service minimum</span> • Plus equipment transport • Volume discounts for 5+ stumps
+            </p>
+          </div>
         </div>
       </section>
 
