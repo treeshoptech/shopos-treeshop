@@ -99,12 +99,15 @@ const dbhPackages = [
   { value: 15, label: 'Very Large Trees (up to 15")' },
 ]
 
-const landClearingDBH = [
-  { value: 4, label: '4"', description: 'Light - brush & saplings' },
-  { value: 8, label: '8"', description: 'Medium - young trees' },
-  { value: 12, label: '12"', description: 'Standard - established trees' },
-  { value: 18, label: '18"', description: 'Heavy - mature trees' },
-  { value: 24, label: '24+"', description: 'Extreme - large trees' },
+// Florida vegetation types for customer-facing selection
+const floridaVegetation = [
+  { id: 'palmetto', label: 'Palmetto & low brush', dbh: 4, factor: 1.15, description: 'Saw palmetto, low scrub' },
+  { id: 'pine-thicket', label: 'Pine thicket / young pines', dbh: 6, factor: 1.0, description: 'Young pine stands' },
+  { id: 'mixed-standard', label: 'Mixed pine & scrub oak', dbh: 8, factor: 1.0, description: 'Most common Florida overgrowth' },
+  { id: 'oak-hammock', label: 'Oak hammock / hardwoods', dbh: 10, factor: 1.20, description: 'Mature oaks, hardwood mix' },
+  { id: 'invasives', label: 'Brazilian pepper / invasives', dbh: 8, factor: 1.15, description: 'Dense invasive species' },
+  { id: 'bamboo', label: 'Bamboo', dbh: 6, factor: 1.35, description: 'Bamboo groves' },
+  { id: 'jungle', label: 'It\'s a jungle', dbh: 12, factor: 1.30, description: 'Very dense, needs assessment' },
 ]
 
 const stumpSizes = [
@@ -382,24 +385,35 @@ function EstimateFlow() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium mb-2">Select Your Largest Tree Size</label>
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                        {dbhPackages.map((pkg) => (
+                      <label className="block text-sm font-medium mb-2">What does your property look like?</label>
+                      <p className="text-gray-400 text-xs mb-3">Select the description that best matches your vegetation</p>
+                      <div className="space-y-2">
+                        {floridaVegetation.map((veg) => (
                           <button
-                            key={pkg.value}
+                            key={veg.id}
                             type="button"
-                            onClick={() => setDbh(pkg.value)}
-                            className={`p-4 rounded-lg text-center transition-all ${
-                              dbh === pkg.value
-                                ? 'bg-green-600 ring-2 ring-green-500'
-                                : 'bg-gray-700 hover:bg-gray-600'
+                            onClick={() => setDbh(veg.dbh)}
+                            className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
+                              dbh === veg.dbh
+                                ? 'border-green-500 bg-green-500/10 ring-2 ring-green-500/30'
+                                : 'border-gray-700 bg-gray-800 hover:border-gray-600'
                             }`}
                           >
-                            <div className="text-2xl font-bold mb-1">{pkg.value}"</div>
-                            <div className="text-xs text-gray-300">{pkg.label.replace(/\(.*\)/, '').trim()}</div>
+                            <div className="flex items-start justify-between gap-4">
+                              <div>
+                                <div className="font-semibold text-white mb-1">{veg.label}</div>
+                                <div className="text-xs text-gray-400">{veg.description}</div>
+                              </div>
+                              {veg.factor > 1.0 && (
+                                <div className="text-xs text-green-400 whitespace-nowrap">+{((veg.factor - 1) * 100).toFixed(0)}%</div>
+                              )}
+                            </div>
                           </button>
                         ))}
                       </div>
+                      <p className="text-gray-500 text-xs mt-2">
+                        Not sure? Pick "Mixed pine & scrub oak" - it's the most common.
+                      </p>
                     </div>
                   </>
                 )}
@@ -419,27 +433,11 @@ function EstimateFlow() {
                       <p className="text-gray-500 text-sm mt-1">Minimum 0.25 acres</p>
                     </div>
 
-                    <div>
-                      <label className="block text-sm font-medium mb-2">What's the largest tree size?</label>
-                      <div className="grid grid-cols-5 gap-2">
-                        {landClearingDBH.map((pkg) => (
-                          <button
-                            key={pkg.value}
-                            type="button"
-                            onClick={() => setDbh(pkg.value)}
-                            className={`p-3 rounded-lg text-center transition-all ${
-                              dbh === pkg.value
-                                ? 'bg-green-600 ring-2 ring-green-500'
-                                : 'bg-gray-700 hover:bg-gray-600'
-                            }`}
-                          >
-                            <div className="text-xl font-bold">{pkg.label}</div>
-                            <div className="text-xs text-gray-400">{pkg.description}</div>
-                          </button>
-                        ))}
-                      </div>
-                      <p className="text-gray-500 text-sm mt-2">
-                        Measure the largest tree trunk at chest height
+                    <div className="bg-green-900/20 border border-green-500/30 rounded-lg p-4">
+                      <p className="text-green-400 text-sm font-medium mb-2">Complete Site Prep</p>
+                      <p className="text-gray-300 text-sm">
+                        All trees/stumps/roots removed regardless of size. Equipment handles any diameter.
+                        Debris hauled away, site cleared to bare dirt.
                       </p>
                     </div>
                   </>
@@ -839,20 +837,56 @@ function EstimateFlow() {
 
               <div className="bg-gray-800 rounded-xl p-6 mb-6">
                 <h3 className="font-semibold text-center mb-4">To Schedule This Project</h3>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="text-center">
-                    <div className="text-sm text-gray-400 mb-1">Deposit to Reserve Date</div>
-                    <div className="text-2xl font-bold text-green-400">${Math.round((quote?.total || 0) * 0.25).toLocaleString()}</div>
-                    <div className="text-xs text-gray-500 mt-1">25% deposit</div>
+                {(quote?.total || 0) < 10000 ? (
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="text-center">
+                      <div className="text-sm text-gray-400 mb-1">Deposit to Reserve Date</div>
+                      <div className="text-2xl font-bold text-green-400">${Math.round((quote?.total || 0) * 0.25).toLocaleString()}</div>
+                      <div className="text-xs text-gray-500 mt-1">25% deposit</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-sm text-gray-400 mb-1">Balance on Completion</div>
+                      <div className="text-2xl font-bold text-white">${Math.round((quote?.total || 0) * 0.75).toLocaleString()}</div>
+                      <div className="text-xs text-gray-500 mt-1">75% balance</div>
+                    </div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-sm text-gray-400 mb-1">Balance on Completion</div>
-                    <div className="text-2xl font-bold text-white">${Math.round((quote?.total || 0) * 0.75).toLocaleString()}</div>
-                    <div className="text-xs text-gray-500 mt-1">75% balance</div>
+                ) : (quote?.total || 0) <= 25000 ? (
+                  <div className="space-y-3">
+                    <p className="text-center text-gray-400 text-sm mb-4">Milestone Payment Structure</p>
+                    <div className="grid grid-cols-3 gap-3">
+                      <div className="text-center bg-gray-700 rounded-lg p-3">
+                        <div className="text-sm text-gray-400 mb-1">Start</div>
+                        <div className="text-xl font-bold text-green-400">${Math.round((quote?.total || 0) * 0.25).toLocaleString()}</div>
+                        <div className="text-xs text-gray-500">25%</div>
+                      </div>
+                      <div className="text-center bg-gray-700 rounded-lg p-3">
+                        <div className="text-sm text-gray-400 mb-1">Midpoint</div>
+                        <div className="text-xl font-bold text-white">${Math.round((quote?.total || 0) * 0.25).toLocaleString()}</div>
+                        <div className="text-xs text-gray-500">25%</div>
+                      </div>
+                      <div className="text-center bg-gray-700 rounded-lg p-3">
+                        <div className="text-sm text-gray-400 mb-1">Complete</div>
+                        <div className="text-xl font-bold text-white">${Math.round((quote?.total || 0) * 0.50).toLocaleString()}</div>
+                        <div className="text-xs text-gray-500">50%</div>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <div className="space-y-3">
+                    <p className="text-center text-gray-400 text-sm mb-4">Milestone Payment Structure</p>
+                    <div className="grid grid-cols-4 gap-2">
+                      {[25, 25, 25, 25].map((pct, i) => (
+                        <div key={i} className="text-center bg-gray-700 rounded-lg p-3">
+                          <div className="text-sm text-gray-400 mb-1">Phase {i + 1}</div>
+                          <div className="text-lg font-bold text-white">${Math.round((quote?.total || 0) * (pct / 100)).toLocaleString()}</div>
+                          <div className="text-xs text-gray-500">{pct}%</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
                 <p className="text-gray-500 text-xs text-center mt-4">
-                  {(quote?.total || 0) > 15000 ? 'Large projects may use milestone payments (25% / 25% / 50%)' : 'Multiple payment methods accepted'}
+                  {(quote?.total || 0) < 10000 ? 'Simple 2-payment structure' : 'Milestone payments make larger projects easier to budget'}
                 </p>
               </div>
 
@@ -925,7 +959,26 @@ function EstimateFlow() {
                 We'll call you within 24 hours to confirm details and schedule.
               </p>
 
-              <div className="mt-8 text-center">
+              {/* Project Pop-Ups - Transparency */}
+              <div className="mt-8 bg-gray-800 rounded-xl p-6 border border-gray-700">
+                <h3 className="font-semibold mb-3 text-center">Our Transparency Promise</h3>
+                <p className="text-gray-300 text-sm mb-4">
+                  This quote is based on visible site conditions. If we discover any hidden obstacles, we'll stop and discuss options before any additional charges. <span className="text-green-400 font-semibold">No surprises—we talk first.</span>
+                </p>
+                <details className="text-sm">
+                  <summary className="text-gray-400 cursor-pointer hover:text-white">What might change the price?</summary>
+                  <div className="mt-3 pl-4 space-y-2 text-gray-400">
+                    <div>• Buried concrete, metal, or construction debris</div>
+                    <div>• Old fencing or wire hidden in vegetation</div>
+                    <div>• Unmarked utilities, irrigation, or septic systems</div>
+                    <div>• Ground conditions too wet for safe equipment operation</div>
+                    <div>• Vegetation significantly denser than visible assessment</div>
+                    <div>• Rock or hardpan not visible on surface</div>
+                  </div>
+                </details>
+              </div>
+
+              <div className="mt-6 text-center">
                 <p className="text-gray-500 text-sm">
                   <span className="text-green-400">Our 2026 Promise:</span> From first contact to invoice in 20 days or less.
                 </p>
